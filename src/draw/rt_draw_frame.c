@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:43 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/06 15:18:52 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/06 17:34:22 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	rt_draw_frame(t_data *data)
 {
-	int y;
+	int	y;
 	int	z;
 
 	y = 0;

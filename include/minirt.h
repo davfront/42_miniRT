@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/06 15:17:11 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/06 20:42:50 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 # include <mlx.h>
 # include <libft.h>
 # include <fcntl.h>
-# include <math.h>
 # include <stdio.h>
 
 # include "key_linux.h"
+# include "vec3.h"
 
 # define WIN_WIDTH	(1024)
 # define WIN_HEIGHT	(600)

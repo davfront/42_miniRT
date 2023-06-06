@@ -6,7 +6,7 @@
 #    By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 16:34:41 by dapereir          #+#    #+#              #
-#    Updated: 2023/06/06 15:19:20 by dapereir         ###   ########.fr        #
+#    Updated: 2023/06/06 21:29:24 by dapereir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,17 @@ CFLAGS				=	-Wall -Wextra -Werror
 RM					=	rm -rf
 
 SRCS_FILES			=	\
+						vec3/vec3.c\
+						vec3/vec3_add.c\
+						vec3/vec3_subtract.c\
+						vec3/vec3_multiply.c\
+						vec3/vec3_scale.c\
+						vec3/vec3_cross.c\
+						vec3/vec3_normalize.c\
+						vec3/vec3_dot.c\
+						vec3/vec3_length.c\
+						vec3/vec3_equals.c\
+						\
 						utils/rt_error_exit.c\
 						utils/rt_free_all.c\
 						\
@@ -39,7 +50,7 @@ OBJS_DIR			=	./obj
 OBJS				=	$(addprefix $(OBJS_DIR)/, $(OBJS_FILES))
 
 HEADER_DIR			=	./include
-HEADERS_FILES		=	minirt.h key_linux.h
+HEADERS_FILES		=	minirt.h key_linux.h vec3.h
 HEADERS				=	$(addprefix $(HEADERS_DIR)/, $(HEADERS_FILES))
 HEADER_INC			=	-I $(HEADER_DIR)
 

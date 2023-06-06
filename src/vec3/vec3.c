@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   vec3.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/06 14:56:16 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/06 21:24:12 by dapereir         ###   ########.fr       */
+/*   Created: 2023/06/06 16:44:12 by dapereir          #+#    #+#             */
+/*   Updated: 2023/06/06 21:09:47 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "vec3.h"
 
-int	main(void)
+t_vec3	vec3(t_float x, t_float y, t_float z)
 {
-	t_data	data;
+	t_vec3	result;
 
-	data.title = "Test";
-	rt_viewer_start(&data);
-	return (EXIT_SUCCESS);
+	result.x = x;
+	result.y = y;
+	result.z = z;
+	return (result);
 }

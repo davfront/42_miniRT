@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   vec3_subtract.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/06 14:56:16 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/06 21:24:12 by dapereir         ###   ########.fr       */
+/*   Created: 2023/06/06 16:44:22 by dapereir          #+#    #+#             */
+/*   Updated: 2023/06/06 21:02:03 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "vec3.h"
 
-int	main(void)
+t_vec3	vec3_subtract(t_vec3 a, t_vec3 b)
 {
-	t_data	data;
+	t_vec3	result;
 
-	data.title = "Test";
-	rt_viewer_start(&data);
-	return (EXIT_SUCCESS);
+	result.x = a.x - b.x;
+	result.y = a.y - b.y;
+	result.z = a.z - b.z;
+	return (result);
 }

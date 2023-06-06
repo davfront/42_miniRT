@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   vec3_cross.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/06 14:56:16 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/06 21:24:12 by dapereir         ###   ########.fr       */
+/*   Created: 2023/06/06 16:44:15 by dapereir          #+#    #+#             */
+/*   Updated: 2023/06/06 21:21:58 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "vec3.h"
 
-int	main(void)
+t_vec3	vec3_cross(t_vec3 a, t_vec3 b)
 {
-	t_data	data;
+	t_vec3	result;
 
-	data.title = "Test";
-	rt_viewer_start(&data);
-	return (EXIT_SUCCESS);
+	result.x = a.y * b.z - a.z * b.y;
+	result.y = a.z * b.x - a.x * b.z;
+	result.z = a.x * b.y - a.y * b.x;
+	return (result);
 }
