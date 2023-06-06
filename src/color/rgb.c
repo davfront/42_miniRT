@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_error_exit.c                                    :+:      :+:    :+:   */
+/*   rgb.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/22 15:05:20 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/07 00:00:25 by dapereir         ###   ########.fr       */
+/*   Created: 2023/06/06 14:56:16 by dapereir          #+#    #+#             */
+/*   Updated: 2023/06/06 23:56:29 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	rt_error_exit(char *msg)
+t_rgb	rgb(unsigned char r, unsigned char g, unsigned char b)
 {
-	ft_putstr_fd("Error: ", STDERR_FILENO);
-	if (msg && *msg)
-		ft_putendl_fd(msg, STDERR_FILENO);
-	else
-		perror(NULL);
-	exit(EXIT_FAILURE);
+	t_rgb	color;
+
+	color.r = r;
+	color.g = g;
+	color.b = b;
+	return (color);
 }

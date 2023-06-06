@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/06 20:42:50 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/07 00:05:29 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <libft.h>
 # include <fcntl.h>
 # include <stdio.h>
+# include <math.h>
 
 # include "key_linux.h"
 # include "vec3.h"
@@ -30,6 +31,51 @@
 # define GREEN		(0x0000FF00)
 # define BLUE		(0x000000FF)
 
+# define PI			(3.14159265358979323846)
+
+typedef struct s_rgb {
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+}				t_rgb;
+
+typedef struct s_al {
+	t_rgb	color;
+	double	ratio;
+}				t_al;
+
+typedef struct s_cam {
+	t_vec3	pos;
+	t_vec3	dir;
+	t_float	fov;
+}				t_cam;
+
+typedef struct s_light {
+	t_vec3	pos;
+	t_rgb	color;
+	double	ratio;
+}				t_light;
+
+typedef struct s_sphere {
+	t_vec3	center;
+	t_float	radius;
+	t_rgb	color;
+}				t_sphere;
+
+typedef struct s_plane {
+	t_vec3	point;
+	t_vec3	normal;
+	t_rgb	color;
+}				t_plane;
+
+typedef struct s_cylinder {
+	t_vec3	center;
+	t_vec3	axis;
+	t_float	radius;
+	t_float	height;
+	t_rgb	color;
+}				t_cylinder;
+
 typedef struct s_img {
 	void	*img;
 	char	*addr;
@@ -38,17 +84,44 @@ typedef struct s_img {
 	int		endian;
 }				t_img;
 
+typedef enum e_obj_type {
+	SPHERE,
+	PLANE,
+	CYLINDER
+}		t_obj_type;
+
+typedef struct s_obj {
+	t_obj_type	type;
+	union {
+		t_sphere	sphere;
+		t_plane		plane;
+		t_cylinder	cylinder;
+	};
+}				t_obj;
+
 typedef struct s_data {
 	char		*path;
 	char		*title;
 	void		*mlx;
 	void		*win;
 	t_img		img;
+	t_al		al;
+	t_cam		cam;
+	size_t		lights_size;
+	t_light		*lights;
+	size_t		objs_size;
+	t_obj		*objs;
 }				t_data;
+
+// colors
+t_rgb	rgb(unsigned char r, unsigned char g, unsigned char b);
 
 // utils
 void	rt_free_all(t_data *data);
 void	rt_error_exit(char *msg);
+
+// parse
+void	rt_parse(t_data *data);
 
 // draw
 void	rt_draw_pixel(t_data *data, int x, int y, int color);

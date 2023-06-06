@@ -6,7 +6,7 @@
 #    By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 16:34:41 by dapereir          #+#    #+#              #
-#    Updated: 2023/06/06 21:29:24 by dapereir         ###   ########.fr        #
+#    Updated: 2023/06/07 00:03:42 by dapereir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,8 @@ CFLAGS				=	-Wall -Wextra -Werror
 RM					=	rm -rf
 
 SRCS_FILES			=	\
+						color/rgb.c\
+						\
 						vec3/vec3.c\
 						vec3/vec3_add.c\
 						vec3/vec3_subtract.c\
@@ -30,6 +32,8 @@ SRCS_FILES			=	\
 						\
 						utils/rt_error_exit.c\
 						utils/rt_free_all.c\
+						\
+						parse/rt_parse.c\
 						\
 						draw/rt_draw_pixel.c\
 						draw/rt_draw_frame.c\
@@ -50,8 +54,8 @@ OBJS_DIR			=	./obj
 OBJS				=	$(addprefix $(OBJS_DIR)/, $(OBJS_FILES))
 
 HEADER_DIR			=	./include
-HEADERS_FILES		=	minirt.h key_linux.h vec3.h
-HEADERS				=	$(addprefix $(HEADERS_DIR)/, $(HEADERS_FILES))
+HEADER_FILES		=	minirt.h key_linux.h vec3.h
+HEADER				=	$(addprefix $(HEADER_DIR)/, $(HEADER_FILES))
 HEADER_INC			=	-I $(HEADER_DIR)
 
 MLX_DIR				=	./minilibx-linux
