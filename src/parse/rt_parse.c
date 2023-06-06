@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:56:16 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/06 23:59:10 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/07 00:36:47 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	rt_parse(t_data *data)
 {
 	if (!data)
-		rt_error_exit("parsing failed");
+		rt_error_exit(data, "parsing failed");
 	data->title = "Hard coded data";
 
 	// A	0.2				255,255,255

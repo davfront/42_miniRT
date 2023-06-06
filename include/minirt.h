@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/07 00:05:29 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/07 00:35:52 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,9 @@ typedef struct s_data {
 t_rgb	rgb(unsigned char r, unsigned char g, unsigned char b);
 
 // utils
-void	rt_free_all(t_data *data);
-void	rt_error_exit(char *msg);
+void	rt_init(t_data *data);
+void	rt_delete(t_data *data);
+void	rt_error_exit(t_data *data, char *msg);
 
 // parse
 void	rt_parse(t_data *data);

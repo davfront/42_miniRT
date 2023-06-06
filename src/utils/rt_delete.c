@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   rt_delete.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/06 14:56:16 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/07 00:36:24 by dapereir         ###   ########.fr       */
+/*   Created: 2022/12/14 16:35:43 by dapereir          #+#    #+#             */
+/*   Updated: 2023/06/07 00:20:37 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	main(void)
+void	rt_delete(t_data *data)
 {
-	t_data	data;
-
-	rt_init(&data);
-	rt_parse(&data);
-	rt_viewer_start(&data);
-	rt_delete(&data);
-	return (EXIT_SUCCESS);
+	if (!data)
+		return ;
+	ft_free((void**)&(data->lights));
+	ft_free((void**)&(data->objs));
+	rt_viewer_destroy(data);
 }

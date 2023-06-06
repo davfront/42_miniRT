@@ -6,7 +6,7 @@
 #    By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 16:34:41 by dapereir          #+#    #+#              #
-#    Updated: 2023/06/07 00:03:42 by dapereir         ###   ########.fr        #
+#    Updated: 2023/06/07 00:36:11 by dapereir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,8 +30,9 @@ SRCS_FILES			=	\
 						vec3/vec3_length.c\
 						vec3/vec3_equals.c\
 						\
+						utils/rt_init.c\
+						utils/rt_delete.c\
 						utils/rt_error_exit.c\
-						utils/rt_free_all.c\
 						\
 						parse/rt_parse.c\
 						\
