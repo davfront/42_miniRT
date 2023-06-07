@@ -6,7 +6,7 @@
 #    By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 16:34:41 by dapereir          #+#    #+#              #
-#    Updated: 2023/06/07 00:36:11 by dapereir         ###   ########.fr        #
+#    Updated: 2023/06/07 15:56:43 by dapereir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,8 @@ RM					=	rm -rf
 
 SRCS_FILES			=	\
 						color/rgb.c\
+						color/rgb_by_int.c\
+						color/rgb_to_int.c\
 						\
 						vec3/vec3.c\
 						vec3/vec3_add.c\
@@ -36,14 +38,15 @@ SRCS_FILES			=	\
 						\
 						parse/rt_parse.c\
 						\
-						draw/rt_draw_pixel.c\
-						draw/rt_draw_frame.c\
-						\
 						viewer/rt_viewer_start.c\
 						viewer/rt_viewer_destroy.c\
 						viewer/rt_viewer_hooks.c\
 						viewer/rt_viewer_on_close.c\
 						viewer/rt_viewer_render_frame.c\
+						viewer/rt_viewer_draw_pixel.c\
+						\
+						raytracer/rt_get_view_ray.c\
+						raytracer/rt_draw_frame.c\
 						\
 						main.c\
 

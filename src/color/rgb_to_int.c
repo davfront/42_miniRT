@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_draw_pixel.c                                    :+:      :+:    :+:   */
+/*   rgb_to_int.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/14 16:35:34 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/06 15:19:11 by dapereir         ###   ########.fr       */
+/*   Created: 2022/12/22 18:02:58 by dapereir          #+#    #+#             */
+/*   Updated: 2023/06/07 13:51:26 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	rt_draw_pixel(t_data *data, int x, int y, int color)
+int	rgb_to_int(t_rgb c)
 {
-	char	*dst;
+	int	res;
 
-	if (x < 0 || x > WIN_WIDTH - 1)
-		return ;
-	if (y < 0 || y > WIN_HEIGHT - 1)
-		return ;
-	dst = data->img.addr;
-	dst += y * data->img.len;
-	dst += x * (data->img.bpp / 8);
-	*(unsigned int *)dst = color;
+	res = c.r;
+	res = res * 256 + c.g;
+	res = res * 256 + c.b;
+	return (res);
 }

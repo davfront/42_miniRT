@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:56:16 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/07 00:36:47 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/07 15:53:03 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,12 @@ void	rt_parse(t_data *data)
 
 	// C	-50,0,20		0,0,1			70
 	data->cam.pos = vec3(-50, 0, 20);
-	data->cam.dir = vec3_normalize(vec3(0, 0, 1));
-	data->cam.fov = (t_float)70 * PI / 180;
+	data->cam.dir = vec3_normalize(vec3(1, 0, 0));
+	data->cam.up = vec3_normalize(vec3(0, 1, 0));
+	data->cam.fov = (t_float)70 * M_PI / 180;
+	data->cam.aspect_ratio = (t_float)WIN_WIDTH / WIN_HEIGHT;
+	data->cam.right = vec3_cross(data->cam.up, data->cam.dir);
+	data->cam.top = vec3_cross(data->cam.dir, data->cam.right);
 
 	// L	-40,0,30		0.7				255,255,255
 	data->lights_size = 1;

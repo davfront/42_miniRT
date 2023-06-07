@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rgb.c                                              :+:      :+:    :+:   */
+/*   rt_viewer_draw_pixel.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/06 14:56:16 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/07 11:03:51 by dapereir         ###   ########.fr       */
+/*   Created: 2022/12/14 16:35:34 by dapereir          #+#    #+#             */
+/*   Updated: 2023/06/07 14:12:56 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_rgb	rgb(unsigned char r, unsigned char g, unsigned char b)
+void	rt_viewer_draw_pixel(t_data *data, int x, int y, int color)
 {
-	t_rgb	color;
+	char	*dst;
 
-	color.r = r;
-	color.g = g;
-	color.b = b;
-	return (color);
+	if (x < 0 || x > WIN_WIDTH - 1)
+		return ;
+	if (y < 0 || y > WIN_HEIGHT - 1)
+		return ;
+	dst = data->img.addr;
+	dst += y * data->img.len;
+	dst += x * (data->img.bpp / 8);
+	*(unsigned int *)dst = color;
 }

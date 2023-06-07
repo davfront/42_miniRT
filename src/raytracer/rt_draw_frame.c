@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rgb.c                                              :+:      :+:    :+:   */
+/*   rt_draw_frame.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/06 14:56:16 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/07 11:03:51 by dapereir         ###   ########.fr       */
+/*   Created: 2022/12/14 16:35:43 by dapereir          #+#    #+#             */
+/*   Updated: 2023/06/07 16:03:02 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_rgb	rgb(unsigned char r, unsigned char g, unsigned char b)
+void	rt_draw_frame(t_data *data)
 {
-	t_rgb	color;
+	int		x;
+	int		y;
+	// t_ray ray;
 
-	color.r = r;
-	color.g = g;
-	color.b = b;
-	return (color);
+	x = 0;
+	while (x < WIN_WIDTH)
+	{
+		y = 0;
+		while (y < WIN_HEIGHT)
+		{
+			rt_viewer_draw_pixel(data, x, y, WHITE);
+			// ray = rt_get_view_ray(data->cam, x, y);
+			y++;
+		}
+		x++;
+	}
 }

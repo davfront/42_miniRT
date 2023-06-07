@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_draw_frame.c                                    :+:      :+:    :+:   */
+/*   rgb_by_int.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/14 16:35:43 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/06 17:34:22 by dapereir         ###   ########.fr       */
+/*   Created: 2022/12/22 18:02:49 by dapereir          #+#    #+#             */
+/*   Updated: 2023/06/07 13:56:56 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	rt_draw_frame(t_data *data)
+t_rgb	rgb_by_int(int color)
 {
-	int	y;
-	int	z;
+	t_rgb	res;
 
-	y = 0;
-	while (y < WIN_WIDTH)
-	{
-		z = 0;
-		while (z < WIN_HEIGHT)
-		{
-			rt_draw_pixel(data, y, z, WHITE);
-			z++;
-		}
-		y++;
-	}
+	res.b = color % 256;
+	res.g = (color / 256) % 256;
+	res.r = color / 256 / 256;
+	return (res);
 }
