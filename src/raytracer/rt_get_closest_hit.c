@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:01:09 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/08 14:16:52 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/08 15:57:24 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_hit	rt_get_closest_hit(t_data *data, t_ray ray)
 	while (i < data->objs_size)
 	{
 		new_hit = rt_get_obj_hit(ray, &data->objs[i]);
-		if (new_hit.obj && (!hit.obj || new_hit.dist < hit.dist))
+		if (new_hit.obj && new_hit.dist < hit.dist)
 			hit = new_hit;
 		i++;
 	}
