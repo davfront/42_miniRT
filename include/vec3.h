@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 17:10:57 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/07 11:29:17 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/08 09:36:52 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_vec3	vec3_cross(t_vec3 a, t_vec3 b);
 t_vec3	vec3_normalize(t_vec3 v);
 t_float	vec3_dot(t_vec3 a, t_vec3 b);
 t_float	vec3_length(t_vec3 v);
+t_float	vec3_length_squared(t_vec3 v);
 int		vec3_equals(t_vec3 a, t_vec3 b);
 
 #endif

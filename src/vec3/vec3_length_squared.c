@@ -1,36 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_draw_frame.c                                    :+:      :+:    :+:   */
+/*   vec3_length_squared.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/14 16:35:43 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/08 14:10:12 by dapereir         ###   ########.fr       */
+/*   Created: 2023/06/06 16:44:12 by dapereir          #+#    #+#             */
+/*   Updated: 2023/06/08 09:36:02 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "vec3.h"
 
-void	rt_draw_frame(t_data *data)
+t_float	vec3_length_squared(t_vec3 v)
 {
-	int		x;
-	int		y;
-	t_ray	ray;
-	t_hit	hit;
-
-	x = 0;
-	while (x < WIN_WIDTH)
-	{
-		y = 0;
-		while (y < WIN_HEIGHT)
-		{
-			ray = rt_get_view_ray(data->cam, x, y);
-			hit = rt_get_closest_hit(data, ray);
-			if (hit.obj)
-				rt_viewer_draw_pixel(data, x, y, rgb_to_int(hit.color));
-			y++;
-		}
-		x++;
-	}
+	return (v.x * v.x + v.y * v.y + v.z * v.z);
 }

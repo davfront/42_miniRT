@@ -1,36 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_draw_frame.c                                    :+:      :+:    :+:   */
+/*   rt_hit_default.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/14 16:35:43 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/08 14:10:12 by dapereir         ###   ########.fr       */
+/*   Created: 2023/06/07 14:01:09 by dapereir          #+#    #+#             */
+/*   Updated: 2023/06/08 14:14:58 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	rt_draw_frame(t_data *data)
+t_hit	rt_hit_default(void)
 {
-	int		x;
-	int		y;
-	t_ray	ray;
 	t_hit	hit;
 
-	x = 0;
-	while (x < WIN_WIDTH)
-	{
-		y = 0;
-		while (y < WIN_HEIGHT)
-		{
-			ray = rt_get_view_ray(data->cam, x, y);
-			hit = rt_get_closest_hit(data, ray);
-			if (hit.obj)
-				rt_viewer_draw_pixel(data, x, y, rgb_to_int(hit.color));
-			y++;
-		}
-		x++;
-	}
+	hit.obj = NULL;
+	hit.color = rgb(0, 0, 0);
+	hit.dist = -1;
+	hit.pos = vec3(0, 0, 0);
+	hit.normal = vec3(0, 0, 0);
+	return (hit);
 }

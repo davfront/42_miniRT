@@ -6,7 +6,7 @@
 #    By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 16:34:41 by dapereir          #+#    #+#              #
-#    Updated: 2023/06/07 15:56:43 by dapereir         ###   ########.fr        #
+#    Updated: 2023/06/08 14:01:05 by dapereir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRCS_FILES			=	\
 						vec3/vec3_normalize.c\
 						vec3/vec3_dot.c\
 						vec3/vec3_length.c\
+						vec3/vec3_length_squared.c\
 						vec3/vec3_equals.c\
 						\
 						utils/rt_init.c\
@@ -47,6 +48,9 @@ SRCS_FILES			=	\
 						\
 						raytracer/rt_get_view_ray.c\
 						raytracer/rt_draw_frame.c\
+						raytracer/rt_hit_default.c\
+						raytracer/rt_get_sphere_hit.c\
+						raytracer/rt_get_closest_hit.c\
 						\
 						main.c\
 

@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/07 15:58:33 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/08 13:48:31 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,14 @@ typedef struct s_obj {
 	};
 }				t_obj;
 
+typedef struct s_hit {
+	t_obj	*obj;
+	t_rgb	color;
+	t_float	dist;
+	t_vec3	pos;
+	t_vec3	normal;
+}				t_hit;
+
 typedef struct s_data {
 	char		*path;
 	char		*title;
@@ -145,5 +153,8 @@ void	rt_viewer_draw_pixel(t_data *data, int x, int y, int color);
 // raytracer
 t_ray	rt_get_view_ray(t_cam cam, int x, int y);
 void	rt_draw_frame(t_data *data);
+t_hit	rt_hit_default(void);
+t_hit	rt_get_sphere_hit(t_ray ray, t_obj *obj);
+t_hit	rt_get_closest_hit(t_data *data, t_ray ray);
 
 #endif
