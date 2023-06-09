@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:56:16 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/08 14:24:49 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/09 22:37:51 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	rt_parse(t_data *data)
 	data->al.color = rgb(255, 255, 255);
 
 	// C	-50,0,20		0,0,1			70
-	data->cam.pos = vec3(-50, 0, 20);
+	data->cam.pos = vec3(-100, 0, 20);
 	data->cam.dir = vec3_normalize(vec3(1, 0, 0));
 	data->cam.up = vec3_normalize(vec3(0, 1, 0));
 	data->cam.fov = (t_float)70 * M_PI / 180;
