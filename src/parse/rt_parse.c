@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:56:16 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/07 15:53:03 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/08 14:24:49 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	rt_parse(t_data *data)
 	data->lights[0].ratio = 0.7;
 
 	// objects
-	data->objs_size = 3;
+	data->objs_size = 4;
 	data->objs = calloc(data->objs_size, sizeof(t_obj));
 	// todo: protect malloc
 
@@ -64,4 +64,10 @@ void	rt_parse(t_data *data)
 	data->objs[2].cylinder.radius = (t_float)14.2 / 2;
 	data->objs[2].cylinder.height = 21.42;
 	data->objs[2].cylinder.color = rgb(10, 0, 255);
+
+	// sp2
+	data->objs[3].type = SPHERE;
+	data->objs[3].sphere.center = vec3(0, 18, 38);
+	data->objs[3].sphere.radius = (t_float)40 / 2;
+	data->objs[3].sphere.color = rgb(0, 255, 0);
 }
