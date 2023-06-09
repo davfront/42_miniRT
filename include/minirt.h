@@ -23,6 +23,7 @@
 # include "key_linux.h"
 # include "vec3.h"
 # include "scene.h"
+# include "debug.h" // TODO : delete debug.h before correction
 
 # define WIN_WIDTH	(1024)
 # define WIN_HEIGHT	(600)
