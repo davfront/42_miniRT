@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 10:34:16 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/08 14:22:47 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/11 10:42:23 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static t_vec3	rt_ray_dir_right_offset(t_cam cam, int x)
 
 	ndc_x = (2.0 / WIN_WIDTH * (x + 0.5)) - 1.0;
 	right_offset = vec3_scale(cam.right, \
-		ndc_x * cam.aspect_ratio * tanf(cam.fov / 2.0));
+		ndc_x * cam.aspect_ratio * tan(cam.fov / 2));
 	return (right_offset);
 }
 
@@ -29,7 +29,7 @@ static t_vec3	rt_ray_dir_top_offset(t_cam cam, int y)
 	t_vec3	top_offset;
 
 	ndc_y = 1.0 - (2.0 / WIN_HEIGHT * (y + 0.5));
-	top_offset = vec3_scale(cam.top, ndc_y * tanf(cam.fov / 2.0));
+	top_offset = vec3_scale(cam.top, ndc_y * tan(cam.fov / 2));
 	return (top_offset);
 }
 
