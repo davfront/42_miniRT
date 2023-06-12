@@ -3,18 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapereir <dapereir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 00:48:39 by dapereir          #+#    #+#             */
-/*   Updated: 2022/11/21 09:33:43 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/12 17:04:00 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *s);
+static int	is_sep(char const *set, char c)
+{
+	return (ft_strchr(set, c) != NULL);
+}
 
-static size_t	count_strs(char const *s, char c)
+static size_t	count_strs(char const *s, char const *set)
 {
 	size_t	n;
 	size_t	i;
@@ -23,21 +26,21 @@ static size_t	count_strs(char const *s, char c)
 	i = 0;
 	while (s[i])
 	{
-		if (s[i] != c && (i == 0 || s[i - 1] == c))
+		if (!is_sep(set, s[i]) && (i == 0 || is_sep(set, s[i - 1])))
 			n++;
 		i++;
 	}
 	return (n);
 }
 
-static char	*get_str(char const *s, char c)
+static char	*get_str(char const *s, char const *set)
 {
 	char	*str;
 	size_t	len;
 	size_t	i;
 
 	len = 0;
-	while (s[len] && s[len] != c)
+	while (s[len] && !is_sep(set, s[len]))
 		len++;
 	str = (char *)malloc((len + 1) * sizeof(char));
 	if (!str)
@@ -52,20 +55,7 @@ static char	*get_str(char const *s, char c)
 	return (str);
 }
 
-static void	freedeep(char **strs)
-{
-	size_t	i;
-
-	i = 0;
-	while (strs[i])
-	{
-		free(strs[i]);
-		i++;
-	}
-	free(strs);
-}
-
-static int	set_strs(char **strs, char const *s, char c)
+static int	set_strs(char **strs, char const *s, char const *set)
 {
 	size_t	n;
 	size_t	i;
@@ -74,12 +64,12 @@ static int	set_strs(char **strs, char const *s, char c)
 	i = 0;
 	while (s[i])
 	{
-		if (s[i] != c && (i == 0 || s[i - 1] == c))
+		if (!is_sep(set, s[i]) && (i == 0 || is_sep(set, s[i - 1])))
 		{
-			strs[n] = get_str(s + i, c);
+			strs[n] = get_str(s + i, set);
 			if (!strs[n])
 			{
-				freedeep(strs);
+				ft_free_split(strs);
 				return (0);
 			}
 			n++;
@@ -90,18 +80,18 @@ static int	set_strs(char **strs, char const *s, char c)
 	return (1);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char const *set)
 {
 	char	**strs;
 	size_t	len;
 
-	if (!s)
+	if (!s || !set || !*set)
 		return (NULL);
-	len = count_strs(s, c);
+	len = count_strs(s, set);
 	strs = (char **)malloc((len + 1) * sizeof(char *));
 	if (!strs)
 		return (NULL);
-	if (!set_strs(strs, s, c))
+	if (!set_strs(strs, s, set))
 		return (NULL);
 	return (strs);
 }
