@@ -41,6 +41,8 @@ SRCS_FILES			=	\
 						vec3/vec3_equals.c\
 						\
 						utils/rt_delete.c\
+						utils/rt_error.c\
+						utils/rt_exit.c\
 						utils/rt_error_exit.c\
 						\
 						parse/rt_parse.c\

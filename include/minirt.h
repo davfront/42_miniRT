@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/12 11:07:24 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/12 17:17:07 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ typedef struct s_data {
 
 // utils
 void	rt_delete(t_data *data);
+void	rt_error(char *msg);
+void	rt_exit(t_data *data);
 void	rt_error_exit(t_data *data, char *msg);
 
 // parse
