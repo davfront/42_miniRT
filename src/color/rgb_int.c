@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rgb.c                                              :+:      :+:    :+:   */
+/*   rgb_by_int.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/06 14:56:16 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/08 19:41:09 by dapereir         ###   ########.fr       */
+/*   Created: 2022/12/22 18:02:49 by dapereir          #+#    #+#             */
+/*   Updated: 2023/06/08 20:01:24 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rgb.h"
 
-t_rgb	rgb(unsigned char r, unsigned char g, unsigned char b)
+t_rgb	rgb_int(int color)
 {
-	t_rgb	color;
+	t_rgb	res;
 
-	color.r = r;
-	color.g = g;
-	color.b = b;
-	return (color);
+	res.b = color % 256;
+	res.g = (color / 256) % 256;
+	res.r = color / 256 / 256;
+	return (res);
 }

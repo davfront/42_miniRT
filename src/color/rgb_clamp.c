@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rgb.c                                              :+:      :+:    :+:   */
+/*   rgb_clamp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/06 14:56:16 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/08 19:41:09 by dapereir         ###   ########.fr       */
+/*   Created: 2023/06/08 19:40:28 by dapereir          #+#    #+#             */
+/*   Updated: 2023/06/08 20:09:50 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rgb.h"
 
-t_rgb	rgb(unsigned char r, unsigned char g, unsigned char b)
+unsigned char	rgb_clamp(int x)
 {
-	t_rgb	color;
-
-	color.r = r;
-	color.g = g;
-	color.b = b;
-	return (color);
+	if (x < 0)
+		x = 0;
+	if (x > 255)
+		x = 255;
+	return (x);
 }

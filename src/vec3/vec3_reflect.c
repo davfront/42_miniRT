@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rgb.c                                              :+:      :+:    :+:   */
+/*   vec3_reflect.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/06 14:56:16 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/08 19:41:09 by dapereir         ###   ########.fr       */
+/*   Created: 2023/06/06 16:44:15 by dapereir          #+#    #+#             */
+/*   Updated: 2023/06/12 09:29:09 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rgb.h"
+#include "vec3.h"
 
-t_rgb	rgb(unsigned char r, unsigned char g, unsigned char b)
+t_vec3	vec3_reflect(t_vec3 v, t_vec3 n)
 {
-	t_rgb	color;
+	t_vec3	result;
+	t_float	d;
 
-	color.r = r;
-	color.g = g;
-	color.b = b;
-	return (color);
+	d = vec3_dot(v, n) * 2;
+	result = vec3_subtract(v, vec3_scale(n, d));
+	return (result);
 }

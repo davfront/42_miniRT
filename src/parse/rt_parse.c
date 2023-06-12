@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:56:16 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/11 11:12:18 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/12 10:55:22 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	rt_parse(t_data *data)
 
 	data->al.ratio = 0.2;
 	data->al.color = rgb(255, 255, 255);
+	data->al.computed = rgb_scale(data->al.color, data->al.ratio);
 
 	// C	-50,0,20		0,0,1			70
 	data->cam.pos = vec3(-100, 0, 20);
@@ -36,7 +37,7 @@ void	rt_parse(t_data *data)
 	data->lights_size = 1;
 	data->lights = calloc(data->lights_size, sizeof(t_light));
 	// todo: protect malloc
-	data->lights[0].pos = vec3(-40, 0, 30);
+	data->lights[0].pos = vec3(-40, 20, -10);
 	data->lights[0].color = rgb(255, 255, 255);
 	data->lights[0].ratio = 0.7;
 

@@ -6,18 +6,18 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 18:02:58 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/07 13:51:26 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/08 19:55:41 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "rgb.h"
 
 int	rgb_to_int(t_rgb c)
 {
 	int	res;
 
-	res = c.r;
-	res = res * 256 + c.g;
-	res = res * 256 + c.b;
+	res = (int)c.r;
+	res = res * 256 + (int)c.g;
+	res = res * 256 + (int)c.b;
 	return (res);
 }
