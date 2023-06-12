@@ -6,14 +6,14 @@
 #    By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 16:34:41 by dapereir          #+#    #+#              #
-#    Updated: 2023/06/12 11:07:11 by dapereir         ###   ########.fr        #
+#    Updated: 2023/06/12 11:21:26 by dapereir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME				=	miniRT
 
 CC					=	cc
-CFLAGS				=	-Wall -Wextra -Werror
+CFLAGS				=	-Wall -Wextra -Werror -O3
 RM					=	rm -rf
 
 SRCS_FILES			=	\
