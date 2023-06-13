@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_get_closest_hit.c                               :+:      :+:    :+:   */
+/*   rt_parse_ambient_light.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/07 14:01:09 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/12 11:39:17 by dapereir         ###   ########.fr       */
+/*   Created: 2023/06/12 11:30:58 by dapereir          #+#    #+#             */
+/*   Updated: 2023/06/13 16:10:33 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_hit	rt_get_closest_hit(t_data *data, t_ray ray)
+int	rt_parse_ambient_light(char **strs, t_al *al_p)
 {
-	size_t	i;
-	t_hit	hit;
-	t_hit	new_hit;
+	t_al	al;
 
-	hit = rt_hit_default();
-	if (!data)
-		return (rt_error_exit(data, "rt_get_closest_hit: data is NULL"), hit);
-	i = 0;
-	while (i < data->objs_size)
-	{
-		new_hit = rt_get_obj_hit(ray, &data->objs[i]);
-		if (new_hit.obj && new_hit.dist < hit.dist)
-			hit = new_hit;
-		i++;
-	}
-	return (hit);
+	if (!al_p || !strs || rt_strs_len(strs) != 2)
+		return (0);
+	if (!rt_parse_float_ratio(strs[0], &al.ratio))
+		return (0);
+	if (!rt_parse_rgb(strs[1], &al.color))
+		return (0);
+	al.computed = rgb_scale(al.color, al.ratio);
+	*al_p = al;
+	return (1);
 }

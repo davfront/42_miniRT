@@ -1,33 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_get_closest_hit.c                               :+:      :+:    :+:   */
+/*   rt_parse_uint.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/07 14:01:09 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/12 11:39:17 by dapereir         ###   ########.fr       */
+/*   Created: 2023/06/12 13:57:41 by dapereir          #+#    #+#             */
+/*   Updated: 2023/06/13 14:27:30 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_hit	rt_get_closest_hit(t_data *data, t_ray ray)
+int	rt_parse_uint(char *s, unsigned int *n)
 {
-	size_t	i;
-	t_hit	hit;
-	t_hit	new_hit;
+	size_t			i;
+	unsigned int	res;
 
-	hit = rt_hit_default();
-	if (!data)
-		return (rt_error_exit(data, "rt_get_closest_hit: data is NULL"), hit);
+	if (!s || !*s || !n)
+		return (0);
+	if (s[0] == '0' && s[1])
+		return (0);
 	i = 0;
-	while (i < data->objs_size)
+	res = 0;
+	while (s[i])
 	{
-		new_hit = rt_get_obj_hit(ray, &data->objs[i]);
-		if (new_hit.obj && new_hit.dist < hit.dist)
-			hit = new_hit;
+		if (!ft_isdigit(s[i]))
+			return (0);
+		if (res > (UINT_MAX - (s[i] - '0')) / 10)
+			return (0);
+		res = res * 10 + (s[i] - '0');
 		i++;
 	}
-	return (hit);
+	*n = res;
+	return (1);
 }

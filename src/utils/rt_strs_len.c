@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_get_closest_hit.c                               :+:      :+:    :+:   */
+/*   rt_strs_len.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/07 14:01:09 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/12 11:39:17 by dapereir         ###   ########.fr       */
+/*   Created: 2023/06/13 14:34:18 by dapereir          #+#    #+#             */
+/*   Updated: 2023/06/13 14:37:59 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_hit	rt_get_closest_hit(t_data *data, t_ray ray)
+int	rt_strs_len(char **strs)
 {
-	size_t	i;
-	t_hit	hit;
-	t_hit	new_hit;
+	int	i;
 
-	hit = rt_hit_default();
-	if (!data)
-		return (rt_error_exit(data, "rt_get_closest_hit: data is NULL"), hit);
+	if (!strs)
+		return (-1);
 	i = 0;
-	while (i < data->objs_size)
-	{
-		new_hit = rt_get_obj_hit(ray, &data->objs[i]);
-		if (new_hit.obj && new_hit.dist < hit.dist)
-			hit = new_hit;
+	while (strs[i])
 		i++;
-	}
-	return (hit);
+	return (i);
 }

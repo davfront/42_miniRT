@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_get_closest_hit.c                               :+:      :+:    :+:   */
+/*   rt_parse_obj_sphere.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/07 14:01:09 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/12 11:39:17 by dapereir         ###   ########.fr       */
+/*   Created: 2023/06/12 11:30:58 by dapereir          #+#    #+#             */
+/*   Updated: 2023/06/13 17:02:11 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_hit	rt_get_closest_hit(t_data *data, t_ray ray)
+int	rt_parse_obj_sphere(char **strs, t_obj *obj_p)
 {
-	size_t	i;
-	t_hit	hit;
-	t_hit	new_hit;
+	t_obj	obj;
 
-	hit = rt_hit_default();
-	if (!data)
-		return (rt_error_exit(data, "rt_get_closest_hit: data is NULL"), hit);
-	i = 0;
-	while (i < data->objs_size)
-	{
-		new_hit = rt_get_obj_hit(ray, &data->objs[i]);
-		if (new_hit.obj && new_hit.dist < hit.dist)
-			hit = new_hit;
-		i++;
-	}
-	return (hit);
+	if (!obj_p || !strs || rt_strs_len(strs) != 3)
+		return (0);
+	obj.type = SPHERE;
+	if (!rt_parse_vec3(strs[0], &obj.sphere.center))
+		return (0);
+	if (!rt_parse_float_len(strs[1], &obj.sphere.radius))
+		return (0);
+	obj.sphere.radius /= 2;
+	if (!rt_parse_rgb(strs[2], &obj.sphere.color))
+		return (0);
+	*obj_p = obj;
+	return (1);
 }

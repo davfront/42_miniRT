@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_get_closest_hit.c                               :+:      :+:    :+:   */
+/*   rt_parse_obj_plane.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/07 14:01:09 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/12 11:39:17 by dapereir         ###   ########.fr       */
+/*   Created: 2023/06/12 11:30:58 by dapereir          #+#    #+#             */
+/*   Updated: 2023/06/13 16:39:04 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_hit	rt_get_closest_hit(t_data *data, t_ray ray)
+int	rt_parse_obj_plane(char **strs, t_obj *obj_p)
 {
-	size_t	i;
-	t_hit	hit;
-	t_hit	new_hit;
+	t_obj	obj;
 
-	hit = rt_hit_default();
-	if (!data)
-		return (rt_error_exit(data, "rt_get_closest_hit: data is NULL"), hit);
-	i = 0;
-	while (i < data->objs_size)
-	{
-		new_hit = rt_get_obj_hit(ray, &data->objs[i]);
-		if (new_hit.obj && new_hit.dist < hit.dist)
-			hit = new_hit;
-		i++;
-	}
-	return (hit);
+	if (!obj_p || !strs || rt_strs_len(strs) != 3)
+		return (0);
+	obj.type = PLANE;
+	if (!rt_parse_vec3(strs[0], &obj.plane.point))
+		return (0);
+	if (!rt_parse_vec3_dir(strs[1], &obj.plane.normal))
+		return (0);
+	if (!rt_parse_rgb(strs[2], &obj.plane.color))
+		return (0);
+	*obj_p = obj;
+	return (1);
 }
