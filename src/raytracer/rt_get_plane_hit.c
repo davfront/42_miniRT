@@ -22,12 +22,11 @@ static int	rt_resolve_plane_hit_points(t_ray ray, t_plane pl, t_float *t)
 	t_float	d;
 	t_vec3	temp;
 
-	temp.x = ray.pos.x - pl.point.x;
-	temp.y = ray.pos.y - pl.point.y;
-	temp.z = ray.pos.z - pl.point.z;
+	temp = vec3_subtract(ray.pos, pl.point);
 	d = rt_find_plane_coef(pl);
-	*t = - ((vec3_dot(pl.normal, temp) + d) / vec3_dot(pl.normal, ray.dir));
-	DEBUG("t : %f, %d", *t, *t == 0);
+	*t = - ((vec3_dot(pl.normal, temp) + d) / vec3_dot(ray.dir, pl.normal));
+	if (*t < 0.0 || *t == NAN)
+		return (0);
 	return (*t);
 }
 
@@ -39,13 +38,12 @@ t_hit	rt_get_plane_hit(t_ray ray, t_obj *obj)
 	hit = rt_hit_default();
 	if (!obj || obj->type != PLANE)
 		return (hit);
-	if (!rt_resolve_plane_hit_points(ray, obj->plane, &t))
+	if (vec3_dot(ray.dir, obj->plane.normal) == 0.0 \
+		|| !rt_resolve_plane_hit_points(ray, obj->plane, &t))
 		return (hit);
 	hit.obj = obj;
 	hit.dist = t;
 	hit.color = obj->plane.color;
-	// hit.pos = vec3_add(ray.pos, vec3_scale(ray.dir, hit.dist));
-	// hit.normal = vec3_subtract(hit.pos, obj->sphere.center);
-	// hit.normal = vec3_scale(hit.normal, (t_float)1 / obj->sphere.radius);
+	hit.pos = vec3_add(ray.pos, vec3_scale(ray.dir, hit.dist));
 	return (hit);
 }
