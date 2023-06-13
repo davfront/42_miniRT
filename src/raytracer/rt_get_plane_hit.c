@@ -19,8 +19,16 @@ static t_float rt_find_plane_coef(t_plane pl)
 
 static int	rt_resolve_plane_hit_points(t_ray ray, t_plane pl, t_float *t)
 {
-	
-	return (0);
+	t_float	d;
+	t_vec3	temp;
+
+	temp.x = ray.pos.x - pl.point.x;
+	temp.y = ray.pos.y - pl.point.y;
+	temp.z = ray.pos.z - pl.point.z;
+	d = rt_find_plane_coef(pl);
+	*t = - ((vec3_dot(pl.normal, temp) + d) / vec3_dot(pl.normal, ray.dir));
+	DEBUG("t : %f, %d", *t, *t == 0);
+	return (*t);
 }
 
 t_hit	rt_get_plane_hit(t_ray ray, t_obj *obj)

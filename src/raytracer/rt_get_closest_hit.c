@@ -18,8 +18,8 @@ static t_hit	rt_get_obj_hit(t_ray ray, t_obj *obj)
 		return (rt_hit_default());
 	if (obj->type == SPHERE)
 		return (rt_get_sphere_hit(ray, obj));
-	// if (obj->type == PLANE)
-	// 	return (rt_get_plane_hit(ray, obj));
+	if (obj->type == PLANE)
+		return (rt_get_plane_hit(ray, obj));
 	return (rt_hit_default());
 }
 

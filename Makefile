@@ -49,6 +49,7 @@ SRCS_FILES			=	\
 						raytracer/rt_get_view_ray.c\
 						raytracer/rt_draw_frame.c\
 						raytracer/rt_hit_default.c\
+						raytracer/rt_get_plane_hit.c \
 						raytracer/rt_get_sphere_hit.c\
 						raytracer/rt_get_closest_hit.c\
 						\
