@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/13 22:47:49 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/13 23:15:13 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,8 @@ typedef struct s_data {
 	t_img		img;
 	t_al		al;
 	t_cam		cam;
-	size_t		lights_size;
-	t_light		*lights;
-	size_t		objs_size;
-	t_obj		*objs;
+	t_list		*light_lst;
+	t_list		*obj_lst;
 }				t_data;
 
 // utils
