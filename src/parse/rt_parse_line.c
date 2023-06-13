@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 13:58:31 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/13 22:30:46 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/13 23:04:01 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,13 @@ static void	rt_parse_line_values(t_data *data)
 
 void	rt_parse_line(t_data *data)
 {
+	char	*comment;
+
 	if (!data || !data->line)
 		rt_parse_line_error_exit(data, "no data");
+	comment = ft_strchr(data->line, '#');
+	if (comment)
+		*comment = '\0';
 	data->strs = ft_split(data->line, " \t\n");
 	if (!data->strs)
 		rt_parse_line_error_exit(data, "split failed");
