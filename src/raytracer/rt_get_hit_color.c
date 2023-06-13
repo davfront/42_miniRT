@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:43 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/13 23:46:05 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/14 00:01:47 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_rgb	rt_get_hit_color(t_data *data, t_ray ray)
 	hit = ray.hit;
 	if (!hit.obj || !isfinite(hit.dist))
 		return (rgb(0, 0, 0));
-	color = rgb_multiply(hit.color, data->al.computed);
+	color = rgb_multiply(hit.color, data->al->computed);
 	light_node = data->light_lst;
 	while (light_node)
 	{

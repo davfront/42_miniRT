@@ -6,11 +6,23 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:56:16 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/13 21:57:04 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/14 00:26:55 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+static void	rt_check_scene(t_data *data)
+{
+	if (!data->al)
+		rt_parse_line_error_exit(data, "no ambient light found");
+	if (!data->cam)
+		rt_parse_line_error_exit(data, "no camera found");
+	if (!data->light_lst)
+		rt_parse_line_error_exit(data, "no light found");
+	if (!data->obj_lst)
+		rt_parse_line_error_exit(data, "no object found");
+}
 
 void	rt_parse(t_data *data, int argc, char **argv)
 {
@@ -33,4 +45,6 @@ void	rt_parse(t_data *data, int argc, char **argv)
 	ft_free_gnl(data->fd);
 	close(data->fd);
 	data->fd = -1;
+	data->line_index = 0;
+	rt_check_scene(data);
 }
