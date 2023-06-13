@@ -6,30 +6,32 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:30:58 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/13 17:02:22 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/13 22:44:40 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	rt_parse_obj_cylinder(char **strs, t_obj *obj_p)
+void	rt_parse_obj_cylinder(t_data *data, char **strs)
 {
 	t_obj	obj;
 
-	if (!obj_p || !strs || rt_strs_len(strs) != 5)
-		return (0);
+	if (!data || !strs)
+		rt_parse_line_error_exit(data, "cylinder: no data");
+	if (rt_strs_len(strs) != 5)
+		rt_parse_line_error_exit(data, "cylinder: 5 arguments expected");
 	obj.type = CYLINDER;
 	if (!rt_parse_vec3(strs[0], &obj.cylinder.center))
-		return (0);
+		rt_parse_value_error_exit(data, "cylinder", "center", strs[0]);
 	if (!rt_parse_vec3_dir(strs[1], &obj.cylinder.axis))
-		return (0);
+		rt_parse_value_error_exit(data, "cylinder", "axis", strs[1]);
 	if (!rt_parse_float_len(strs[2], &obj.cylinder.radius))
-		return (0);
+		rt_parse_value_error_exit(data, "cylinder", "diameter", strs[2]);
 	obj.sphere.radius /= 2;
 	if (!rt_parse_float_len(strs[3], &obj.cylinder.height))
-		return (0);
+		rt_parse_value_error_exit(data, "cylinder", "height", strs[3]);
 	if (!rt_parse_rgb(strs[4], &obj.cylinder.color))
-		return (0);
-	*obj_p = obj;
-	return (1);
+		rt_parse_value_error_exit(data, "cylinder", "color", strs[4]);
+	data->objs_size++;
+	data->objs[data->objs_size - 1] = obj;
 }

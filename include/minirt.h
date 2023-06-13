@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/13 16:33:24 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/13 22:47:49 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,10 @@ typedef struct s_img {
 typedef struct s_data {
 	char		*path;
 	char		*title;
+	int			fd;
+	char		*line;
+	size_t		line_index;
+	char		**strs;
 	void		*mlx;
 	void		*win;
 	t_img		img;
@@ -85,13 +89,16 @@ int		rt_parse_float_ratio(char *s, t_float *ratio);
 int		rt_parse_vec3(char *s, t_vec3 *v);
 int		rt_parse_vec3_dir(char *s, t_vec3 *dir);
 void	rt_parse_input(t_data *data, int argc, char **argv);
-int		rt_parse_line(t_data *data, char *line);
-int		rt_parse_ambient_light(char **strs, t_al *al_p);
-int		rt_parse_camera(char **strs, t_cam *cam_p);
-int		rt_parse_light(char **strs, t_light *light_p);
-int		rt_parse_obj_plane(char **strs, t_obj *obj_p);
-int		rt_parse_obj_sphere(char **strs, t_obj *obj_p);
-int		rt_parse_obj_cylinder(char **strs, t_obj *obj_p);
+void	rt_parse_line(t_data *data);
+void	rt_parse_ambient_light(t_data *data, char **strs);
+void	rt_parse_camera(t_data *data, char **strs);
+void	rt_parse_light(t_data *data, char **strs);
+void	rt_parse_obj_plane(t_data *data, char **strs);
+void	rt_parse_obj_sphere(t_data *data, char **strs);
+void	rt_parse_obj_cylinder(t_data *data, char **strs);
+void	rt_parse_line_error_exit(t_data *data, char *msg);
+void	rt_parse_value_error_exit(t_data *data, char *line_type, char *label, \
+	char *value);
 void	rt_parse(t_data *data, int argc, char **argv);
 
 // viewer

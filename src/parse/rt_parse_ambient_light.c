@@ -6,23 +6,24 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:30:58 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/13 16:10:33 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/13 22:45:14 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	rt_parse_ambient_light(char **strs, t_al *al_p)
+void	rt_parse_ambient_light(t_data *data, char **strs)
 {
 	t_al	al;
 
-	if (!al_p || !strs || rt_strs_len(strs) != 2)
-		return (0);
+	if (!data || !strs)
+		rt_parse_line_error_exit(data, "ambient light: no data");
+	if (rt_strs_len(strs) != 2)
+		rt_parse_line_error_exit(data, "ambient light: 2 arguments expected");
 	if (!rt_parse_float_ratio(strs[0], &al.ratio))
-		return (0);
+		rt_parse_value_error_exit(data, "ambient light", "ratio", strs[0]);
 	if (!rt_parse_rgb(strs[1], &al.color))
-		return (0);
+		rt_parse_value_error_exit(data, "ambient light", "color", strs[1]);
 	al.computed = rgb_scale(al.color, al.ratio);
-	*al_p = al;
-	return (1);
+	data->al = al;
 }

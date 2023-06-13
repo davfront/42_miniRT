@@ -6,61 +6,38 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 13:58:31 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/13 16:42:00 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/13 22:30:46 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static int	rt_parse_line_values(t_data *data, char **strs)
+static void	rt_parse_line_values(t_data *data)
 {
-	t_light	*light_p;
-	t_obj	*obj_p;
-
-	if (!strs)
-		return (0);
-	if (!rt_strs_len(strs))
-		return (1);
-	if (ft_streq(strs[0], "A"))
-		return (rt_parse_ambient_light(strs + 1, &data->al));
-	if (ft_streq(strs[0], "C"))
-		return (rt_parse_camera(strs + 1, &data->cam));
-	if (ft_streq(strs[0], "L"))
-	{
-		data->lights_size++;
-		light_p = &data->lights[data->lights_size - 1];
-		return (rt_parse_light(strs + 1, light_p));
-	}
-	if (ft_streq(strs[0], "pl"))
-	{
-		data->objs_size++;
-		obj_p = &data->objs[data->objs_size - 1];
-		return (rt_parse_obj_plane(strs + 1, obj_p));
-	}
-	if (ft_streq(strs[0], "cy"))
-	{
-		data->objs_size++;
-		obj_p = &data->objs[data->objs_size - 1];
-		return (rt_parse_obj_cylinder(strs + 1, obj_p));
-	}
-	if (ft_streq(strs[0], "sp"))
-	{
-		data->objs_size++;
-		obj_p = &data->objs[data->objs_size - 1];
-		return (rt_parse_obj_sphere(strs + 1, obj_p));
-	}
-	return (0);
+	if (ft_streq(data->strs[0], "A"))
+		return (rt_parse_ambient_light(data, data->strs + 1));
+	if (ft_streq(data->strs[0], "C"))
+		return (rt_parse_camera(data, data->strs + 1));
+	if (ft_streq(data->strs[0], "L"))
+		return (rt_parse_light(data, data->strs + 1));
+	if (ft_streq(data->strs[0], "pl"))
+		return (rt_parse_obj_plane(data, data->strs + 1));
+	if (ft_streq(data->strs[0], "sp"))
+		return (rt_parse_obj_sphere(data, data->strs + 1));
+	if (ft_streq(data->strs[0], "cy"))
+		return (rt_parse_obj_cylinder(data, data->strs + 1));
+	if (data->strs[0])
+		rt_parse_value_error_exit(data, NULL, "keyword", data->strs[0]);
 }
 
-int	rt_parse_line(t_data *data, char *line)
+void	rt_parse_line(t_data *data)
 {
-	char	**strs;
-	int		ret;
-
-	if (!data || !line)
-		return (0);
-	strs = ft_split(line, " \t\n");
-	ret = rt_parse_line_values(data, strs);
-	ft_free_split(strs);
-	return (ret);
+	if (!data || !data->line)
+		rt_parse_line_error_exit(data, "no data");
+	data->strs = ft_split(data->line, " \t\n");
+	if (!data->strs)
+		rt_parse_line_error_exit(data, "split failed");
+	rt_parse_line_values(data);
+	ft_free_split(data->strs);
+	data->strs = NULL;
 }
