@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:56:16 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/14 00:26:55 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/15 00:42:35 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	rt_parse(t_data *data, int argc, char **argv)
 	}
 	ft_free((void **)&(data->line));
 	ft_free_gnl(data->fd);
-	close(data->fd);
+	if (close(data->fd) == -1)
+		rt_error_exit(data, NULL);
 	data->fd = -1;
 	data->line_index = 0;
 	rt_check_scene(data);
