@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:56:16 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/07 00:36:24 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/12 11:06:23 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	main(void)
 {
 	t_data	data;
 
-	rt_init(&data);
+	ft_bzero(&data, sizeof(data));
 	rt_parse(&data);
 	rt_viewer_start(&data);
 	rt_delete(&data);
