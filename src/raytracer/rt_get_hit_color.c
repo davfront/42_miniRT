@@ -20,7 +20,7 @@ static int	rt_is_light_visible(t_vec3 start, t_vec3 target, t_vec3 dir, \
 	t_float	dist_max;
 	t_hit	hit;
 
-	ray.pos = start;
+	ray.pos = vec3_scale(start, vec3_length(dir) * 1.01);
 	ray.dir = dir;
 	dist_max = vec3_length(vec3_subtract(target, start));
 	i = 0;
@@ -78,7 +78,7 @@ t_rgb	rt_get_hit_color(t_data *data, t_ray ray)
 	{
 		light = data->lights[i];
 		to_light = vec3_normalize(vec3_subtract(light.pos, hit.pos));
-		if (rt_is_light_visible(hit.pos, light.pos, to_light, data))
+		if (hit.obj->type == PLANE || rt_is_light_visible(hit.pos, light.pos, to_light, data))
 		{
 			color = rgb_add(color, rt_phong_diffuse(hit, light, to_light));
 			color = rgb_add(color, rt_phong_specular(hit, light, to_light, \
