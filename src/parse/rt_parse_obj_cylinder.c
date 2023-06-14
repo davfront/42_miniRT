@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:30:58 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/13 23:55:06 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/15 00:03:35 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,20 @@ static void	rt_parse_obj_cylinder_values(t_data *data, char **strs, t_obj *obj)
 
 void	rt_parse_obj_cylinder(t_data *data, char **strs)
 {
-	t_obj	*obj;
+	t_obj	obj;
+	t_obj	*content;
 	t_list	*node;
 
 	if (!data || !strs)
 		rt_parse_line_error_exit(data, "cylinder: no data");
 	if (rt_strs_len(strs) != 5)
 		rt_parse_line_error_exit(data, "cylinder: 5 arguments expected");
-	obj = ft_calloc(1, sizeof(t_obj));
-	if (!obj)
+	rt_parse_obj_cylinder_values(data, strs, &obj);
+	content = ft_calloc(1, sizeof(t_obj));
+	if (!content)
 		rt_parse_line_error_exit(data, "cylinder: t_obj alloc failed");
-	rt_parse_obj_cylinder_values(data, strs, obj);
-	node = ft_lstnew(obj);
+	*content = obj;
+	node = ft_lstnew(content);
 	if (!node)
 		rt_parse_line_error_exit(data, "cylinder: t_list alloc failed");
 	ft_lstadd_back(&data->obj_lst, node);
