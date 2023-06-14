@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_init.c                                          :+:      :+:    :+:   */
+/*   rt_get_obj_hit.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/14 16:35:43 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/07 00:35:34 by dapereir         ###   ########.fr       */
+/*   Created: 2023/06/07 14:01:09 by dapereir          #+#    #+#             */
+/*   Updated: 2023/06/09 19:44:58 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	rt_init(t_data *data)
+t_hit	rt_get_obj_hit(t_ray ray, t_obj *obj)
 {
-	if (!data)
-		return ;
-	data->path = NULL;
-	data->title = NULL;
-	data->mlx = NULL;
-	data->win = NULL;
-	data->img.img = NULL;
-	data->img.addr = NULL;
-	data->al.color = rgb(0, 0, 0);
-	data->al.ratio = 0;
-	data->cam.pos = vec3(0, 0, 0);
-	data->cam.dir = vec3(0, 0, 0);
-	data->cam.fov = 0;
-	data->lights_size = 0;
-	data->lights = NULL;
-	data->objs_size = 0;
-	data->objs = NULL;
+	if (!obj)
+		return (rt_hit_default());
+	if (obj->type == SPHERE)
+		return (rt_get_sphere_hit(ray, obj));
+	if (obj->type == PLANE)
+		return (rt_get_plane_hit(ray, obj));
+	return (rt_hit_default());
 }

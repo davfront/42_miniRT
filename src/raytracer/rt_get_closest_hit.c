@@ -12,17 +12,6 @@
 
 #include "minirt.h"
 
-static t_hit	rt_get_obj_hit(t_ray ray, t_obj *obj)
-{
-	if (!obj)
-		return (rt_hit_default());
-	if (obj->type == SPHERE)
-		return (rt_get_sphere_hit(ray, obj));
-	if (obj->type == PLANE)
-		return (rt_get_plane_hit(ray, obj));
-	return (rt_hit_default());
-}
-
 t_hit	rt_get_closest_hit(t_data *data, t_ray ray)
 {
 	size_t	i;

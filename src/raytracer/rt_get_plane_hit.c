@@ -35,5 +35,6 @@ t_hit	rt_get_plane_hit(t_ray ray, t_obj *obj)
 	hit.dist = t;
 	hit.color = plane.color;
 	hit.pos = vec3_add(ray.pos, vec3_scale(ray.dir, hit.dist));
+	hit.normal = vec3_scale(plane.normal, 1 - 2 * (denum < 0));
 	return (hit);
 }

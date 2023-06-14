@@ -6,20 +6,26 @@
 #    By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 16:34:41 by dapereir          #+#    #+#              #
-#    Updated: 2023/06/08 14:01:05 by dapereir         ###   ########.fr        #
+#    Updated: 2023/06/12 11:21:26 by dapereir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME				=	miniRT
 
 CC					=	cc
-CFLAGS				=	-Wall -Wextra -Werror
+CFLAGS				=	-Wall -Wextra -Werror -O3
 RM					=	rm -rf
 
 SRCS_FILES			=	\
 						color/rgb.c\
-						color/rgb_by_int.c\
+						color/rgb_int.c\
 						color/rgb_to_int.c\
+						color/rgb_clamp.c\
+						color/rgb_add.c\
+						color/rgb_subtract.c\
+						color/rgb_multiply.c\
+						color/rgb_scale.c\
+						color/rgb_mix.c\
 						\
 						vec3/vec3.c\
 						vec3/vec3_add.c\
@@ -28,12 +34,12 @@ SRCS_FILES			=	\
 						vec3/vec3_scale.c\
 						vec3/vec3_cross.c\
 						vec3/vec3_normalize.c\
+						vec3/vec3_reflect.c\
 						vec3/vec3_dot.c\
 						vec3/vec3_length.c\
 						vec3/vec3_length_squared.c\
 						vec3/vec3_equals.c\
 						\
-						utils/rt_init.c\
 						utils/rt_delete.c\
 						utils/rt_error_exit.c\
 						\
@@ -51,7 +57,9 @@ SRCS_FILES			=	\
 						raytracer/rt_hit_default.c\
 						raytracer/rt_get_plane_hit.c \
 						raytracer/rt_get_sphere_hit.c\
+						raytracer/rt_get_obj_hit.c\
 						raytracer/rt_get_closest_hit.c\
+						raytracer/rt_get_hit_color.c\
 						\
 						main.c\
 
@@ -63,7 +71,7 @@ OBJS_DIR			=	./obj
 OBJS				=	$(addprefix $(OBJS_DIR)/, $(OBJS_FILES))
 
 HEADER_DIR			=	./include
-HEADER_FILES		=	minirt.h key_linux.h vec3.h
+HEADER_FILES		=	key_linux.h rgb.h vec3.h scene.h debug.h minirt.h
 HEADER				=	$(addprefix $(HEADER_DIR)/, $(HEADER_FILES))
 HEADER_INC			=	-I $(HEADER_DIR)
 

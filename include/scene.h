@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atchougo <atchougo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 16:24:08 by atchougo          #+#    #+#             */
-/*   Updated: 2023/06/09 17:05:48 by atchougo         ###   ########.fr       */
+/*   Updated: 2023/06/12 10:03:25 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,10 @@
 
 # include "vec3.h"
 
-# define BLACK		(0x00000000)
-# define WHITE		(0x00FFFFFF)
-# define RED		(0x00FF0000)
-# define GREEN		(0x0000FF00)
-# define BLUE		(0x000000FF)
-
-typedef struct s_rgb {
-	unsigned char	r;
-	unsigned char	g;
-	unsigned char	b;
-}				t_rgb;
-
 typedef struct s_al {
 	t_rgb	color;
 	double	ratio;
+	t_rgb	computed;
 }				t_al;
 
 typedef struct s_cam {

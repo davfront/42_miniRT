@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 10:34:16 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/11 10:42:23 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/12 08:59:35 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ t_ray	rt_get_view_ray(t_cam cam, int x, int y)
 	ray.dir = vec3_add(ray.dir, rt_ray_dir_right_offset(cam, x));
 	ray.dir = vec3_add(ray.dir, rt_ray_dir_top_offset(cam, y));
 	ray.dir = vec3_normalize(ray.dir);
+	ray.hit = rt_hit_default();
 	return (ray);
 }

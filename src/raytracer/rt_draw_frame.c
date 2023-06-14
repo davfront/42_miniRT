@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:43 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/08 14:10:12 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/09 17:28:27 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	rt_draw_frame(t_data *data)
 	int		x;
 	int		y;
 	t_ray	ray;
-	t_hit	hit;
 
 	x = 0;
 	while (x < WIN_WIDTH)
@@ -26,9 +25,9 @@ void	rt_draw_frame(t_data *data)
 		while (y < WIN_HEIGHT)
 		{
 			ray = rt_get_view_ray(data->cam, x, y);
-			hit = rt_get_closest_hit(data, ray);
-			if (hit.obj)
-				rt_viewer_draw_pixel(data, x, y, rgb_to_int(hit.color));
+			ray.hit = rt_get_closest_hit(data, ray);
+			if (ray.hit.obj)
+				rt_viewer_draw_pixel(data, x, y, rt_get_hit_color(data, ray));
 			y++;
 		}
 		x++;
