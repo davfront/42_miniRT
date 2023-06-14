@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 00:48:39 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/12 17:04:00 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/15 00:15:41 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static int	set_strs(char **strs, char const *s, char const *set)
 			strs[n] = get_str(s + i, set);
 			if (!strs[n])
 			{
-				ft_free_split(strs);
+				ft_free_split(&strs);
 				return (0);
 			}
 			n++;
