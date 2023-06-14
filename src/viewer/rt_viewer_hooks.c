@@ -12,8 +12,16 @@
 
 #include "minirt.h"
 
+static int	rt_key_hook(int key, t_data *data)
+{
+	if (key == KEY_ESC)
+		rt_viewer_on_close(data);
+	return (0);
+}
+
 void	rt_viewer_hooks(t_data *data)
 {
+	mlx_key_hook(data->win, rt_key_hook, data);
 	mlx_hook(data->win, 17, 1L << 0, rt_viewer_on_close, data);
 	// mlx_hook(data->win, 2, 1L << 0, rt_viewer_on_keydown, data);
 	// mlx_hook(data->win, 3, 1L << 1, rt_viewer_on_keyup, data);
