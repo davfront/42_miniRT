@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:01:09 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/09 19:44:58 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/16 16:17:59 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,7 @@ t_hit	rt_get_obj_hit(t_ray ray, t_obj *obj)
 		return (rt_hit_default());
 	if (obj->type == SPHERE)
 		return (rt_get_sphere_hit(ray, obj));
+	if (obj->type == FACE)
+		return (rt_get_face_hit(ray, obj));
 	return (rt_hit_default());
 }

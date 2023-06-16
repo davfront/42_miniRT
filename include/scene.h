@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 16:24:08 by atchougo          #+#    #+#             */
-/*   Updated: 2023/06/13 14:57:16 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/16 17:19:37 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,18 @@ typedef struct s_cylinder {
 	t_rgb	color;
 }				t_cylinder;
 
+typedef struct s_face {
+	t_vec3	*v[3];
+	t_vec3	normal;
+	t_vec3	edge1;
+	t_vec3	edge2;
+}				t_face;
+
 typedef enum e_obj_type {
 	SPHERE,
 	PLANE,
-	CYLINDER
+	CYLINDER,
+	FACE
 }		t_obj_type;
 
 typedef struct s_obj {
@@ -69,6 +77,7 @@ typedef struct s_obj {
 		t_sphere	sphere;
 		t_plane		plane;
 		t_cylinder	cylinder;
+		t_face		face;
 	};
 }				t_obj;
 

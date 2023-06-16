@@ -6,14 +6,14 @@
 #    By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 16:34:41 by dapereir          #+#    #+#              #
-#    Updated: 2023/06/13 22:12:39 by dapereir         ###   ########.fr        #
+#    Updated: 2023/06/16 17:19:34 by dapereir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME				=	miniRT
 
 CC					=	cc
-CFLAGS				=	-Wall -Wextra -Werror -O3
+CFLAGS				=	-Wall -Wextra -Werror -O3 -ffast-math
 RM					=	rm -rf
 
 SRCS_FILES			=	\
@@ -58,6 +58,8 @@ SRCS_FILES			=	\
 						parse/rt_parse_obj_plane.c\
 						parse/rt_parse_obj_sphere.c\
 						parse/rt_parse_obj_cylinder.c\
+						parse/rt_parse_vertex.c\
+						parse/rt_parse_obj_face.c\
 						parse/rt_parse_line_error_exit.c\
 						parse/rt_parse_value_error_exit.c\
 						parse/rt_parse.c\
@@ -73,6 +75,7 @@ SRCS_FILES			=	\
 						raytracer/rt_draw_frame.c\
 						raytracer/rt_hit_default.c\
 						raytracer/rt_get_sphere_hit.c\
+						raytracer/rt_get_face_hit.c\
 						raytracer/rt_get_obj_hit.c\
 						raytracer/rt_get_closest_hit.c\
 						raytracer/rt_get_hit_color.c\
