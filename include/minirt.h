@@ -67,6 +67,7 @@ typedef struct s_data {
 	t_light		*lights;
 	size_t		objs_size;
 	t_obj		*objs;
+	t_obj		*obj_per_pixel[WIN_WIDTH + 1][WIN_HEIGHT + 1];
 }				t_data;
 
 // utils

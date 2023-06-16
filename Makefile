@@ -13,7 +13,7 @@
 NAME				=	miniRT
 
 CC					=	cc
-CFLAGS				=	-Wall -Wextra -Werror -O3
+CFLAGS				=	-Wall -Wextra -Werror -g3
 RM					=	rm -rf
 
 SRCS_FILES			=	\

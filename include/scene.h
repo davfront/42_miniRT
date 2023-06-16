@@ -64,6 +64,7 @@ typedef enum e_obj_type {
 }		t_obj_type;
 
 typedef struct s_obj {
+	uint8_t		selected;
 	t_obj_type	type;
 	union {
 		t_sphere	sphere;

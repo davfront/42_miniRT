@@ -23,7 +23,7 @@ void	rt_viewer_start(t_data *data)
 	data->win = mlx_new_window(data->mlx, WIN_WIDTH, WIN_HEIGHT, data->title);
 	ft_printf("[%s] File opened\n", data->title);
 	rt_viewer_hooks(data);
-	// mlx_loop_hook(data->mlx, rt_viewer_render_frame, data);
-	rt_viewer_render_frame(data);
+	mlx_loop_hook(data->mlx, rt_viewer_render_frame, data);
+	// rt_viewer_render_frame(data);
 	mlx_loop(data->mlx);
 }
