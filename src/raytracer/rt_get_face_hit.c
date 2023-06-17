@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:01:09 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/16 23:06:19 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/17 16:57:33 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_hit	rt_get_face_hit(t_ray ray, t_obj *obj)
 		return (hit);
 	hit.obj = obj;
 	hit.dist = t;
-	hit.color = rgb(255, 255, 255);
+	hit.color = rgb(255, 0, 0);
 	hit.pos = vec3_add(ray.pos, vec3_scale(ray.dir, t));
 	hit.normal = vec3_scale(obj->face.normal, 1 - 2 * (det < 0));
 	return (hit);

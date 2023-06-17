@@ -1,6 +1,6 @@
 # Ambient light
 # 		ratio				color
-A		0.2					255,255,255
+A		0.1					255,255,255
 
 # Camera
 # 		position			direction			fov
@@ -8,7 +8,8 @@ C		-2,3,2				1,-1,-1				50
 
 # Lights
 # 		position			ratio				color
-L		-40,20,-10			0.7					255,255,255
+L		-400,200,-100		0.9					255,255,255
+L		-400,200,100		0.4					255,255,255
 
 # Planes
 # 		point				normal				color

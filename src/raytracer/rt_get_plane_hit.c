@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_get_plane_hit.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 18:19:54 by atchougo          #+#    #+#             */
-/*   Updated: 2023/06/12 18:45:21 by atchougo         ###   ########.fr       */
+/*   Updated: 2023/06/17 16:59:28 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_hit	rt_get_plane_hit(t_ray ray, t_obj *obj)
 	if (!obj || obj->type != PLANE)
 		return (hit);
 	t = num / denum;
-	if (!isfinite(t) || t <= 0)
+	if (t < NEAR || t > FAR)
 		return (hit);
 	hit.obj = obj;
 	hit.dist = t;
