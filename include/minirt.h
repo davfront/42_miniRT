@@ -19,6 +19,7 @@
 # include <stdio.h>
 # define _USE_MATH_DEFINES
 # include <math.h>
+# include <pthread.h>
 
 # include "key_linux.h"
 # include "rgb.h"
@@ -55,6 +56,14 @@ typedef struct s_img {
 	int		endian;
 }				t_img;
 
+typedef struct s_data t_data;
+
+typedef struct	s_thread {
+	int			id;
+	pthread_t	thread;
+	t_data		*data;
+}				t_thread;
+
 typedef struct s_data {
 	char		*path;
 	char		*title;
@@ -68,6 +77,8 @@ typedef struct s_data {
 	size_t		objs_size;
 	t_obj		*objs;
 	t_obj		*obj_per_pixel[WIN_WIDTH + 1][WIN_HEIGHT + 1];
+	t_thread	thread[4];
+	pthread_mutex_t	mutex;
 }				t_data;
 
 // utils
