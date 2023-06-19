@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 21:15:04 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/13 16:54:17 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/19 14:22:26 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,12 @@ static int	rt_split_vec3_str(char *s, char **xs, char **ys, char **zs)
 
 int	rt_parse_vec3(char *s, t_vec3 *v)
 {
-	char	s2[12];
 	char	*cs[3];
 	t_float	cf[3];
 
 	if (!s || !*s || !v)
 		return (0);
-	ft_memcpy(s2, s, ft_strlen(s) + 1);
-	if (!rt_split_vec3_str(s2, &cs[0], &cs[1], &cs[2]))
+	if (!rt_split_vec3_str(s, &cs[0], &cs[1], &cs[2]))
 		return (0);
 	if (!rt_parse_float(cs[0], &cf[0])
 		|| !rt_parse_float(cs[1], &cf[1])

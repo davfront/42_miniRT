@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 21:15:04 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/13 16:54:06 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/19 14:23:45 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static int	rt_split_rgb_str(char *s, char **rs, char **gs, char **bs)
 int	rt_parse_rgb(char *s, t_rgb *c)
 {
 	size_t			len;
-	char			s2[12];
 	char			*cs[3];
 	unsigned int	ci[3];
 
@@ -44,8 +43,7 @@ int	rt_parse_rgb(char *s, t_rgb *c)
 	len = ft_strlen(s);
 	if (len < 5 || len > 11)
 		return (0);
-	ft_memcpy(s2, s, ft_strlen(s) + 1);
-	if (!rt_split_rgb_str(s2, &cs[0], &cs[1], &cs[2]))
+	if (!rt_split_rgb_str(s, &cs[0], &cs[1], &cs[2]))
 		return (0);
 	if (!rt_parse_uint(cs[0], &ci[0]) || ci[0] > 255
 		|| !rt_parse_uint(cs[1], &ci[1]) || ci[1] > 255
