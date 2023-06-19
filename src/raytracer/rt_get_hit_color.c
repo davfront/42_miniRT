@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:43 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/14 00:01:47 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/19 15:36:53 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	rt_is_light_visible(t_vec3 start, t_vec3 target, t_vec3 dir, \
 	t_hit	hit;
 	t_list	*obj_node;
 
-	ray.pos = vec3_scale(start, 1.0001);
+	ray.pos = start;
 	ray.dir = dir;
 	dist_max = vec3_length(vec3_subtract(target, start));
 	obj_node = data->obj_lst;
