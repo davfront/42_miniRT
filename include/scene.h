@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 16:24:08 by atchougo          #+#    #+#             */
-/*   Updated: 2023/06/12 10:03:25 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/13 14:57:16 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 typedef struct s_al {
 	t_rgb	color;
-	double	ratio;
+	t_float	ratio;
 	t_rgb	computed;
 }				t_al;
 
@@ -34,7 +34,7 @@ typedef struct s_cam {
 typedef struct s_light {
 	t_vec3	pos;
 	t_rgb	color;
-	double	ratio;
+	t_float	ratio;
 }				t_light;
 
 typedef struct s_sphere {

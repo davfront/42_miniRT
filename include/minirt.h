@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/12 18:42:16 by atchougo         ###   ########.fr       */
+/*   Updated: 2023/06/19 14:14:44 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,23 +58,46 @@ typedef struct s_img {
 typedef struct s_data {
 	char		*path;
 	char		*title;
+	int			fd;
+	char		*line;
+	size_t		line_index;
+	char		**strs;
 	void		*mlx;
 	void		*win;
 	t_img		img;
-	t_al		al;
-	t_cam		cam;
-	size_t		lights_size;
-	t_light		*lights;
-	size_t		objs_size;
-	t_obj		*objs;
+	t_al		*al;
+	t_cam		*cam;
+	t_list		*light_lst;
+	t_list		*obj_lst;
 }				t_data;
 
 // utils
 void	rt_delete(t_data *data);
+void	rt_error(char *msg);
+void	rt_exit(t_data *data);
 void	rt_error_exit(t_data *data, char *msg);
+int		rt_strs_len(char **strs);
 
 // parse
-void	rt_parse(t_data *data);
+int		rt_parse_uint(char *s, unsigned int *n);
+int		rt_parse_rgb(char *s, t_rgb *c);
+int		rt_parse_float(char *s, t_float *f);
+int		rt_parse_float_len(char *s, t_float *len);
+int		rt_parse_float_ratio(char *s, t_float *ratio);
+int		rt_parse_vec3(char *s, t_vec3 *v);
+int		rt_parse_vec3_dir(char *s, t_vec3 *dir);
+void	rt_parse_input(t_data *data, int argc, char **argv);
+void	rt_parse_line(t_data *data);
+void	rt_parse_ambient_light(t_data *data, char **strs);
+void	rt_parse_camera(t_data *data, char **strs);
+void	rt_parse_light(t_data *data, char **strs);
+void	rt_parse_obj_plane(t_data *data, char **strs);
+void	rt_parse_obj_sphere(t_data *data, char **strs);
+void	rt_parse_obj_cylinder(t_data *data, char **strs);
+void	rt_parse_line_error_exit(t_data *data, char *msg);
+void	rt_parse_value_error_exit(t_data *data, char *line_type, char *label, \
+	char *value);
+void	rt_parse(t_data *data, int argc, char **argv);
 
 // viewer
 void	rt_viewer_start(t_data *data);
