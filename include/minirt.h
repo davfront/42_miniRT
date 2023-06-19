@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/14 00:08:57 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/19 14:14:44 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ t_ray	rt_get_view_ray(t_cam cam, int x, int y);
 void	rt_draw_frame(t_data *data);
 t_hit	rt_hit_default(void);
 t_hit	rt_get_sphere_hit(t_ray ray, t_obj *obj);
+t_hit	rt_get_plane_hit(t_ray ray, t_obj *obj);
 t_hit	rt_get_obj_hit(t_ray ray, t_obj *obj);
 t_hit	rt_get_closest_hit(t_data *data, t_ray ray);
 t_rgb	rt_get_hit_color(t_data *data, t_ray ray);

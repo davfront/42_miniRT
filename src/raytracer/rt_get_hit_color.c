@@ -20,7 +20,7 @@ static int	rt_is_light_visible(t_vec3 start, t_vec3 target, t_vec3 dir, \
 	t_hit	hit;
 	t_list	*obj_node;
 
-	ray.pos = start;
+	ray.pos = vec3_scale(start, 1.0001);
 	ray.dir = dir;
 	dist_max = vec3_length(vec3_subtract(target, start));
 	obj_node = data->obj_lst;
