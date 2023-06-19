@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/19 14:14:44 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/19 16:57:15 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 
 # define WIN_WIDTH	(1024)
 # define WIN_HEIGHT	(600)
+
+# define EPSILON	(0.0001)
 
 # define PHONG_DIFFUSE_WEIGHT		(0.6)
 # define PHONG_SPECULAR_WEIGHT		(0.4)

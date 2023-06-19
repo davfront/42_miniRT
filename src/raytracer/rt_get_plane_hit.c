@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 18:19:54 by atchougo          #+#    #+#             */
-/*   Updated: 2023/06/19 15:34:58 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/19 17:04:01 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_hit	rt_get_plane_hit(t_ray ray, t_obj *obj)
 		return (hit);
 	num = vec3_dot(vec3_subtract(plane.point, ray.pos), plane.normal);
 	t = num / denum;
-	if (!isfinite(t) || t <= 0)
+	if (!isfinite(t) || t <= EPSILON)
 		return (hit);
 	hit.obj = obj;
 	hit.dist = t;

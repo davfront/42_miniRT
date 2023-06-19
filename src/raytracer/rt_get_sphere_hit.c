@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:01:09 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/08 13:59:27 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/19 17:03:51 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_hit	rt_get_sphere_hit(t_ray ray, t_obj *obj)
 	hit = rt_hit_default();
 	if (!obj || obj->type != SPHERE)
 		return (hit);
-	if (!rt_resolve_sphere_hit_points(ray, obj->sphere, t) || t[0] <= 0)
+	if (!rt_resolve_sphere_hit_points(ray, obj->sphere, t) || t[0] <= EPSILON)
 		return (hit);
 	hit.obj = obj;
 	hit.dist = t[0];
