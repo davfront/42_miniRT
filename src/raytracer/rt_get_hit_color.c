@@ -20,7 +20,7 @@ static int	rt_is_light_visible(t_vec3 start, t_vec3 target, t_vec3 dir, \
 	t_float	dist_max;
 	t_hit	hit;
 
-	ray.pos = start;
+	ray.pos = vec3_scale(start, 1.0001);
 	ray.dir = dir;
 	dist_max = vec3_length(vec3_subtract(target, start));
 	i = 0;
