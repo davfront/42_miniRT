@@ -1,0 +1,25 @@
+# Ambient light
+# 		ratio				color
+A		0.2					255,255,255
+
+# Camera
+# 		position			direction			fov
+C		-180,10,20			1,0,0				35
+
+# Lights
+# 		position			ratio				color
+L		-40,20,-10			0.7					255,255,255
+
+# Planes
+# 		point				normal				color
+pl		0,-10,0				0,1.0,0				255,0,225
+
+# Spheres
+# 		center				diameter			color
+sp		0,0,20				20					255,0,0
+sp		0,20,0				40					0,255,0
+sp		0,20,0				400					0,0,255
+
+# Cylinders
+# 		center				axis				diameter			height				color
+cy		50.0,0.0,20.6		0,0,1.0				14.2				21.42				10,0,255
