@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/19 16:57:15 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/20 12:33:35 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define WIN_WIDTH	(1024)
 # define WIN_HEIGHT	(600)
 
-# define EPSILON	(0.0001)
+# define T_MIN	(0.001)
 
 # define PHONG_DIFFUSE_WEIGHT		(0.6)
 # define PHONG_SPECULAR_WEIGHT		(0.4)
@@ -113,9 +113,9 @@ void	rt_viewer_draw_pixel(t_data *data, int x, int y, t_rgb color);
 t_ray	rt_get_view_ray(t_cam cam, int x, int y);
 void	rt_draw_frame(t_data *data);
 t_hit	rt_hit_default(void);
-t_hit	rt_get_sphere_hit(t_ray ray, t_obj *obj);
-t_hit	rt_get_plane_hit(t_ray ray, t_obj *obj);
-t_hit	rt_get_obj_hit(t_ray ray, t_obj *obj);
+int		rt_get_sphere_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit);
+int		rt_get_plane_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit);
+int		rt_get_obj_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit);
 t_hit	rt_get_closest_hit(t_data *data, t_ray ray);
 t_rgb	rt_get_hit_color(t_data *data, t_ray ray);
 

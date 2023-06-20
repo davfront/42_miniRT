@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:43 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/19 15:36:53 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/20 12:35:36 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static int	rt_is_light_visible(t_vec3 start, t_vec3 target, t_vec3 dir, \
 {
 	t_ray	ray;
 	t_float	dist_max;
-	t_hit	hit;
 	t_list	*obj_node;
 
 	ray.pos = start;
@@ -26,8 +25,7 @@ static int	rt_is_light_visible(t_vec3 start, t_vec3 target, t_vec3 dir, \
 	obj_node = data->obj_lst;
 	while (obj_node)
 	{
-		hit = rt_get_obj_hit(ray, obj_node->content);
-		if (hit.dist < dist_max)
+		if (rt_get_obj_hit(ray, obj_node->content, dist_max, NULL))
 			return (0);
 		obj_node = obj_node->next;
 	}
