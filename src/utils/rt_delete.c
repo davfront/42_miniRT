@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:43 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/15 00:16:02 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/16 11:48:35 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	rt_delete(t_data *data)
 	ft_free((void **)&(data->al));
 	ft_free((void **)&(data->cam));
 	ft_lstclear(&data->light_lst, free);
+	ft_lstclear(&data->vertex_lst, free);
 	ft_lstclear(&data->obj_lst, free);
 	rt_viewer_destroy(data);
 }

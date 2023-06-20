@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/20 12:33:35 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/20 17:06:01 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_data {
 	t_cam		*cam;
 	t_list		*light_lst;
 	t_list		*obj_lst;
+	t_list		*vertex_lst;
 }				t_data;
 
 // utils
@@ -96,6 +97,8 @@ void	rt_parse_light(t_data *data, char **strs);
 void	rt_parse_obj_plane(t_data *data, char **strs);
 void	rt_parse_obj_sphere(t_data *data, char **strs);
 void	rt_parse_obj_cylinder(t_data *data, char **strs);
+void	rt_parse_vertex(t_data *data, char **strs);
+void	rt_parse_obj_face(t_data *data, char **strs);
 void	rt_parse_line_error_exit(t_data *data, char *msg);
 void	rt_parse_value_error_exit(t_data *data, char *line_type, char *label, \
 	char *value);
@@ -115,6 +118,7 @@ void	rt_draw_frame(t_data *data);
 t_hit	rt_hit_default(void);
 int		rt_get_sphere_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit);
 int		rt_get_plane_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit);
+int		rt_get_face_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit);
 int		rt_get_obj_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit);
 t_hit	rt_get_closest_hit(t_data *data, t_ray ray);
 t_rgb	rt_get_hit_color(t_data *data, t_ray ray);
