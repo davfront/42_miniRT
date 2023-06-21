@@ -34,6 +34,9 @@
 # define PHONG_SPECULAR_WEIGHT		(0.4)
 # define PHONG_SPECULAR_EXPONENT	(50)
 
+# define ENABLE_THREAD	1
+# define THREAD_NB		4
+
 typedef struct s_hit {
 	t_obj	*obj;
 	t_rgb	color;
@@ -77,7 +80,7 @@ typedef struct s_data {
 	size_t		objs_size;
 	t_obj		*objs;
 	t_obj		*obj_per_pixel[WIN_WIDTH + 1][WIN_HEIGHT + 1];
-	t_thread	thread[4];
+	t_thread	thread[THREAD_NB];
 	pthread_mutex_t	mutex;
 }				t_data;
 
@@ -95,6 +98,7 @@ void	rt_viewer_destroy(t_data *data);
 void	rt_viewer_hooks(t_data *data);
 int		rt_viewer_on_close(t_data *data);
 void	rt_viewer_draw_pixel(t_data *data, int x, int y, t_rgb color);
+void	rt_viewer_thread_handler(t_data *data);
 
 // raytracer
 t_ray	rt_get_view_ray(t_cam cam, int x, int y);

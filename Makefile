@@ -51,6 +51,7 @@ SRCS_FILES			=	\
 						viewer/rt_viewer_on_close.c\
 						viewer/rt_viewer_render_frame.c\
 						viewer/rt_viewer_draw_pixel.c\
+						viewer/rt_viewer_thread_handler.c\
 						\
 						raytracer/rt_get_view_ray.c\
 						raytracer/rt_draw_frame.c\
