@@ -15,7 +15,7 @@ static void	*rt_draw_frame_thread(void *tv)
 		y = 0;
 		while (y < WIN_HEIGHT)
 		{
-			ray = rt_get_view_ray(t->data->cam, x, y);
+			ray = rt_get_view_ray(*t->data->cam, x, y);
 			ray.hit = rt_get_closest_hit(t->data, ray);
 			t->data->obj_per_pixel[x][y] = ray.hit.obj;
 			if (ray.hit.obj)
