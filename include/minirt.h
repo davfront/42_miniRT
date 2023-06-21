@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/20 12:33:35 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/21 22:21:24 by atchougo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define _USE_MATH_DEFINES
 # include <math.h>
 # include <pthread.h>
+# include <sys/time.h>
 
 # include "key_linux.h"
 # include "rgb.h"
@@ -94,6 +95,7 @@ void	rt_error(char *msg);
 void	rt_exit(t_data *data);
 void	rt_error_exit(t_data *data, char *msg);
 int		rt_strs_len(char **strs);
+void	rt_print_fps(struct	timeval start_time, struct	timeval end_time);
 
 // parse
 int		rt_parse_uint(char *s, unsigned int *n);
@@ -128,6 +130,7 @@ void	rt_viewer_thread_handler(t_data *data);
 // raytracer
 t_ray	rt_get_view_ray(t_cam cam, int x, int y);
 void	rt_draw_frame(t_data *data);
+void	*rt_draw_frame_thread(void *tv);
 t_hit	rt_hit_default(void);
 int		rt_get_sphere_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit);
 int		rt_get_plane_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit);
