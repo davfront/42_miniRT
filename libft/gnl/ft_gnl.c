@@ -1,24 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   ft_gnl.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapereir <dapereir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 12:50:06 by dapereir          #+#    #+#             */
-/*   Updated: 2022/11/28 12:31:20 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/12 16:17:00 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-static char	*gnl_free(char **str)
-{
-	if (*str)
-		free(*str);
-	*str = NULL;
-	return (NULL);
-}
 
 static int	gnl_read_more(char **store, int fd)
 {
@@ -33,7 +25,7 @@ static int	gnl_read_more(char **store, int fd)
 		new_store = ft_strjoin(*store, buffer);
 		if (!new_store)
 			return (-1);
-		gnl_free(store);
+		ft_free((void **)store);
 		*store = new_store;
 	}
 	return (buffer_size);
@@ -51,30 +43,32 @@ static char	*gnl_extract_line(char **store, char *breakline)
 		line = *store;
 		*store = NULL;
 		if (ft_strlen(line) == 0)
-			return (gnl_free(&line));
+			return (ft_free((void **)&line));
 		return (line);
 	}
 	line = ft_strndup(*store, breakline - *store + 1);
 	if (!line)
-		return (gnl_free(store));
+		return (ft_free((void **)store));
 	new_store = ft_strdup(breakline + 1);
 	if (!new_store)
 	{
-		gnl_free(&line);
-		return (gnl_free(store));
+		ft_free((void **)&line);
+		return (ft_free((void **)store));
 	}
-	gnl_free(store);
+	ft_free((void **)store);
 	*store = new_store;
 	return (line);
 }
 
-char	*ft_gnl(int fd)
+static char	*gnl_get_or_free(int fd, int free_store)
 {
 	static char		*store[OPEN_MAX];
 	char			*breakline;
 	int				buffer_size;
 	char			*line;
 
+	if (free_store)
+		return (ft_free((void **)&store[fd]));
 	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE < 1)
 		return (NULL);
 	if (!store[fd])
@@ -87,9 +81,19 @@ char	*ft_gnl(int fd)
 	{
 		buffer_size = gnl_read_more(store + fd, fd);
 		if (buffer_size == -1)
-			return (gnl_free(store + fd));
+			return (ft_free((void **)store + fd));
 		breakline = ft_strchr(store[fd], '\n');
 	}
 	line = gnl_extract_line(store + fd, breakline);
 	return (line);
+}
+
+char	*ft_gnl(int fd)
+{
+	return (gnl_get_or_free(fd, 0));
+}
+
+char	*ft_free_gnl(int fd)
+{
+	return (gnl_get_or_free(fd, 1));
 }

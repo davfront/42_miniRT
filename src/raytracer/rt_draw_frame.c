@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:43 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/09 17:28:27 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/14 00:12:43 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	rt_draw_frame(t_data *data)
 		y = 0;
 		while (y < WIN_HEIGHT)
 		{
-			ray = rt_get_view_ray(data->cam, x, y);
+			ray = rt_get_view_ray(*data->cam, x, y);
 			ray.hit = rt_get_closest_hit(data, ray);
 			data->obj_per_pixel[x][y] = ray.hit.obj;
 			if (ray.hit.obj)

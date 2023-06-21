@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/12 18:42:16 by atchougo         ###   ########.fr       */
+/*   Updated: 2023/06/20 12:33:35 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 
 # define WIN_WIDTH	(1024)
 # define WIN_HEIGHT	(600)
+
+# define T_MIN	(0.001)
 
 # define PHONG_DIFFUSE_WEIGHT		(0.6)
 # define PHONG_SPECULAR_WEIGHT		(0.4)
@@ -68,28 +70,51 @@ typedef struct	s_thread {
 }				t_thread;
 
 typedef struct s_data {
-	char		*path;
-	char		*title;
-	void		*mlx;
-	void		*win;
-	t_img		img;
-	t_al		al;
-	t_cam		cam;
-	size_t		lights_size;
-	t_light		*lights;
-	size_t		objs_size;
-	t_obj		*objs;
-	t_obj		*obj_per_pixel[WIN_WIDTH + 1][WIN_HEIGHT + 1];
-	t_thread	thread[THREAD_NB];
+	char			*path;
+	char			*title;
+	int				fd;
+	char			*line;
+	size_t			line_index;
+	char			**strs;
+	void			*mlx;
+	void			*win;
+	t_img			img;
+	t_al			*al;
+	t_cam			*cam;
+	t_list			*light_lst;
+	t_list			*obj_lst;
+	t_obj			*obj_per_pixel[WIN_WIDTH + 1][WIN_HEIGHT + 1];
+	t_thread		thread[THREAD_NB];
 	pthread_mutex_t	mutex;
 }				t_data;
 
 // utils
 void	rt_delete(t_data *data);
+void	rt_error(char *msg);
+void	rt_exit(t_data *data);
 void	rt_error_exit(t_data *data, char *msg);
+int		rt_strs_len(char **strs);
 
 // parse
-void	rt_parse(t_data *data);
+int		rt_parse_uint(char *s, unsigned int *n);
+int		rt_parse_rgb(char *s, t_rgb *c);
+int		rt_parse_float(char *s, t_float *f);
+int		rt_parse_float_len(char *s, t_float *len);
+int		rt_parse_float_ratio(char *s, t_float *ratio);
+int		rt_parse_vec3(char *s, t_vec3 *v);
+int		rt_parse_vec3_dir(char *s, t_vec3 *dir);
+void	rt_parse_input(t_data *data, int argc, char **argv);
+void	rt_parse_line(t_data *data);
+void	rt_parse_ambient_light(t_data *data, char **strs);
+void	rt_parse_camera(t_data *data, char **strs);
+void	rt_parse_light(t_data *data, char **strs);
+void	rt_parse_obj_plane(t_data *data, char **strs);
+void	rt_parse_obj_sphere(t_data *data, char **strs);
+void	rt_parse_obj_cylinder(t_data *data, char **strs);
+void	rt_parse_line_error_exit(t_data *data, char *msg);
+void	rt_parse_value_error_exit(t_data *data, char *line_type, char *label, \
+	char *value);
+void	rt_parse(t_data *data, int argc, char **argv);
 
 // viewer
 void	rt_viewer_start(t_data *data);
@@ -104,9 +129,9 @@ void	rt_viewer_thread_handler(t_data *data);
 t_ray	rt_get_view_ray(t_cam cam, int x, int y);
 void	rt_draw_frame(t_data *data);
 t_hit	rt_hit_default(void);
-t_hit	rt_get_sphere_hit(t_ray ray, t_obj *obj);
-t_hit	rt_get_plane_hit(t_ray ray, t_obj *obj);
-t_hit	rt_get_obj_hit(t_ray ray, t_obj *obj);
+int		rt_get_sphere_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit);
+int		rt_get_plane_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit);
+int		rt_get_obj_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit);
 t_hit	rt_get_closest_hit(t_data *data, t_ray ray);
 t_rgb	rt_get_hit_color(t_data *data, t_ray ray);
 

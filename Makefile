@@ -6,7 +6,7 @@
 #    By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 16:34:41 by dapereir          #+#    #+#              #
-#    Updated: 2023/06/12 11:21:26 by dapereir         ###   ########.fr        #
+#    Updated: 2023/06/13 22:12:39 by dapereir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,8 +41,25 @@ SRCS_FILES			=	\
 						vec3/vec3_equals.c\
 						\
 						utils/rt_delete.c\
+						utils/rt_error.c\
+						utils/rt_exit.c\
 						utils/rt_error_exit.c\
+						utils/rt_strs_len.c\
 						\
+						parse/rt_parse_uint.c\
+						parse/rt_parse_rgb.c\
+						parse/rt_parse_float.c\
+						parse/rt_parse_vec3.c\
+						parse/rt_parse_input.c\
+						parse/rt_parse_line.c\
+						parse/rt_parse_ambient_light.c\
+						parse/rt_parse_camera.c\
+						parse/rt_parse_light.c\
+						parse/rt_parse_obj_plane.c\
+						parse/rt_parse_obj_sphere.c\
+						parse/rt_parse_obj_cylinder.c\
+						parse/rt_parse_line_error_exit.c\
+						parse/rt_parse_value_error_exit.c\
 						parse/rt_parse.c\
 						\
 						viewer/rt_viewer_start.c\
