@@ -116,6 +116,7 @@ t_hit	rt_hit_default(void);
 int		rt_get_sphere_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit);
 int		rt_get_plane_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit);
 int		rt_get_obj_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit);
+int		rt_get_cylinder_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit);
 t_hit	rt_get_closest_hit(t_data *data, t_ray ray);
 t_rgb	rt_get_hit_color(t_data *data, t_ray ray);
 

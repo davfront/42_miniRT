@@ -18,7 +18,9 @@ int	rt_get_obj_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit)
 		return (0);
 	if (obj->type == SPHERE)
 		return (rt_get_sphere_hit(ray, obj, t_max, hit));
-	if (obj->type == PLANE)
+	else if (obj->type == PLANE)
 		return (rt_get_plane_hit(ray, obj, t_max, hit));
+	else if (obj->type == CYLINDER)
+		return (rt_get_cylinder_hit(ray, obj, t_max, hit));
 	return (0);
 }
