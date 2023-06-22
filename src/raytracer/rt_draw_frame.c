@@ -26,7 +26,6 @@ void	rt_draw_frame(t_data *data)
 		{
 			ray = rt_get_view_ray(*data->cam, x, y);
 			ray.hit = rt_get_closest_hit(data, ray);
-			data->obj_per_pixel[x][y] = ray.hit.obj;
 			if (ray.hit.obj)
 				rt_viewer_draw_pixel(data, x, y, rt_get_hit_color(data, ray));
 			y++;

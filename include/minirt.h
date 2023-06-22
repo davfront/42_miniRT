@@ -84,7 +84,6 @@ typedef struct s_data {
 	t_cam			*cam;
 	t_list			*light_lst;
 	t_list			*obj_lst;
-	t_obj			*obj_per_pixel[WIN_WIDTH + 1][WIN_HEIGHT + 1];
 	t_thread		thread[THREAD_NB];
 	pthread_mutex_t	mutex;
 }				t_data;
