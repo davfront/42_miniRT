@@ -85,7 +85,6 @@ typedef struct s_data {
 	t_list			*light_lst;
 	t_list			*obj_lst;
 	t_thread		thread[THREAD_NB];
-	pthread_mutex_t	mutex;
 }				t_data;
 
 // utils
