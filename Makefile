@@ -6,7 +6,7 @@
 #    By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 16:34:41 by dapereir          #+#    #+#              #
-#    Updated: 2023/06/13 22:12:39 by dapereir         ###   ########.fr        #
+#    Updated: 2023/06/23 17:16:07 by dapereir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,6 +81,7 @@ SRCS_FILES			=	\
 						viewer/rt_viewer_destroy.c\
 						viewer/rt_viewer_hooks.c\
 						viewer/rt_viewer_on_close.c\
+						viewer/rt_viewer_on_mouse_events.c\
 						viewer/rt_viewer_render_frame.c\
 						viewer/rt_viewer_draw_pixel.c\
 						\
@@ -92,6 +93,12 @@ SRCS_FILES			=	\
 						raytracer/rt_get_obj_hit.c\
 						raytracer/rt_get_closest_hit.c\
 						raytracer/rt_get_hit_color.c\
+						\
+						camera/rt_cam_utils.c\
+						camera/rt_cam_to_world.c\
+						camera/rt_cam_to_world_translate.c\
+						camera/rt_cam_to_world_rotate.c\
+						camera/rt_cam_projection.c\
 						\
 						main.c\
 

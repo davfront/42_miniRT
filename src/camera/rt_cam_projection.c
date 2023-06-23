@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_viewer_start.c                                  :+:      :+:    :+:   */
+/*   rt_cam_projection.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/22 21:03:41 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/21 13:48:11 by dapereir         ###   ########.fr       */
+/*   Created: 2023/06/07 10:34:16 by dapereir          #+#    #+#             */
+/*   Updated: 2023/06/23 17:21:49 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	rt_viewer_start(t_data *data)
+t_mat4	rt_cam_projection(unsigned int fov)
 {
-	data->mlx = mlx_init();
-	if (!data->mlx)
-	{
-		rt_delete(data);
-		rt_error_exit(data, "Minilibx initialization failed");
-	}
-	data->win = mlx_new_window(data->mlx, WIN_WIDTH, WIN_HEIGHT, data->title);
-	ft_printf("[%s] File opened\n", data->title);
-	rt_viewer_hooks(data);
-	mlx_loop_hook(data->mlx, rt_viewer_render_frame, data);
-	mlx_loop(data->mlx);
+	t_float	aspect_ratio;
+	t_float	fov_rad;
+	t_float	tan_half_fov;
+	t_mat4	result;
+
+	aspect_ratio = (t_float)WIN_WIDTH / WIN_HEIGHT;
+	fov_rad = fov * M_PI / 180;
+	tan_half_fov = tan(fov_rad / 2);
+	result = mat4_identity();
+	result.m[0][0] = aspect_ratio * tan_half_fov;
+	result.m[1][1] = tan_half_fov;
+	return (result);
 }

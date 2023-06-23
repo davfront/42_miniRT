@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/20 12:33:35 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/23 20:33:28 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,15 @@ typedef struct s_img {
 	int		endian;
 }				t_img;
 
+typedef struct s_ui {
+	int	mouse_x0;
+	int	mouse_y0;
+	int	mouse_dx;
+	int	mouse_dy;
+	int	mouse_left_btn;
+	int	mouse_right_btn;
+}				t_ui;
+
 typedef struct s_data {
 	char		*path;
 	char		*title;
@@ -67,6 +76,7 @@ typedef struct s_data {
 	void		*mlx;
 	void		*win;
 	t_img		img;
+	t_ui		ui;
 	t_al		*al;
 	t_cam		*cam;
 	t_list		*light_lst;
@@ -107,6 +117,9 @@ int		rt_viewer_render_frame(t_data *data);
 void	rt_viewer_destroy(t_data *data);
 void	rt_viewer_hooks(t_data *data);
 int		rt_viewer_on_close(t_data *data);
+int		rt_viewer_on_mouse_down(int button, int x, int y, t_data *data);
+int		rt_viewer_on_mouse_up(int button, int x, int y, t_data *data);
+int		rt_viewer_on_mouse_move(int x, int y, t_data *data);
 void	rt_viewer_draw_pixel(t_data *data, int x, int y, t_rgb color);
 
 // raytracer
@@ -119,4 +132,16 @@ int		rt_get_obj_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit);
 t_hit	rt_get_closest_hit(t_data *data, t_ray ray);
 t_rgb	rt_get_hit_color(t_data *data, t_ray ray);
 
+// camera
+t_vec3	rt_cam_right(t_mat4 c2w);
+t_vec3	rt_cam_top(t_mat4 c2w);
+t_vec3	rt_cam_forward(t_mat4 c2w);
+t_vec3	rt_cam_dir(t_mat4 c2w);
+t_vec3	rt_cam_pos(t_mat4 c2w);
+t_mat4	rt_cam_to_world(t_vec3 cam_pos, t_vec3 cam_dir);
+t_mat4	rt_cam_to_world_translate(t_mat4 c2w, t_float dx, t_float dy, \
+	t_float sensitivity);
+t_mat4	rt_cam_to_world_rotate(t_mat4 c2w, t_float dx, t_float dy, \
+	t_float sensitivity);
+t_mat4	rt_cam_projection(unsigned int fov);
 #endif
