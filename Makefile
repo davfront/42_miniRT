@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 16:34:41 by dapereir          #+#    #+#              #
-#    Updated: 2023/06/13 22:12:39 by dapereir         ###   ########.fr        #
+#    Updated: 2023/06/23 20:36:17 by atchougo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME				=	miniRT
 
 CC					=	cc
-CFLAGS				=	-Wall -Wextra -Werror -O3
+CFLAGS				=	-Wall -Wextra -Werror -g3 -O3
 RM					=	rm -rf
 
 SRCS_FILES			=	\
