@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/23 20:33:28 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/24 00:01:07 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,8 +139,7 @@ t_vec3	rt_cam_forward(t_mat4 c2w);
 t_vec3	rt_cam_dir(t_mat4 c2w);
 t_vec3	rt_cam_pos(t_mat4 c2w);
 t_mat4	rt_cam_to_world(t_vec3 cam_pos, t_vec3 cam_dir);
-t_mat4	rt_cam_to_world_translate(t_mat4 c2w, t_float dx, t_float dy, \
-	t_float sensitivity);
+t_mat4	rt_cam_to_world_translate(t_mat4 c2w, t_vec3 d, t_float sensitivity);
 t_mat4	rt_cam_to_world_rotate(t_mat4 c2w, t_float dx, t_float dy, \
 	t_float sensitivity);
 t_mat4	rt_cam_projection(unsigned int fov);

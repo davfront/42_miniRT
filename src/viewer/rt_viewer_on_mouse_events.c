@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:43 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/23 17:30:44 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/24 00:05:16 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 
 int	rt_viewer_on_mouse_down(int button, int x, int y, t_data *data)
 {
+	if (button == MOUSE_SCROLL_UP)
+		data->cam->c2w_mouse = rt_cam_to_world_translate(data->cam->c2w_mouse, \
+			vec3(0, 0, 1), 10);
+	if (button == MOUSE_SCROLL_DOWN)
+		data->cam->c2w_mouse = rt_cam_to_world_translate(data->cam->c2w_mouse, \
+			vec3(0, 0, -1), 10);
 	if (button == MOUSE_LEFT)
 		data->ui.mouse_left_btn = 1;
 	if (button == MOUSE_RIGHT)
@@ -38,7 +44,7 @@ int	rt_viewer_on_mouse_up(int button, int x, int y, t_data *data)
 	if (button == MOUSE_RIGHT)
 	{
 		data->cam->c2w = rt_cam_to_world_translate(data->cam->c2w, \
-			data->ui.mouse_dx, -data->ui.mouse_dy, 0.1);
+			vec3(data->ui.mouse_dx, -data->ui.mouse_dy, 0), 0.1);
 		data->ui.mouse_right_btn = 0;
 	}
 	data->ui.mouse_x0 = 0;
@@ -58,6 +64,6 @@ int	rt_viewer_on_mouse_move(int x, int y, t_data *data)
 			data->ui.mouse_dx, -data->ui.mouse_dy, M_PI / 500);
 	if (data->ui.mouse_right_btn)
 		data->cam->c2w_mouse = rt_cam_to_world_translate(data->cam->c2w_mouse, \
-			data->ui.mouse_dx, -data->ui.mouse_dy, 0.1);
+			vec3(data->ui.mouse_dx, -data->ui.mouse_dy, 0), 0.1);
 	return (0);
 }
