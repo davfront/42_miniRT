@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/24 00:35:23 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/25 14:10:00 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_img {
 }				t_img;
 
 typedef struct s_ui {
+	int	changed;
 	int	mouse_x0;
 	int	mouse_y0;
 	int	mouse_dx;
@@ -65,6 +66,11 @@ typedef struct s_ui {
 	int	mouse_left_btn;
 	int	mouse_right_btn;
 }				t_ui;
+
+typedef struct s_buf {
+	int		done;
+	t_rgb	color;
+}				t_buf;
 
 typedef struct s_data {
 	char		*path;
@@ -81,6 +87,9 @@ typedef struct s_data {
 	t_cam		*cam;
 	t_list		*light_lst;
 	t_list		*obj_lst;
+	t_buf		buf[WIN_WIDTH][WIN_HEIGHT];
+	int			buf_step;
+
 }				t_data;
 
 // utils

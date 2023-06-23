@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:43 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/24 00:13:12 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/25 14:11:20 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,7 @@ int	rt_viewer_on_mouse_move(int x, int y, t_data *data)
 	if (data->ui.mouse_right_btn)
 		data->cam->c2w_mouse = rt_cam_to_world_translate(data->cam->c2w_mouse, \
 			vec3(data->ui.mouse_dx, -data->ui.mouse_dy, 0), 0.1);
+	if (data->ui.mouse_left_btn || data->ui.mouse_right_btn)
+		data->ui.changed = 1;
 	return (0);
 }
