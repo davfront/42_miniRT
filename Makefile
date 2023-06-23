@@ -39,6 +39,21 @@ SRCS_FILES			=	\
 						vec3/vec3_length.c\
 						vec3/vec3_length_squared.c\
 						vec3/vec3_equals.c\
+						vec3/quat.c\
+						vec3/quat_from_vec3.c\
+						vec3/quat_multiply.c\
+						vec3/quat_from_axis_angle.c\
+						vec3/mat4_zero.c\
+						vec3/mat4_identity.c\
+						vec3/mat4_translate.c\
+						vec3/mat4_scale.c\
+						vec3/mat4_rotate_x.c\
+						vec3/mat4_rotate_y.c\
+						vec3/mat4_rotate_z.c\
+						vec3/mat4_multiply.c\
+						vec3/mat4_from_quat.c\
+						vec3/mat4_multiply_vec3.c\
+						vec3/mat4_multiply_axis.c\
 						\
 						utils/rt_delete.c\
 						utils/rt_error.c\
