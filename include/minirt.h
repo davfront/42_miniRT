@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/24 00:01:07 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/24 00:35:23 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,8 @@ int		rt_viewer_on_close(t_data *data);
 int		rt_viewer_on_mouse_down(int button, int x, int y, t_data *data);
 int		rt_viewer_on_mouse_up(int button, int x, int y, t_data *data);
 int		rt_viewer_on_mouse_move(int x, int y, t_data *data);
+int		rt_viewer_on_keydown(int keycode, t_data *data);
+int		rt_viewer_on_keyup(int keycode, t_data *data);
 void	rt_viewer_draw_pixel(t_data *data, int x, int y, t_rgb color);
 
 // raytracer
@@ -143,4 +145,5 @@ t_mat4	rt_cam_to_world_translate(t_mat4 c2w, t_vec3 d, t_float sensitivity);
 t_mat4	rt_cam_to_world_rotate(t_mat4 c2w, t_float dx, t_float dy, \
 	t_float sensitivity);
 t_mat4	rt_cam_projection(unsigned int fov);
+void	rt_cam_update_fov(t_data *data, int delta_fov);
 #endif

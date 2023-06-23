@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_viewer_hooks.c                                  :+:      :+:    :+:   */
+/*   rt_viewer_on_key_events.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:43 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/24 00:23:30 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/24 00:34:35 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	rt_viewer_hooks(t_data *data)
+int	rt_viewer_on_keydown(int keycode, t_data *data)
 {
-	mlx_hook(data->win, 17, 1L << 0, rt_viewer_on_close, data);
-	mlx_hook(data->win, 2, 1L << 0, rt_viewer_on_keydown, data);
-	mlx_hook(data->win, 3, 1L << 1, rt_viewer_on_keyup, data);
-	mlx_hook(data->win, 4, 1L << 2, rt_viewer_on_mouse_down, data);
-	mlx_hook(data->win, 5, 1L << 3, rt_viewer_on_mouse_up, data);
-	mlx_hook(data->win, 6, 1L << 6, rt_viewer_on_mouse_move, data);
+	if (keycode == KEY_ESC)
+		rt_viewer_on_close(data);
+	if (keycode == KEY_PLUS)
+		rt_cam_update_fov(data, 1);
+	if (keycode == KEY_MINUS)
+		rt_cam_update_fov(data, -1);
+	return (0);
+}
+
+int	rt_viewer_on_keyup(int keycode, t_data *data)
+{
+	(void)keycode;
+	(void)data;
+	return (0);
 }
