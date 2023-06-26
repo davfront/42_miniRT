@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/20 12:33:35 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/21 22:21:24 by atchougo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <stdio.h>
 # define _USE_MATH_DEFINES
 # include <math.h>
+# include <pthread.h>
+# include <sys/time.h>
 
 # include "key_linux.h"
 # include "rgb.h"
@@ -34,6 +36,9 @@
 # define PHONG_DIFFUSE_WEIGHT		(0.6)
 # define PHONG_SPECULAR_WEIGHT		(0.4)
 # define PHONG_SPECULAR_EXPONENT	(50)
+
+# define ENABLE_THREAD	1
+# define THREAD_NB		4
 
 typedef struct s_hit {
 	t_obj	*obj;
@@ -57,20 +62,29 @@ typedef struct s_img {
 	int		endian;
 }				t_img;
 
+typedef struct s_data t_data;
+
+typedef struct	s_thread {
+	int			id;
+	pthread_t	thread;
+	t_data		*data;
+}				t_thread;
+
 typedef struct s_data {
-	char		*path;
-	char		*title;
-	int			fd;
-	char		*line;
-	size_t		line_index;
-	char		**strs;
-	void		*mlx;
-	void		*win;
-	t_img		img;
-	t_al		*al;
-	t_cam		*cam;
-	t_list		*light_lst;
-	t_list		*obj_lst;
+	char			*path;
+	char			*title;
+	int				fd;
+	char			*line;
+	size_t			line_index;
+	char			**strs;
+	void			*mlx;
+	void			*win;
+	t_img			img;
+	t_al			*al;
+	t_cam			*cam;
+	t_list			*light_lst;
+	t_list			*obj_lst;
+	t_thread		thread[THREAD_NB];
 }				t_data;
 
 // utils
@@ -79,6 +93,7 @@ void	rt_error(char *msg);
 void	rt_exit(t_data *data);
 void	rt_error_exit(t_data *data, char *msg);
 int		rt_strs_len(char **strs);
+void	rt_print_fps(struct	timeval start_time, struct	timeval end_time);
 
 // parse
 int		rt_parse_uint(char *s, unsigned int *n);
@@ -108,10 +123,12 @@ void	rt_viewer_destroy(t_data *data);
 void	rt_viewer_hooks(t_data *data);
 int		rt_viewer_on_close(t_data *data);
 void	rt_viewer_draw_pixel(t_data *data, int x, int y, t_rgb color);
+void	rt_viewer_thread_handler(t_data *data);
 
 // raytracer
 t_ray	rt_get_view_ray(t_cam cam, int x, int y);
 void	rt_draw_frame(t_data *data);
+void	*rt_draw_frame_thread(void *tv);
 t_hit	rt_hit_default(void);
 int		rt_get_sphere_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit);
 int		rt_get_plane_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit);

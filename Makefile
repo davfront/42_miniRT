@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 16:34:41 by dapereir          #+#    #+#              #
-#    Updated: 2023/06/13 22:12:39 by dapereir         ###   ########.fr        #
+#    Updated: 2023/06/21 22:21:45 by atchougo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME				=	miniRT
 
 CC					=	cc
-CFLAGS				=	-Wall -Wextra -Werror -O3
+CFLAGS				=	-Wall -Wextra -Werror -pthread -g3
 RM					=	rm -rf
 
 SRCS_FILES			=	\
@@ -45,6 +45,7 @@ SRCS_FILES			=	\
 						utils/rt_exit.c\
 						utils/rt_error_exit.c\
 						utils/rt_strs_len.c\
+						utils/rt_print_fps.c \
 						\
 						parse/rt_parse_uint.c\
 						parse/rt_parse_rgb.c\
@@ -68,9 +69,11 @@ SRCS_FILES			=	\
 						viewer/rt_viewer_on_close.c\
 						viewer/rt_viewer_render_frame.c\
 						viewer/rt_viewer_draw_pixel.c\
+						viewer/rt_viewer_thread_handler.c\
 						\
 						raytracer/rt_get_view_ray.c\
 						raytracer/rt_draw_frame.c\
+						raytracer/rt_draw_frame_thread.c \
 						raytracer/rt_hit_default.c\
 						raytracer/rt_get_plane_hit.c \
 						raytracer/rt_get_sphere_hit.c\
