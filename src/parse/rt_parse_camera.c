@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:30:58 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/23 17:19:05 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/26 12:14:12 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static void	rt_parse_obj_camera_values(t_data *data, char **strs, t_cam *cam)
 	if (!rt_parse_uint(strs[2], &cam->fov) || cam->fov > 180)
 		rt_parse_value_error_exit(data, "camera", "fov", strs[2]);
 	cam->proj = rt_cam_projection(cam->fov);
+	cam->c2w_temp = rt_cam_to_world(cam->pos, cam->dir);
 	cam->c2w = rt_cam_to_world(cam->pos, cam->dir);
-	cam->c2w_mouse = rt_cam_to_world(cam->pos, cam->dir);
 }
 
 void	rt_parse_camera(t_data *data, char **strs)

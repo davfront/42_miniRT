@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 16:49:11 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/23 15:59:01 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/26 10:59:03 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,5 @@ t_mat4	mat4_rotate_z(t_mat4 m, t_float a)
 	rotate.m[0][1] = -sin_a;
 	rotate.m[1][0] = sin_a;
 	rotate.m[1][1] = cos_a;
-	return (mat4_multiply(m, rotate));
+	return (mat4_multiply_rev(m, rotate));
 }

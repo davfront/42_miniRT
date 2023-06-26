@@ -6,7 +6,7 @@
 #    By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 16:34:41 by dapereir          #+#    #+#              #
-#    Updated: 2023/06/24 00:36:07 by dapereir         ###   ########.fr        #
+#    Updated: 2023/06/26 13:48:22 by dapereir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ SRCS_FILES			=	\
 						vec3/mat4_rotate_x.c\
 						vec3/mat4_rotate_y.c\
 						vec3/mat4_rotate_z.c\
+						vec3/mat4_rotate_axis.c\
 						vec3/mat4_multiply.c\
 						vec3/mat4_from_quat.c\
 						vec3/mat4_multiply_vec3.c\

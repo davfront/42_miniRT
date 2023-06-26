@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 16:24:08 by atchougo          #+#    #+#             */
-/*   Updated: 2023/06/23 17:21:45 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/26 12:12:26 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ typedef struct s_cam {
 	t_vec3			dir;
 	unsigned int	fov;
 	t_mat4			proj;
+	t_mat4			c2w_temp;
 	t_mat4			c2w;
-	t_mat4			c2w_mouse;
 }				t_cam;
 
 typedef struct s_light {

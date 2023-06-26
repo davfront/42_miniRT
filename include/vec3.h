@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 17:10:57 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/23 15:55:44 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/26 13:57:00 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,9 @@ t_mat4	mat4_scale(t_mat4 m, t_float f);
 t_mat4	mat4_rotate_x(t_mat4 m, t_float a);
 t_mat4	mat4_rotate_y(t_mat4 m, t_float a);
 t_mat4	mat4_rotate_z(t_mat4 m, t_float a);
+t_mat4	mat4_rotate_axis(t_mat4 m, t_vec3 axis, float_t angle);
 t_mat4	mat4_multiply(t_mat4 a, t_mat4 b);
+t_mat4	mat4_multiply_rev(t_mat4 a, t_mat4 b);
 t_mat4	mat4_from_quat(t_quat q);
 
 t_vec3	mat4_multiply_vec3(t_mat4 m, t_vec3 v);

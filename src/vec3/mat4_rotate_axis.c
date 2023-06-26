@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mat4_translate.c                                   :+:      :+:    :+:   */
+/*   mat4_rotate_axis.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/23 16:49:11 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/26 10:58:30 by dapereir         ###   ########.fr       */
+/*   Created: 2023/06/26 13:46:45 by dapereir          #+#    #+#             */
+/*   Updated: 2023/06/26 14:16:05 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vec3.h"
 
-t_mat4	mat4_translate(t_mat4 m, t_vec3 v)
+t_mat4	mat4_rotate_axis(t_mat4 m, t_vec3 axis, float_t angle)
 {
-	t_mat4	translate;
+	t_mat4	result;
+	t_quat	quat_rotate;
 
-	translate = mat4_identity();
-	translate.m[0][3] += v.x;
-	translate.m[1][3] += v.y;
-	translate.m[2][3] += v.z;
-	return (mat4_multiply_rev(m, translate));
+	result = m;
+	quat_rotate = quat_from_axis_angle(axis, angle);
+	result = mat4_multiply_rev(result, mat4_from_quat(quat_rotate));
+	return (result);
 }

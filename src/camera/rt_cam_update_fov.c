@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:43 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/24 00:35:10 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/26 14:17:44 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	rt_cam_update_fov(t_data *data, int delta_fov)
 {
-	int fov;
+	int	fov;
 
 	fov = (int)data->cam->fov + delta_fov;
 	if (fov < 0 || fov > 180)

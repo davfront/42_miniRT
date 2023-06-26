@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 16:49:11 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/21 13:41:29 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/26 13:54:25 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,9 @@ t_mat4	mat4_multiply(t_mat4 a, t_mat4 b)
 		i++;
 	}
 	return (result);
+}
+
+t_mat4	mat4_multiply_rev(t_mat4 a, t_mat4 b)
+{
+	return (mat4_multiply(b, a));
 }
