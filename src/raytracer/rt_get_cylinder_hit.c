@@ -6,7 +6,7 @@
 /*   By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:08:06 by atchougo          #+#    #+#             */
-/*   Updated: 2023/06/26 19:26:00 by atchougo         ###   ########.fr       */
+/*   Updated: 2023/06/26 19:57:11 by atchougo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,34 @@ static t_float	nearest_dist(t_hit a, t_hit b, int vala, int valb)
 	else
 		return (a.dist);
 }
+
+// static void	rt_get_top_and_bot(t_vec3 *top, t_vec3 *bot, t_obj *obj)
+// {
+// 	t_vec3	dis;
+
+// 	dis = vec3_scale(obj->cylinder.axis, obj->cylinder.height / 2);
+// 	*top = vec3_add(obj->cylinder.center, dis);
+// 	*bot = vec3_subtract(obj->cylinder.center, dis);
+// }
+
+// // TODO change this
+// static t_vec3	pre_compute_coef(t_vec3 v1, t_vec3 v2)
+// {
+// 	return (vec3_subtract(v1, vec3_scale(v2, vec3_dot(v1, v2))));
+// }
+
+// int	rt_get_cylinder_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit)
+// {
+// 	t_vec3	top, bot;
+// 	t_vec3	quad;
+// 	t_vec3	oc, dir, ocdir;
+
+// 	rt_get_top_and_bot(&top, &bot, obj);
+// 	oc = vec3_subtract(ray.pos, bot);
+// 	dir = pre_compute_coef(ray.dir, obj->cylinder.axis);
+// 	ocdir = pre_compute_coef(oc, obj->cylinder.axis);
+// 	quad = 
+// }
 
 int	rt_get_cylinder_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit)
 {
