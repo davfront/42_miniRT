@@ -6,13 +6,11 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:43 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/26 14:25:26 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/26 16:35:07 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-#define TILE_SIZE 4
 
 static void	rt_clear_buffer(t_data *data)
 {
