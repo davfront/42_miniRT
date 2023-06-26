@@ -6,112 +6,87 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:43 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/25 14:10:17 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/26 14:25:26 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-#define	STEP_MAX	3
+#define TILE_SIZE 4
 
 static void	rt_clear_buffer(t_data *data)
 {
 	ft_bzero(data->buf, sizeof(t_buf) * WIN_WIDTH * WIN_HEIGHT);
 }
 
-static void	rt_cast_rays(t_data *data, int step)
+static void	rt_cast_rays_to_buffer(t_data *data, int step)
 {
+	int		tx;
+	int		ty;
 	int		x;
 	int		y;
 	t_ray	ray;
-	int		tile;
 
-	if (step < 0 || step > STEP_MAX - 1)
-		step = 0;
-	tile = (int)pow(2, STEP_MAX - step);
-	x = 0;
-	while (x < WIN_WIDTH)
+	tx = 0;
+	while (tx < WIN_WIDTH / TILE_SIZE)
 	{
-		y = 0;
-		while (y < WIN_HEIGHT)
+		ty = 0;
+		while (ty < WIN_HEIGHT / TILE_SIZE)
 		{
-			if (x % tile == 0 && y % tile == 0 && !data->buf[x][y].done)
+			x = tx * TILE_SIZE + step / TILE_SIZE;
+			y = ty * TILE_SIZE + step % TILE_SIZE;
+			if (!data->buf[x][y].done)
 			{
 				ray = rt_get_view_ray(*data->cam, x, y);
 				ray.hit = rt_get_closest_hit(data, ray);
-				if (ray.hit.obj)
-				{
-					data->buf[x][y].color = rt_get_hit_color(data, ray);
-					data->buf[x][y].done = 1;
-				}
+				data->buf[x][y].color = rt_get_hit_color(data, ray);
+				data->buf[x][y].done = 1;
 			}
-			y++;
+			ty++;
 		}
-		x++;
+		tx++;
 	}
 }
 
-void	rt_draw_tile(t_data *data, int t_size, int t_idx, int t_idy)
+void	rt_draw_tile(t_data *data, int tx, int ty)
 {
 	int		x;
 	int		y;
-	t_rgb	c[2][2];
-	// t_rgb	cy[2];
-	t_rgb	cxy;
-	t_float	dx;
-	t_float	dy;
+	t_rgb	color;
 
-	c[0][0] = data->buf[t_idx * t_size][t_idy * t_size].color;
-
-	c[1][0] = data->buf[t_idx * t_size][t_idy * t_size].color;
-	if ((t_idx + 1) * t_size < WIN_WIDTH)
-		c[1][0] = data->buf[(t_idx + 1) * t_size][t_idy * t_size].color;
-
-	c[0][1] = data->buf[t_idx * t_size][t_idy * t_size].color;
-	if ((t_idy + 1) * t_size < WIN_HEIGHT)
-		c[0][1] = data->buf[t_idx * t_size][(t_idy + 1) * t_size].color;
-
-	c[1][1] = data->buf[t_idx * t_size][t_idy * t_size].color;
-	if ((t_idx + 1) * t_size < WIN_WIDTH && (t_idy + 1) * t_size < WIN_HEIGHT)
-		c[1][1] = data->buf[(t_idx + 1) * t_size][(t_idy + 1) * t_size].color;
-
-	x = t_idx * t_size;
-	while (x < (t_idx + 1) * t_size && x < WIN_WIDTH)
+	color = rgb(0, 0, 0);
+	y = ty * TILE_SIZE;
+	while (y < (ty + 1) * TILE_SIZE && y < WIN_HEIGHT)
 	{
-		dx = (t_float)x / t_size - t_idx; 
-		y = t_idy * t_size;
-		while (y < (t_idy + 1) * t_size && y < WIN_WIDTH)
+		x = tx * TILE_SIZE;
+		if (data->buf[x][y].done)
+			color = data->buf[x][y].color;
+		while (x < (tx + 1) * TILE_SIZE && x < WIN_WIDTH)
 		{
-			dy = (t_float)y / t_size - t_idy; 
-			cxy.r = (1.0 - dy) * ((1.0 - dx) * c[0][0].r + dx * c[1][0].r) + dy * ((1.0 - dx) * c[0][1].r + dx * c[1][1].r);
-			cxy.g = (1.0 - dy) * ((1.0 - dx) * c[0][0].g + dx * c[1][0].g) + dy * ((1.0 - dx) * c[0][1].g + dx * c[1][1].g);
-			cxy.b = (1.0 - dy) * ((1.0 - dx) * c[0][0].b + dx * c[1][0].b) + dy * ((1.0 - dx) * c[0][1].b + dx * c[1][1].b);
-			rt_viewer_draw_pixel(data, x, y, cxy);
-			y++;
+			if (data->buf[x][y].done)
+				color = data->buf[x][y].color;
+			rt_viewer_draw_pixel(data, x, y, color);
+			x++;
 		}
-		x++;
+		y++;
 	}
 }
 
-void	rt_draw_tiles(t_data *data, int step)
+void	rt_draw_buffer(t_data *data)
 {
-	int		x;
-	int		y;
-	int		tile_size;
+	int		tx;
+	int		ty;
 
-	if (step < 0 || step > STEP_MAX - 1)
-		step = 0;
-	tile_size = (int)pow(2, STEP_MAX - step);
-	x = 0;
-	while (x < WIN_WIDTH / tile_size)
+	tx = 0;
+	while (tx < WIN_WIDTH / TILE_SIZE)
 	{
-		y = 0;
-		while (y < WIN_HEIGHT / tile_size)
+		ty = 0;
+		while (ty < WIN_HEIGHT / TILE_SIZE)
 		{
-			rt_draw_tile(data, tile_size, x, y);
-			y++;
+			rt_draw_tile(data, tx, ty);
+			ty++;
 		}
-		x++;
+		tx++;
 	}
 }
 
@@ -122,10 +97,10 @@ void	rt_draw_frame(t_data *data)
 		data->buf_step = 0;
 		rt_clear_buffer(data);
 	}
-	if (data->buf_step <= STEP_MAX - 1)
-		rt_cast_rays(data, data->buf_step);
-	rt_draw_tiles(data, data->buf_step);
-	if (data->buf_step < STEP_MAX - 1)
+	if (data->buf_step < TILE_SIZE * TILE_SIZE)
+		rt_cast_rays_to_buffer(data, data->buf_step);
+	rt_draw_buffer(data);
+	if (data->buf_step < TILE_SIZE * TILE_SIZE - 1)
 		data->buf_step++;
 	data->ui.changed = 0;
 }
