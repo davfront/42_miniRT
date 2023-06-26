@@ -6,50 +6,100 @@
 /*   By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:08:06 by atchougo          #+#    #+#             */
-/*   Updated: 2023/06/23 19:04:39 by atchougo         ###   ########.fr       */
+/*   Updated: 2023/06/26 19:26:00 by atchougo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	rt_get_cylinder_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit)
+static	int	rt_cyl_plane_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit)
 {
 	t_float	t;
-    t_vec3	A, B;
+	t_float	denum;
+	t_float	num;
+	t_plane	plane;
+
+	if (!obj || obj->type != PLANE)
+		return (0);
+	plane = obj->plane;
+	denum = vec3_dot(ray.dir, plane.normal);
+	if (!denum)
+		return (0);
+	num = vec3_dot(vec3_subtract(plane.point, ray.pos), plane.normal);
+	t = num / denum;
+	if (!isfinite(t) || t < T_MIN || t > t_max)
+		return (0);
+	if (!hit)
+		return (1);
+	*hit = rt_hit_default();
+	hit->obj = obj;
+	hit->dist = t;
+	hit->color = plane.color;
+	hit->pos = vec3_add(ray.pos, vec3_scale(ray.dir, hit->dist));
+	hit->normal = vec3_scale(plane.normal, 1 - 2 * (denum > 0));
+	return (1);
+}
+
+static t_float	nearest_dist(t_hit a, t_hit b, int vala, int valb)
+{
+	if (!vala && !valb)
+		return (INFINITY);
+	if (!vala)
+		return (b.dist);
+	if (!valb)
+		return (a.dist);
+
+	if (a.dist > b.dist)
+		return (b.dist);
+	else
+		return (a.dist);
+}
+
+int	rt_get_cylinder_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit)
+{
+	t_float	t, tp;
+	t_vec3	A, B;
 	t_vec3	AB, AO, AOxAB, VxAB;
 	t_float	ab2, a, b, c, d;
 	t_vec3	intersection, projection;
 	t_vec3	displacement;
-	// t_hit	hit_a;
-	// t_hit	hit_b;
-	t_obj	ob_p;
-	int	val;
-
-	ob_p.type = PLANE;
+	t_hit	hit_a;
+	t_hit	hit_b;
+	t_obj	ob_pa;
+	t_obj	ob_pb;
+	int		vala;
+	int		valb;
+	int		t_e = 0;
+	
+	ob_pa.type = PLANE;
+	ob_pb.type = PLANE;
 	if (!obj || obj->type != CYLINDER)
 		return (0);
 	displacement = vec3_scale(obj->cylinder.axis, obj->cylinder.height / 2);
 	A = vec3_subtract(obj->cylinder.center, displacement);
-	ob_p.plane.point = A;
-	ob_p.plane.normal = obj->cylinder.axis;
-	ob_p.plane.color = obj->cylinder.color;
+	ob_pa.plane.point = A;
+	ob_pa.plane.normal = obj->cylinder.axis;
+	ob_pa.plane.color = obj->cylinder.color;
+	vala = rt_cyl_plane_hit(ray, &ob_pa, t_max, &hit_a);
 	B = vec3_add(obj->cylinder.center, displacement);
-	// ob_p.plane.point = B;
-	// ob_p.plane.normal = obj->cylinder.axis;
-	// ob_p.plane.color = obj->cylinder.color;
-	val = rt_get_plane_hit(ray, &ob_p, t_max, hit);
-	if (val && vec3_length(vec3_subtract(hit->pos, A)) <= obj->cylinder.radius)
-		return (1);
-	else
-	{
-		if (!hit)
-			return (1);
-		*hit = rt_hit_default();
-		return (0);
-	}
-	// rt_get_plane_hit(ray, &ob_p, t_max, &hit_b);
-	// if (hit_a.dist > hit_b.dist)
-	// 	hit_a.dist = hit_b.dist;
+	ob_pb.plane.point = B;
+	ob_pb.plane.normal = obj->cylinder.axis;
+	ob_pb.plane.color = obj->cylinder.color;
+	valb = rt_cyl_plane_hit(ray, &ob_pb, t_max, &hit_b);
+	// if (vala && vec3_length(vec3_subtract(hit->pos, A)) <= obj->cylinder.radius)
+	// 	return (1);
+	// else
+	// {
+	// 	if (!hit)
+	// 		return (1);
+	// 	*hit = rt_hit_default();
+	// 	return (0);
+	// }
+	if (valb && !(vec3_length(vec3_subtract(hit_a.pos, B)) <= obj->cylinder.radius))
+		valb = 0;
+	if (vala && !(vec3_length(vec3_subtract(hit_b.pos, A)) <= obj->cylinder.radius))
+		vala = 0;
+	tp = nearest_dist(hit_a, hit_b, vala, valb);
 	AB = vec3_subtract(B, A);
 	AO = vec3_subtract(ray.pos, A);
 	AOxAB = vec3_cross(AO, AB);
@@ -71,11 +121,25 @@ int	rt_get_cylinder_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit)
 	 	return (0);
 	if (!hit)
 		return (1);
-	*hit = rt_hit_default();
-	hit->obj = obj;
-	hit->dist = t;
-	hit->color = obj->cylinder.color;
-	hit->pos = vec3_add(ray.pos, vec3_scale(ray.dir, hit->dist));
-	hit->normal = vec3_subtract(intersection, projection);
+	if (tp < ((-b + sqrt(d)) / (2 * a)))
+		t_e = 1;
+	if (t_e)
+	{
+		if (hit_a.dist > hit_b.dist)
+			rt_cyl_plane_hit(ray, &ob_pb, t_max, hit);
+		else 
+			rt_cyl_plane_hit(ray, &ob_pa, t_max, hit);
+		// if (!rt_cyl_plane_hit(ray, &ob_pa, t_max, hit))
+		// 	rt_cyl_plane_hit(ray, &ob_pb, t_max, hit);
+	}
+	else
+	{
+		*hit = rt_hit_default();
+		hit->obj = obj;
+		hit->dist = t;
+		hit->color = obj->cylinder.color;
+		hit->pos = vec3_add(ray.pos, vec3_scale(ray.dir, hit->dist));
+		hit->normal = vec3_subtract(intersection, projection);	
+	}
 	return (1);
 }
