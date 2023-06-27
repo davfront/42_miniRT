@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_viewer_render_frame.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:43 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/21 22:25:28 by atchougo         ###   ########.fr       */
+/*   Updated: 2023/06/27 16:13:55 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int	rt_viewer_render_frame(t_data *data)
 {
-	struct timeval	start_time;
-	struct timeval	end_time;
+	struct timeval	start;
+	struct timeval	end;
 
-	gettimeofday(&start_time, NULL);
+	gettimeofday(&start, NULL);
 	data->img.img = mlx_new_image(data->mlx, WIN_WIDTH, WIN_HEIGHT);
 	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bpp, \
 		&data->img.len, &data->img.endian);
@@ -25,7 +25,8 @@ int	rt_viewer_render_frame(t_data *data)
 	mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
 	mlx_destroy_image(data->mlx, data->img.img);
 	data->img.img = NULL;
-	gettimeofday(&end_time, NULL);
-	rt_print_fps(start_time, end_time);
+	gettimeofday(&end, NULL);
+	rt_help(data);
+	rt_set_fps(data, start, end);
 	return (0);
 }

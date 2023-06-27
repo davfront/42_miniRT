@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/26 22:08:55 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/27 16:33:11 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,16 @@
 # define THREAD_NB		4
 # define TILE_SIZE		4
 
+# define HELP_OFFSET_Y	(20)
+# define HELP_VALUE_X	(160)
+# define HELP_WIDTH		(250)
+
+# define BLACK		(0x00000000)
+# define WHITE		(0x00FFFFFF)
+# define RED		(0x00FF0000)
+# define GREEN		(0x0000FF00)
+# define BLUE		(0x000000FF)
+
 typedef struct s_hit {
 	t_obj	*obj;
 	t_rgb	color;
@@ -71,6 +81,7 @@ typedef struct s_ui {
 	int	mouse_dy;
 	int	mouse_left_btn;
 	int	mouse_right_btn;
+	int	help;
 }				t_ui;
 
 typedef struct s_buf {
@@ -78,9 +89,9 @@ typedef struct s_buf {
 	t_rgb	color;
 }				t_buf;
 
-typedef struct s_data t_data;
+typedef struct s_data	t_data;
 
-typedef struct	s_thread {
+typedef struct s_thread {
 	int			id;
 	pthread_t	thread;
 	t_data		*data;
@@ -104,6 +115,7 @@ typedef struct s_data {
 	t_buf		buf[WIN_WIDTH][WIN_HEIGHT];
 	int			buf_step;
 	t_thread	thread[THREAD_NB];
+	t_float		fps;
 }				t_data;
 
 // utils
@@ -112,7 +124,8 @@ void	rt_error(char *msg);
 void	rt_exit(t_data *data);
 void	rt_error_exit(t_data *data, char *msg);
 int		rt_strs_len(char **strs);
-void	rt_print_fps(struct	timeval start_time, struct	timeval end_time);
+void	rt_set_fps(t_data *data, struct timeval start, struct timeval end);
+char	*rt_ftoa(float f, int precision);
 
 // parse
 int		rt_parse_uint(char *s, unsigned int *n);
@@ -148,6 +161,14 @@ int		rt_viewer_on_keydown(int keycode, t_data *data);
 int		rt_viewer_on_keyup(int keycode, t_data *data);
 void	rt_viewer_draw_pixel(t_data *data, int x, int y, t_rgb color);
 void	rt_viewer_thread_handler(t_data *data);
+
+// help
+void	rt_help_label(t_data *data, int line, char *label);
+void	rt_help_value(t_data *data, int line, char *value, int color);
+void	rt_help_value_f(t_data *data, int line, float f, int color);
+void	rt_help_value_perc(t_data *data, int line, float f, int color);
+void	rt_help_info(t_data *data, int line, char *label, char *value);
+void	rt_help(t_data *data);
 
 // raytracer
 t_ray	rt_get_view_ray(t_cam cam, int x, int y);

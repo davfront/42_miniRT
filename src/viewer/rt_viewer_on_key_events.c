@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:43 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/26 11:25:17 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/26 22:31:53 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	rt_viewer_on_keydown(int keycode, t_data *data)
 		rt_cam_update_fov(data, -1);
 	if (keycode == KEY_PLUS || keycode == KEY_MINUS)
 		data->ui.changed = 1;
+	if (keycode == KEY_H)
+		data->ui.help = 1 - data->ui.help;
 	return (0);
 }
 

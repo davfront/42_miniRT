@@ -6,7 +6,7 @@
 #    By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 16:34:41 by dapereir          #+#    #+#              #
-#    Updated: 2023/06/26 16:28:35 by dapereir         ###   ########.fr        #
+#    Updated: 2023/06/27 16:07:57 by dapereir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,8 @@ SRCS_FILES			=	\
 						utils/rt_exit.c\
 						utils/rt_error_exit.c\
 						utils/rt_strs_len.c\
-						utils/rt_print_fps.c \
+						utils/rt_set_fps.c \
+						utils/rt_ftoa.c \
 						\
 						parse/rt_parse_uint.c\
 						parse/rt_parse_rgb.c\
@@ -88,6 +89,9 @@ SRCS_FILES			=	\
 						viewer/rt_viewer_render_frame.c\
 						viewer/rt_viewer_draw_pixel.c\
 						viewer/rt_viewer_thread_handler.c\
+						\
+						help/rt_help_utils.c\
+						help/rt_help.c\
 						\
 						raytracer/rt_get_view_ray.c\
 						raytracer/rt_draw_frame.c\
