@@ -6,37 +6,11 @@
 /*   By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:08:06 by atchougo          #+#    #+#             */
-/*   Updated: 2023/06/28 12:20:57 by atchougo         ###   ########.fr       */
+/*   Updated: 2023/06/28 18:24:56 by atchougo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-// static	int	rt_cyl_plane_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit)
-// {
-// 	t_float	t;
-// 	t_float	denum;
-// 	t_float	num;
-// 	t_plane	plane;
-
-// 	if (!obj || obj->type != PLANE)
-// 		return (0);
-// 	plane = obj->plane;
-// 	denum = vec3_dot(ray.dir, plane.normal);
-// 	if (!denum)
-// 		return (0);
-// 	num = vec3_dot(vec3_subtract(plane.point, ray.pos), plane.normal);
-// 	t = num / denum;
-// 	if (!isfinite(t) || t < T_MIN || t > t_max)
-// 		return (0);
-// 	*hit = rt_hit_default();
-// 	hit->obj = obj;
-// 	hit->dist = t;
-// 	hit->color = plane.color;
-// 	hit->pos = vec3_add(ray.pos, vec3_scale(ray.dir, hit->dist));
-// 	hit->normal = vec3_scale(plane.normal, 1 - 2 * (denum > 0));
-// 	return (1);
-// }
 
 static t_float	nearest_dist(t_hit a, t_hit b, int vala, int valb)
 {
@@ -46,7 +20,6 @@ static t_float	nearest_dist(t_hit a, t_hit b, int vala, int valb)
 		return (b.dist);
 	if (!valb)
 		return (a.dist);
-
 	if (a.dist > b.dist)
 		return (b.dist);
 	else
@@ -162,7 +135,7 @@ int	rt_get_cylinder_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit)
 		hit->dist = t1;
 		hit->color = obj->cylinder.color;
 		hit->pos = vec3_add(ray.pos, vec3_scale(ray.dir, hit->dist));
-		hit->normal = vec3_subtract(intersection, projection);	
+		hit->normal = vec3_scale(vec3_subtract(intersection, projection), 1 / obj->cylinder.radius);	
 	}
 	return (1);
 }
