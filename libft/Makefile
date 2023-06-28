@@ -6,7 +6,7 @@
 #    By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/10 11:45:20 by dapereir          #+#    #+#              #
-#    Updated: 2023/06/28 18:33:31 by atchougo         ###   ########.fr        #
+#    Updated: 2023/06/28 18:58:35 by atchougo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -124,7 +124,7 @@ HEADER_DIR			=	./include
 HEADER				=	$(HEADER_DIR)/libft.h
 HEADER_INC			=	-I $(HEADER_DIR)
 
-$(OBJS_DIR)/%.o:	$(SRCS_DIR)/%.c Makefile $(HEADER)
+$(OBJS_DIR)/%.o:	$(SRCS_DIR)/%.c $(HEADER)
 					@mkdir -p $(@D)
 					@$(ECHO) "$(GREEN)[create]$(EOC) $@"
 					@$(CC) $(CFLAGS) $(HEADER_INC) -c $< -o $@
