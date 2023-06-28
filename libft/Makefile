@@ -6,7 +6,7 @@
 #    By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/10 11:45:20 by dapereir          #+#    #+#              #
-#    Updated: 2023/06/28 14:00:53 by atchougo         ###   ########.fr        #
+#    Updated: 2023/06/28 18:33:31 by atchougo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,9 +29,9 @@ EOC					=	\033[0m
 # COMMANDS
 
 CC					=	cc
-CFLAGS				=	-Wall -Wextra -Werror
+CFLAGS				=	-Wall -Wextra -Werror -MD
 AR					=	ar rcs
-RM					=	rm -f
+RM					=	rm -rf
 
 SILENTFLAG			= 	$(if $(filter s, $(MAKEFLAGS)),1,0)
 ifeq ($(SILENTFLAG),1)
@@ -117,6 +117,8 @@ SRCS_FILES			=	char/ft_isalpha.c\
 SRCS				=	$(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 OBJS_FILES			=	$(SRCS_FILES:.c=.o)
 OBJS				=	$(addprefix $(OBJS_DIR)/, $(OBJS_FILES))
+DEPS_FILES			=	$(SRCS_FILES:.c=.d)
+DEPS				=	$(addprefix $(OBJS_DIR)/,$(DEPS_FILES))
 
 HEADER_DIR			=	./include
 HEADER				=	$(HEADER_DIR)/libft.h
@@ -137,7 +139,7 @@ $(NAME):			$(OBJS)
 .PHONY: clean
 clean:
 					@$(ECHO) "$(RED)[delete]$(EOC) $(OBJS_DIR)"
-					@$(RM) $(OBJS)
+					@$(RM) $(OBJS_DIR)
 
 .PHONY: fclean
 fclean:				clean
@@ -148,3 +150,5 @@ fclean:				clean
 .PHONY: re
 re:					fclean
 					@$(MAKE) --no-print-directory all
+
+-include $(DEPS)

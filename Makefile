@@ -6,7 +6,7 @@
 #    By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 16:34:41 by dapereir          #+#    #+#              #
-#    Updated: 2023/06/28 14:06:13 by atchougo         ###   ########.fr        #
+#    Updated: 2023/06/28 18:42:34 by atchougo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ YELLOW				=	\033[0;33m
 YELLOW_BOLD			=	\033[1;33m
 CYAN				=	\033[0;36m
 CYAN_BOLD			=	\033[1;36m
+PURPLE				=	\033[1;35m
 ERASE				=	\033[2K\033[1A\r
 
 NAME				=	miniRT
@@ -26,6 +27,7 @@ NAME				=	miniRT
 CC					=	cc
 CFLAGS				=	-Wall -Wextra -Werror -pthread -MD -g3
 RM					=	rm -rf
+NO_PRINT_DIR		=	--no-print-directory
 
 SRCS_FILES			=	\
 						color/rgb.c\
@@ -120,7 +122,7 @@ FT_INC				=	-I $(FT_DIR)/include
 FT_FLAGS			=	-L $(FT_DIR) -l ft
 
 .PHONY: all
-all:				$(NAME)
+all:				libft mlx $(NAME)
 
 $(OBJS_DIR)/%.o:	$(SRCS_DIR)/%.c $(MLX) $(FT)
 					@mkdir -p $(@D)	
@@ -130,30 +132,33 @@ $(OBJS_DIR)/%.o:	$(SRCS_DIR)/%.c $(MLX) $(FT)
 $(NAME):			$(OBJS) $(MLX) $(FT)
 					@printf "$(YELLOW)[Linking]  $(RESET) %s\n" $@
 					@$(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) $(FT_FLAGS) -o $(NAME)
-					@echo "$(GREEN_BOLD)miniRT is ready$(RESET)"
+					@echo "$(GREEN_BOLD)✓ miniRT is ready!$(RESET)"
 
-$(MLX):
+.PHONY: mlx
+mlx:
 					@echo "$(PURPLE)[Making]    MLX $(RESET)"
-					@$(MAKE) -C $(MLX_DIR)
+					@$(MAKE) $(NO_PRINT_DIR) -C $(MLX_DIR) > /dev/null 2>&1
 
-$(FT):
+.PHONY: libft
+libft:
 					@echo "$(PURPLE)[Making]    Libft $(RESET)"
-					@$(MAKE) -C $(FT_DIR)
+					@$(MAKE) $(NO_PRINT_DIR) -C $(FT_DIR) | sed "s/^make\[[0-9]\]: //;s/^/\x1b[36m[libft]\x1b[0m /"
 
 .PHONY: clean
 clean:
 					@echo "$(RED_BOLD)[Cleaning]$(RESET)"
 					@$(RM) $(OBJS_DIR)
-					@$(MAKE) -C $(FT_DIR) clean
+					@$(MAKE) $(NO_PRINT_DIR) -C $(FT_DIR) clean
 
 .PHONY: fclean
 fclean:				clean
 					@$(RM) $(NAME)
-					@$(MAKE) -C $(MLX_DIR) clean
-					@$(MAKE) -C $(FT_DIR) fclean
+					@$(MAKE) $(NO_PRINT_DIR) -C $(MLX_DIR) clean > /dev/null 2>&1
+					@$(MAKE) $(NO_PRINT_DIR) -C $(FT_DIR) fclean
+					@echo "$(RED_BOLD)✓ project is fully cleaned!$(RESET)"
 
 .PHONY: re
 re:					fclean
-					@$(MAKE) all
+					@$(MAKE) $(NO_PRINT_DIR) all
 
 -include $(DEPS)
