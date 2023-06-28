@@ -1,28 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_viewer_start.c                                  :+:      :+:    :+:   */
+/*   mat4_multiply.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/22 21:03:41 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/26 16:30:24 by dapereir         ###   ########.fr       */
+/*   Created: 2022/12/23 16:49:11 by dapereir          #+#    #+#             */
+/*   Updated: 2023/06/26 13:54:25 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "vec3.h"
 
-void	rt_viewer_start(t_data *data)
+t_mat4	mat4_multiply(t_mat4 a, t_mat4 b)
 {
-	data->mlx = mlx_init();
-	if (!data->mlx)
+	t_mat4	result;
+	int		i;
+	int		j;
+
+	i = 0;
+	while (i < 4)
 	{
-		rt_delete(data);
-		rt_error_exit(data, "Minilibx initialization failed");
+		j = 0;
+		while (j < 4)
+		{
+			result.m[i][j]
+				= a.m[i][0] * b.m[0][j]
+				+ a.m[i][1] * b.m[1][j]
+				+ a.m[i][2] * b.m[2][j]
+				+ a.m[i][3] * b.m[3][j];
+			j++;
+		}
+		i++;
 	}
-	data->win = mlx_new_window(data->mlx, WIN_WIDTH, WIN_HEIGHT, data->title);
-	ft_printf("[%s] File opened\n", data->title);
-	rt_viewer_hooks(data);
-	mlx_loop_hook(data->mlx, rt_viewer_render_frame, data);
-	mlx_loop(data->mlx);
+	return (result);
+}
+
+t_mat4	mat4_multiply_rev(t_mat4 a, t_mat4 b)
+{
+	return (mat4_multiply(b, a));
 }

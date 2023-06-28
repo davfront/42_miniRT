@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_print_fps.c                                     :+:      :+:    :+:   */
+/*   rt_set_fps.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 22:19:26 by atchougo          #+#    #+#             */
-/*   Updated: 2023/06/23 14:57:06 by atchougo         ###   ########.fr       */
+/*   Updated: 2023/06/27 16:14:14 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	rt_print_fps(struct	timeval start_time, struct	timeval end_time)
+void	rt_set_fps(t_data *data, struct timeval start, struct timeval end)
 {
-	t_float	delta_time;
+	t_float	delta;
 
-	delta_time = (end_time.tv_sec - start_time.tv_sec) + \
-				(end_time.tv_usec - start_time.tv_usec) / 1000000.0;
-	printf("\033[0;33m");
-	printf("fps : %f\n", 1 / delta_time);
-	printf("\033M\033[2K\033[0m");
+	delta = (end.tv_sec - start.tv_sec) + \
+				(end.tv_usec - start.tv_usec) / 1000000.0;
+	if (data)
+		data->fps = 1.0 / delta;
 }

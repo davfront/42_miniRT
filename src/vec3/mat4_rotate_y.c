@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_viewer_start.c                                  :+:      :+:    :+:   */
+/*   mat4_rotate_y.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/22 21:03:41 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/26 16:30:24 by dapereir         ###   ########.fr       */
+/*   Created: 2022/12/23 16:49:11 by dapereir          #+#    #+#             */
+/*   Updated: 2023/06/26 10:58:58 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "vec3.h"
 
-void	rt_viewer_start(t_data *data)
+t_mat4	mat4_rotate_y(t_mat4 m, t_float a)
 {
-	data->mlx = mlx_init();
-	if (!data->mlx)
-	{
-		rt_delete(data);
-		rt_error_exit(data, "Minilibx initialization failed");
-	}
-	data->win = mlx_new_window(data->mlx, WIN_WIDTH, WIN_HEIGHT, data->title);
-	ft_printf("[%s] File opened\n", data->title);
-	rt_viewer_hooks(data);
-	mlx_loop_hook(data->mlx, rt_viewer_render_frame, data);
-	mlx_loop(data->mlx);
+	t_float	cos_a;
+	t_float	sin_a;
+	t_mat4	rotate;
+
+	cos_a = cos(a);
+	sin_a = sin(a);
+	rotate = mat4_identity();
+	rotate.m[0][0] = cos_a;
+	rotate.m[0][2] = sin_a;
+	rotate.m[2][0] = -sin_a;
+	rotate.m[2][2] = cos_a;
+	return (mat4_multiply_rev(m, rotate));
 }
