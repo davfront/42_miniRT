@@ -6,7 +6,7 @@
 #    By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/10 11:45:20 by dapereir          #+#    #+#              #
-#    Updated: 2023/06/28 18:58:35 by atchougo         ###   ########.fr        #
+#    Updated: 2023/06/28 19:05:48 by atchougo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ EOC					=	\033[0m
 # COMMANDS
 
 CC					=	cc
-CFLAGS				=	-Wall -Wextra -Werror -MD
+CFLAGS				=	-Wall -Wextra -Werror -MD -O3
 AR					=	ar rcs
 RM					=	rm -rf
 

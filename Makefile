@@ -6,7 +6,7 @@
 #    By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 16:34:41 by dapereir          #+#    #+#              #
-#    Updated: 2023/06/28 18:42:34 by atchougo         ###   ########.fr        #
+#    Updated: 2023/06/28 19:05:40 by atchougo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ ERASE				=	\033[2K\033[1A\r
 NAME				=	miniRT
 
 CC					=	cc
-CFLAGS				=	-Wall -Wextra -Werror -pthread -MD -g3
+CFLAGS				=	-Wall -Wextra -Werror -MD -O3 -pthread
 RM					=	rm -rf
 NO_PRINT_DIR		=	--no-print-directory
 
