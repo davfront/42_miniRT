@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_viewer_draw_pixel.c                             :+:      :+:    :+:   */
+/*   rt_cam_update_fov.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/14 16:35:34 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/27 13:09:12 by dapereir         ###   ########.fr       */
+/*   Created: 2022/12/14 16:35:43 by dapereir          #+#    #+#             */
+/*   Updated: 2023/06/26 14:17:44 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	rt_viewer_draw_pixel(t_data *data, int x, int y, t_rgb color)
+void	rt_cam_update_fov(t_data *data, int delta_fov)
 {
-	char	*dst;
-	int		color_int;
+	int	fov;
 
-	if (x < 0 || x > WIN_WIDTH - 1)
+	fov = (int)data->cam->fov + delta_fov;
+	if (fov < 0 || fov > 180)
 		return ;
-	if (y < 0 || y > WIN_HEIGHT - 1)
-		return ;
-	if (data->ui.help && x < HELP_WIDTH)
-		color = rgb_mix(color, rgb(0, 0, 0), 0.75);
-	color_int = rgb_to_int(color);
-	dst = data->img.addr;
-	dst += y * data->img.len;
-	dst += x * (data->img.bpp / 8);
-	*(unsigned int *)dst = color_int;
+	data->cam->fov = (unsigned int)fov;
+	data->cam->proj = rt_cam_projection(data->cam->fov);
 }

@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_viewer_draw_pixel.c                             :+:      :+:    :+:   */
+/*   rt_cam_to_world_translate.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/14 16:35:34 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/27 13:09:12 by dapereir         ###   ########.fr       */
+/*   Created: 2023/06/23 15:32:02 by dapereir          #+#    #+#             */
+/*   Updated: 2023/06/26 12:12:26 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	rt_viewer_draw_pixel(t_data *data, int x, int y, t_rgb color)
+t_mat4	rt_cam_to_world_translate(t_mat4 c2w, t_vec3 d, t_float sensitivity)
 {
-	char	*dst;
-	int		color_int;
+	t_mat4	result;
+	t_mat4	translation;
+	t_vec3	v;
 
-	if (x < 0 || x > WIN_WIDTH - 1)
-		return ;
-	if (y < 0 || y > WIN_HEIGHT - 1)
-		return ;
-	if (data->ui.help && x < HELP_WIDTH)
-		color = rgb_mix(color, rgb(0, 0, 0), 0.75);
-	color_int = rgb_to_int(color);
-	dst = data->img.addr;
-	dst += y * data->img.len;
-	dst += x * (data->img.bpp / 8);
-	*(unsigned int *)dst = color_int;
+	result = c2w;
+	v = vec3_scale(d, -sensitivity);
+	translation = mat4_translate(mat4_identity(), v);
+	result = mat4_multiply_rev(translation, result);
+	return (result);
 }

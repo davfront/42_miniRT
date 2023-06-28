@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_viewer_start.c                                  :+:      :+:    :+:   */
+/*   mat4_translate.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/22 21:03:41 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/26 16:30:24 by dapereir         ###   ########.fr       */
+/*   Created: 2022/12/23 16:49:11 by dapereir          #+#    #+#             */
+/*   Updated: 2023/06/26 10:58:30 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "vec3.h"
 
-void	rt_viewer_start(t_data *data)
+t_mat4	mat4_translate(t_mat4 m, t_vec3 v)
 {
-	data->mlx = mlx_init();
-	if (!data->mlx)
-	{
-		rt_delete(data);
-		rt_error_exit(data, "Minilibx initialization failed");
-	}
-	data->win = mlx_new_window(data->mlx, WIN_WIDTH, WIN_HEIGHT, data->title);
-	ft_printf("[%s] File opened\n", data->title);
-	rt_viewer_hooks(data);
-	mlx_loop_hook(data->mlx, rt_viewer_render_frame, data);
-	mlx_loop(data->mlx);
+	t_mat4	translate;
+
+	translate = mat4_identity();
+	translate.m[0][3] += v.x;
+	translate.m[1][3] += v.y;
+	translate.m[2][3] += v.z;
+	return (mat4_multiply_rev(m, translate));
 }

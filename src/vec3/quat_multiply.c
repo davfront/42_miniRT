@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_viewer_start.c                                  :+:      :+:    :+:   */
+/*   quat_multiply.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/22 21:03:41 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/26 16:30:24 by dapereir         ###   ########.fr       */
+/*   Created: 2023/06/06 16:44:15 by dapereir          #+#    #+#             */
+/*   Updated: 2023/06/23 10:39:08 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "vec3.h"
 
-void	rt_viewer_start(t_data *data)
+t_quat	quat_multiply(t_quat a, t_quat b)
 {
-	data->mlx = mlx_init();
-	if (!data->mlx)
-	{
-		rt_delete(data);
-		rt_error_exit(data, "Minilibx initialization failed");
-	}
-	data->win = mlx_new_window(data->mlx, WIN_WIDTH, WIN_HEIGHT, data->title);
-	ft_printf("[%s] File opened\n", data->title);
-	rt_viewer_hooks(data);
-	mlx_loop_hook(data->mlx, rt_viewer_render_frame, data);
-	mlx_loop(data->mlx);
+	t_quat	result;
+
+	result.w = a.w * b.w - a.x * b.x - a.y * b.y - a.z * b.z;
+	result.x = a.w * b.x + a.x * b.w + a.y * b.z - a.z * b.y;
+	result.y = a.w * b.y - a.x * b.z + a.y * b.w + a.z * b.x;
+	result.z = a.w * b.z + a.x * b.y - a.y * b.x + a.z * b.w;
+	return (result);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/21 22:21:24 by atchougo         ###   ########.fr       */
+/*   Updated: 2023/06/27 16:33:11 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,19 @@
 # define PHONG_SPECULAR_WEIGHT		(0.4)
 # define PHONG_SPECULAR_EXPONENT	(50)
 
-# define ENABLE_THREAD	1
+# define ENABLE_THREAD	0
 # define THREAD_NB		4
+# define TILE_SIZE		4
+
+# define HELP_OFFSET_Y	(20)
+# define HELP_VALUE_X	(160)
+# define HELP_WIDTH		(250)
+
+# define BLACK		(0x00000000)
+# define WHITE		(0x00FFFFFF)
+# define RED		(0x00FF0000)
+# define GREEN		(0x0000FF00)
+# define BLUE		(0x000000FF)
 
 typedef struct s_hit {
 	t_obj	*obj;
@@ -62,29 +73,49 @@ typedef struct s_img {
 	int		endian;
 }				t_img;
 
-typedef struct s_data t_data;
+typedef struct s_ui {
+	int	changed;
+	int	mouse_x0;
+	int	mouse_y0;
+	int	mouse_dx;
+	int	mouse_dy;
+	int	mouse_left_btn;
+	int	mouse_right_btn;
+	int	help;
+}				t_ui;
 
-typedef struct	s_thread {
+typedef struct s_buf {
+	int		done;
+	t_rgb	color;
+}				t_buf;
+
+typedef struct s_data	t_data;
+
+typedef struct s_thread {
 	int			id;
 	pthread_t	thread;
 	t_data		*data;
 }				t_thread;
 
 typedef struct s_data {
-	char			*path;
-	char			*title;
-	int				fd;
-	char			*line;
-	size_t			line_index;
-	char			**strs;
-	void			*mlx;
-	void			*win;
-	t_img			img;
-	t_al			*al;
-	t_cam			*cam;
-	t_list			*light_lst;
-	t_list			*obj_lst;
-	t_thread		thread[THREAD_NB];
+	char		*path;
+	char		*title;
+	int			fd;
+	char		*line;
+	size_t		line_index;
+	char		**strs;
+	void		*mlx;
+	void		*win;
+	t_img		img;
+	t_ui		ui;
+	t_al		*al;
+	t_cam		*cam;
+	t_list		*light_lst;
+	t_list		*obj_lst;
+	t_buf		buf[WIN_WIDTH][WIN_HEIGHT];
+	int			buf_step;
+	t_thread	thread[THREAD_NB];
+	t_float		fps;
 }				t_data;
 
 // utils
@@ -93,7 +124,8 @@ void	rt_error(char *msg);
 void	rt_exit(t_data *data);
 void	rt_error_exit(t_data *data, char *msg);
 int		rt_strs_len(char **strs);
-void	rt_print_fps(struct	timeval start_time, struct	timeval end_time);
+void	rt_set_fps(t_data *data, struct timeval start, struct timeval end);
+char	*rt_ftoa(float f, int precision);
 
 // parse
 int		rt_parse_uint(char *s, unsigned int *n);
@@ -122,8 +154,21 @@ int		rt_viewer_render_frame(t_data *data);
 void	rt_viewer_destroy(t_data *data);
 void	rt_viewer_hooks(t_data *data);
 int		rt_viewer_on_close(t_data *data);
+int		rt_viewer_on_mouse_down(int button, int x, int y, t_data *data);
+int		rt_viewer_on_mouse_up(int button, int x, int y, t_data *data);
+int		rt_viewer_on_mouse_move(int x, int y, t_data *data);
+int		rt_viewer_on_keydown(int keycode, t_data *data);
+int		rt_viewer_on_keyup(int keycode, t_data *data);
 void	rt_viewer_draw_pixel(t_data *data, int x, int y, t_rgb color);
 void	rt_viewer_thread_handler(t_data *data);
+
+// help
+void	rt_help_label(t_data *data, int line, char *label);
+void	rt_help_value(t_data *data, int line, char *value, int color);
+void	rt_help_value_f(t_data *data, int line, float f, int color);
+void	rt_help_value_perc(t_data *data, int line, float f, int color);
+void	rt_help_info(t_data *data, int line, char *label, char *value);
+void	rt_help(t_data *data);
 
 // raytracer
 t_ray	rt_get_view_ray(t_cam cam, int x, int y);
@@ -136,4 +181,16 @@ int		rt_get_obj_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit);
 t_hit	rt_get_closest_hit(t_data *data, t_ray ray);
 t_rgb	rt_get_hit_color(t_data *data, t_ray ray);
 
+// camera
+t_vec3	rt_cam_right(t_mat4 c2w);
+t_vec3	rt_cam_top(t_mat4 c2w);
+t_vec3	rt_cam_forward(t_mat4 c2w);
+t_vec3	rt_cam_dir(t_mat4 c2w);
+t_vec3	rt_cam_pos(t_mat4 c2w);
+t_mat4	rt_cam_to_world(t_vec3 cam_pos, t_vec3 cam_dir);
+t_mat4	rt_cam_to_world_translate(t_mat4 c2w, t_vec3 d, t_float sensitivity);
+t_mat4	rt_cam_to_world_rotate(t_mat4 c2w, t_float dx, t_float dy, \
+	t_float sensitivity);
+t_mat4	rt_cam_projection(unsigned int fov);
+void	rt_cam_update_fov(t_data *data, int delta_fov);
 #endif

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 16:34:41 by dapereir          #+#    #+#              #
-#    Updated: 2023/06/21 22:21:45 by atchougo         ###   ########.fr        #
+#    Updated: 2023/06/27 16:07:57 by dapereir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,13 +39,30 @@ SRCS_FILES			=	\
 						vec3/vec3_length.c\
 						vec3/vec3_length_squared.c\
 						vec3/vec3_equals.c\
+						vec3/quat.c\
+						vec3/quat_from_vec3.c\
+						vec3/quat_multiply.c\
+						vec3/quat_from_axis_angle.c\
+						vec3/mat4_zero.c\
+						vec3/mat4_identity.c\
+						vec3/mat4_translate.c\
+						vec3/mat4_scale.c\
+						vec3/mat4_rotate_x.c\
+						vec3/mat4_rotate_y.c\
+						vec3/mat4_rotate_z.c\
+						vec3/mat4_rotate_axis.c\
+						vec3/mat4_multiply.c\
+						vec3/mat4_from_quat.c\
+						vec3/mat4_multiply_vec3.c\
+						vec3/mat4_multiply_axis.c\
 						\
 						utils/rt_delete.c\
 						utils/rt_error.c\
 						utils/rt_exit.c\
 						utils/rt_error_exit.c\
 						utils/rt_strs_len.c\
-						utils/rt_print_fps.c \
+						utils/rt_set_fps.c \
+						utils/rt_ftoa.c \
 						\
 						parse/rt_parse_uint.c\
 						parse/rt_parse_rgb.c\
@@ -67,9 +84,14 @@ SRCS_FILES			=	\
 						viewer/rt_viewer_destroy.c\
 						viewer/rt_viewer_hooks.c\
 						viewer/rt_viewer_on_close.c\
+						viewer/rt_viewer_on_mouse_events.c\
+						viewer/rt_viewer_on_key_events.c\
 						viewer/rt_viewer_render_frame.c\
 						viewer/rt_viewer_draw_pixel.c\
 						viewer/rt_viewer_thread_handler.c\
+						\
+						help/rt_help_utils.c\
+						help/rt_help.c\
 						\
 						raytracer/rt_get_view_ray.c\
 						raytracer/rt_draw_frame.c\
@@ -80,6 +102,13 @@ SRCS_FILES			=	\
 						raytracer/rt_get_obj_hit.c\
 						raytracer/rt_get_closest_hit.c\
 						raytracer/rt_get_hit_color.c\
+						\
+						camera/rt_cam_utils.c\
+						camera/rt_cam_to_world.c\
+						camera/rt_cam_to_world_translate.c\
+						camera/rt_cam_to_world_rotate.c\
+						camera/rt_cam_projection.c\
+						camera/rt_cam_update_fov.c\
 						\
 						main.c\
 

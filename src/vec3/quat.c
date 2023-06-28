@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_viewer_start.c                                  :+:      :+:    :+:   */
+/*   quat.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/22 21:03:41 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/26 16:30:24 by dapereir         ###   ########.fr       */
+/*   Created: 2023/06/06 16:44:12 by dapereir          #+#    #+#             */
+/*   Updated: 2023/06/23 10:20:53 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "vec3.h"
 
-void	rt_viewer_start(t_data *data)
+t_quat	quat(t_float w, t_float x, t_float y, t_float z)
 {
-	data->mlx = mlx_init();
-	if (!data->mlx)
-	{
-		rt_delete(data);
-		rt_error_exit(data, "Minilibx initialization failed");
-	}
-	data->win = mlx_new_window(data->mlx, WIN_WIDTH, WIN_HEIGHT, data->title);
-	ft_printf("[%s] File opened\n", data->title);
-	rt_viewer_hooks(data);
-	mlx_loop_hook(data->mlx, rt_viewer_render_frame, data);
-	mlx_loop(data->mlx);
+	t_quat	result;
+
+	result.w = w;
+	result.x = x;
+	result.y = y;
+	result.z = z;
+	return (result);
 }

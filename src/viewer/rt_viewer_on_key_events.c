@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_viewer_render_frame.c                           :+:      :+:    :+:   */
+/*   rt_viewer_on_key_events.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:43 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/27 16:13:55 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/26 22:31:53 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	rt_viewer_render_frame(t_data *data)
+int	rt_viewer_on_keydown(int keycode, t_data *data)
 {
-	struct timeval	start;
-	struct timeval	end;
+	if (keycode == KEY_ESC)
+		rt_viewer_on_close(data);
+	if (keycode == KEY_PLUS)
+		rt_cam_update_fov(data, 1);
+	if (keycode == KEY_MINUS)
+		rt_cam_update_fov(data, -1);
+	if (keycode == KEY_PLUS || keycode == KEY_MINUS)
+		data->ui.changed = 1;
+	if (keycode == KEY_H)
+		data->ui.help = 1 - data->ui.help;
+	return (0);
+}
 
-	gettimeofday(&start, NULL);
-	data->img.img = mlx_new_image(data->mlx, WIN_WIDTH, WIN_HEIGHT);
-	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bpp, \
-		&data->img.len, &data->img.endian);
-	rt_viewer_thread_handler(data);
-	mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
-	mlx_destroy_image(data->mlx, data->img.img);
-	data->img.img = NULL;
-	gettimeofday(&end, NULL);
-	rt_help(data);
-	rt_set_fps(data, start, end);
+int	rt_viewer_on_keyup(int keycode, t_data *data)
+{
+	(void)keycode;
+	(void)data;
 	return (0);
 }

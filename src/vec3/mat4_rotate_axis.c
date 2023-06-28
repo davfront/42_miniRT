@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_viewer_start.c                                  :+:      :+:    :+:   */
+/*   mat4_rotate_axis.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/22 21:03:41 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/26 16:30:24 by dapereir         ###   ########.fr       */
+/*   Created: 2023/06/26 13:46:45 by dapereir          #+#    #+#             */
+/*   Updated: 2023/06/26 14:16:05 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "vec3.h"
 
-void	rt_viewer_start(t_data *data)
+t_mat4	mat4_rotate_axis(t_mat4 m, t_vec3 axis, float_t angle)
 {
-	data->mlx = mlx_init();
-	if (!data->mlx)
-	{
-		rt_delete(data);
-		rt_error_exit(data, "Minilibx initialization failed");
-	}
-	data->win = mlx_new_window(data->mlx, WIN_WIDTH, WIN_HEIGHT, data->title);
-	ft_printf("[%s] File opened\n", data->title);
-	rt_viewer_hooks(data);
-	mlx_loop_hook(data->mlx, rt_viewer_render_frame, data);
-	mlx_loop(data->mlx);
+	t_mat4	result;
+	t_quat	quat_rotate;
+
+	result = m;
+	quat_rotate = quat_from_axis_angle(axis, angle);
+	result = mat4_multiply_rev(result, mat4_from_quat(quat_rotate));
+	return (result);
 }

@@ -1,31 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_viewer_draw_pixel.c                             :+:      :+:    :+:   */
+/*   rt_cam_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/14 16:35:34 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/27 13:09:12 by dapereir         ###   ########.fr       */
+/*   Created: 2023/06/23 15:32:02 by dapereir          #+#    #+#             */
+/*   Updated: 2023/06/23 16:17:53 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	rt_viewer_draw_pixel(t_data *data, int x, int y, t_rgb color)
+t_vec3	rt_cam_right(t_mat4 c2w)
 {
-	char	*dst;
-	int		color_int;
+	return (mat4_multiply_axis(c2w, vec3(1, 0, 0)));
+}
 
-	if (x < 0 || x > WIN_WIDTH - 1)
-		return ;
-	if (y < 0 || y > WIN_HEIGHT - 1)
-		return ;
-	if (data->ui.help && x < HELP_WIDTH)
-		color = rgb_mix(color, rgb(0, 0, 0), 0.75);
-	color_int = rgb_to_int(color);
-	dst = data->img.addr;
-	dst += y * data->img.len;
-	dst += x * (data->img.bpp / 8);
-	*(unsigned int *)dst = color_int;
+t_vec3	rt_cam_top(t_mat4 c2w)
+{
+	return (mat4_multiply_axis(c2w, vec3(0, 1, 0)));
+}
+
+t_vec3	rt_cam_forward(t_mat4 c2w)
+{
+	return (mat4_multiply_axis(c2w, vec3(0, 0, 1)));
+}
+
+t_vec3	rt_cam_dir(t_mat4 c2w)
+{
+	return (mat4_multiply_axis(c2w, vec3(0, 0, -1)));
+}
+
+t_vec3	rt_cam_pos(t_mat4 c2w)
+{
+	return (mat4_multiply_vec3(c2w, vec3(0, 0, 0)));
 }
