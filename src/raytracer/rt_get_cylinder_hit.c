@@ -6,37 +6,37 @@
 /*   By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:08:06 by atchougo          #+#    #+#             */
-/*   Updated: 2023/06/26 19:57:11 by atchougo         ###   ########.fr       */
+/*   Updated: 2023/06/28 12:20:57 by atchougo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static	int	rt_cyl_plane_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit)
-{
-	t_float	t;
-	t_float	denum;
-	t_float	num;
-	t_plane	plane;
+// static	int	rt_cyl_plane_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit)
+// {
+// 	t_float	t;
+// 	t_float	denum;
+// 	t_float	num;
+// 	t_plane	plane;
 
-	if (!obj || obj->type != PLANE)
-		return (0);
-	plane = obj->plane;
-	denum = vec3_dot(ray.dir, plane.normal);
-	if (!denum)
-		return (0);
-	num = vec3_dot(vec3_subtract(plane.point, ray.pos), plane.normal);
-	t = num / denum;
-	if (!isfinite(t) || t < T_MIN || t > t_max)
-		return (0);
-	*hit = rt_hit_default();
-	hit->obj = obj;
-	hit->dist = t;
-	hit->color = plane.color;
-	hit->pos = vec3_add(ray.pos, vec3_scale(ray.dir, hit->dist));
-	hit->normal = vec3_scale(plane.normal, 1 - 2 * (denum > 0));
-	return (1);
-}
+// 	if (!obj || obj->type != PLANE)
+// 		return (0);
+// 	plane = obj->plane;
+// 	denum = vec3_dot(ray.dir, plane.normal);
+// 	if (!denum)
+// 		return (0);
+// 	num = vec3_dot(vec3_subtract(plane.point, ray.pos), plane.normal);
+// 	t = num / denum;
+// 	if (!isfinite(t) || t < T_MIN || t > t_max)
+// 		return (0);
+// 	*hit = rt_hit_default();
+// 	hit->obj = obj;
+// 	hit->dist = t;
+// 	hit->color = plane.color;
+// 	hit->pos = vec3_add(ray.pos, vec3_scale(ray.dir, hit->dist));
+// 	hit->normal = vec3_scale(plane.normal, 1 - 2 * (denum > 0));
+// 	return (1);
+// }
 
 static t_float	nearest_dist(t_hit a, t_hit b, int vala, int valb)
 {
@@ -69,46 +69,52 @@ int	rt_get_cylinder_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit)
 	int		valb;
 	int		t_e = 0;
 	
+	// create top and bot plane
 	ob_pa.type = PLANE;
 	ob_pb.type = PLANE;
 	if (!obj || obj->type != CYLINDER)
 		return (0);
+	// distance from center to one side
 	displacement = vec3_scale(obj->cylinder.axis, obj->cylinder.height / 2);
+	// A is bottom point center
 	A = vec3_subtract(obj->cylinder.center, displacement);
 	ob_pa.plane.point = A;
 	ob_pa.plane.normal = obj->cylinder.axis;
 	ob_pa.plane.color = obj->cylinder.color;
-	vala = rt_cyl_plane_hit(ray, &ob_pa, t_max, &hit_a);
+	// getting hit point of bottom plane in hit_a
+	vala = rt_get_plane_hit(ray, &ob_pa, t_max, &hit_a);
+	// B is top point center
 	B = vec3_add(obj->cylinder.center, displacement);
 	ob_pb.plane.point = B;
 	ob_pb.plane.normal = obj->cylinder.axis;
 	ob_pb.plane.color = obj->cylinder.color;
-	valb = rt_cyl_plane_hit(ray, &ob_pb, t_max, &hit_b);
-	// if (vala && vec3_length(vec3_subtract(hit->pos, A)) <= obj->cylinder.radius)
-	// 	return (1);
-	// else
-	// {
-	// 	if (!hit)
-	// 		return (1);
-	// 	*hit = rt_hit_default();
-	// 	return (0);
-	// }
+	// getting hit point of bottom plane in hit_b
+	valb = rt_get_plane_hit(ray, &ob_pb, t_max, &hit_b);
+	// Check if the hitting point is inside the circle
 	if (valb && !(vec3_length(vec3_subtract(hit_a.pos, B)) <= obj->cylinder.radius))
 		valb = 0;
 	if (vala && !(vec3_length(vec3_subtract(hit_b.pos, A)) <= obj->cylinder.radius))
 		vala = 0;
+	// get the nearest hit point
 	tp = nearest_dist(hit_a, hit_b, vala, valb);
+	// AB is vector from bot to top
 	AB = vec3_subtract(B, A);
+	// AO is vector from A to ray position / origin
 	AO = vec3_subtract(ray.pos, A);
+	// AOxAB cross product between AO and AB
 	AOxAB = vec3_cross(AO, AB);
+	// VxAB V is ray direction
 	VxAB = vec3_cross(ray.dir, AB);
 	ab2 = vec3_dot(AB, AB);
+	// quadratic coef a, b, c
 	a = vec3_dot(VxAB, VxAB);
 	b = vec3_dot(VxAB, AOxAB) * 2;
 	c = vec3_dot(AOxAB, AOxAB) - (obj->cylinder.radius * obj->cylinder.radius * ab2);
+	// discriminent
 	d = b * b - 4 * a * c;
 	t1 = INFINITY;
 	t2 = INFINITY;
+	// getting roots t1 and t2
 	if (d >= 0)
 	{
 		t1 = (-b - sqrt(d)) / (2 * a);
@@ -125,35 +131,29 @@ int	rt_get_cylinder_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit)
 	}
 	if (!hit)
 		return (1);
+	// choosing between plane or cylinder
 	if (tp <= t1)
 		t_e = 1;
 	if (t_e)
 	{
-		// if (vala && vec3_length(vec3_subtract(hit_a.pos, A)) <= obj->cylinder.radius)
-		// 	return (rt_cyl_plane_hit(ray, &ob_pa, t_max, hit));
-		// else if (valb && vec3_length(vec3_subtract(hit_b.pos, B)) <= obj->cylinder.radius)
-		// 	return (rt_cyl_plane_hit(ray, &ob_pb, t_max, hit));
-		// return (1);
 		if (hit_a.dist > hit_b.dist)
 		{
-			rt_cyl_plane_hit(ray, &ob_pb, t_max, hit);
+			*hit = hit_b;
 			if (vec3_length(vec3_subtract(hit->pos, B)) > obj->cylinder.radius)
 			{
 				*hit = rt_hit_default();
 				return (0);
 			}
 		}
-		else 
+		else
 		{
-			rt_cyl_plane_hit(ray, &ob_pa, t_max, hit);
+			*hit = hit_a;
 			if (vec3_length(vec3_subtract(hit->pos, A)) > obj->cylinder.radius)
 			{
 				*hit = rt_hit_default();
 				return (0);
 			}
 		}
-		// if (!rt_cyl_plane_hit(ray, &ob_pa, t_max, hit))
-		// 	rt_cyl_plane_hit(ray, &ob_pb, t_max, hit);
 	}
 	else
 	{
