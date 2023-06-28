@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dapereir <dapereir@student.42.fr>          +#+  +:+       +#+         #
+#    By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/10 11:45:20 by dapereir          #+#    #+#              #
-#    Updated: 2023/02/14 13:41:17 by dapereir         ###   ########.fr        #
+#    Updated: 2023/06/28 14:00:53 by atchougo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
