@@ -16,20 +16,16 @@ static void	rt_help_viewer(t_data *data)
 {
 	int		line;
 	int		i;
-	int		step_max;
 
 	line = 1;
 	rt_help_label(data, line++, "VIEWER");
 	line++;
 	rt_help_label(data, line, "FPS");
-	rt_help_value_f(data, line++, data->fps, GREEN);
+	rt_help_value_f(data, line++, data->rdr.fps, GREEN);
 	rt_help_label(data, line, "Image quality");
 	i = 100;
-	if (TILE_SIZE > 1)
-	{
-		step_max = TILE_SIZE * TILE_SIZE - 1;
-		i *= (t_float)data->buf_step / step_max;
-	}
+	if (data->rdr.tile_size > 1 && data->rdr.step_max > 0)
+		i *= (t_float)data->rdr.step / data->rdr.step_max;
 	if (i == 100)
 		rt_help_value_perc(data, line++, i, GREEN);
 	else

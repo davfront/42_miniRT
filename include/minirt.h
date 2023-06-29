@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/29 10:53:05 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/29 14:49:11 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@
 # define PHONG_SPECULAR_WEIGHT		(0.4)
 # define PHONG_SPECULAR_EXPONENT	(50)
 
-# define ENABLE_THREAD	0
-# define THREAD_NB		4
+# define THREAD_NB		1
 # define TILE_SIZE		4
 
 # define HELP_OFFSET_Y	(20)
@@ -97,6 +96,15 @@ typedef struct s_thread {
 	t_data		*data;
 }				t_thread;
 
+typedef struct s_rdr {
+	t_thread	thread[THREAD_NB];
+	t_buf		buf[WIN_WIDTH][WIN_HEIGHT];
+	int			tile_size;
+	int			step_max;
+	int			step;
+	t_float		fps;
+}				t_rdr;
+
 typedef struct s_data {
 	char		*path;
 	char		*title;
@@ -107,15 +115,12 @@ typedef struct s_data {
 	void		*mlx;
 	void		*win;
 	t_img		img;
+	t_rdr		rdr;
 	t_ui		ui;
 	t_al		*al;
 	t_cam		*cam;
 	t_list		*light_lst;
 	t_list		*obj_lst;
-	t_buf		buf[WIN_WIDTH][WIN_HEIGHT];
-	int			buf_step;
-	t_thread	thread[THREAD_NB];
-	t_float		fps;
 }				t_data;
 
 // utils
