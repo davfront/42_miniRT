@@ -16,6 +16,7 @@ static void	rt_help_viewer(t_data *data)
 {
 	int		line;
 	int		i;
+	int		step_max;
 
 	line = 1;
 	rt_help_label(data, line++, "VIEWER");
@@ -23,7 +24,12 @@ static void	rt_help_viewer(t_data *data)
 	rt_help_label(data, line, "FPS");
 	rt_help_value_f(data, line++, data->fps, GREEN);
 	rt_help_label(data, line, "Image quality");
-	i = (t_float)data->buf_step / (TILE_SIZE * TILE_SIZE - 1) * 100;
+	i = 100;
+	if (TILE_SIZE > 1)
+	{
+		step_max = TILE_SIZE * TILE_SIZE - 1;
+		i *= (t_float)data->buf_step / step_max;
+	}
 	if (i == 100)
 		rt_help_value_perc(data, line++, i, GREEN);
 	else

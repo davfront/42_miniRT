@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/27 16:33:11 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/29 10:53:05 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,7 @@ void	rt_help(t_data *data);
 // raytracer
 t_ray	rt_get_view_ray(t_cam cam, int x, int y);
 void	rt_draw_frame(t_data *data);
+void	rt_draw_frame_lowres(t_data *data);
 void	*rt_draw_frame_thread(void *tv);
 t_hit	rt_hit_default(void);
 int		rt_get_sphere_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit);

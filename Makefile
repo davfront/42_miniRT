@@ -6,7 +6,7 @@
 #    By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 16:34:41 by dapereir          #+#    #+#              #
-#    Updated: 2023/06/27 16:07:57 by dapereir         ###   ########.fr        #
+#    Updated: 2023/06/29 10:53:23 by dapereir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -95,6 +95,7 @@ SRCS_FILES			=	\
 						\
 						raytracer/rt_get_view_ray.c\
 						raytracer/rt_draw_frame.c\
+						raytracer/rt_draw_frame_lowres.c \
 						raytracer/rt_draw_frame_thread.c \
 						raytracer/rt_hit_default.c\
 						raytracer/rt_get_plane_hit.c \

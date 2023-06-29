@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_viewer_thread_handler.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:48:55 by atchougo          #+#    #+#             */
-/*   Updated: 2023/06/21 22:25:37 by atchougo         ###   ########.fr       */
+/*   Updated: 2023/06/29 10:52:24 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	rt_viewer_thread_handler(t_data *data)
 		rt_launch_threads(data);
 		rt_wait_for_threads(data);
 	}
+	else if (TILE_SIZE > 1)
+		rt_draw_frame_lowres(data);
 	else
 		rt_draw_frame(data);
 }
