@@ -3,18 +3,31 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 16:34:41 by dapereir          #+#    #+#              #
-#    Updated: 2023/06/27 16:07:57 by dapereir         ###   ########.fr        #
+#    Updated: 2023/06/28 19:12:42 by atchougo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+RESET				=	\033[0m
+RED					=	\033[0;31m
+RED_BOLD			=	\033[1;31m
+GREEN				=	\033[0;32m
+GREEN_BOLD			=	\033[1;32m
+YELLOW				=	\033[0;33m
+YELLOW_BOLD			=	\033[1;33m
+CYAN				=	\033[0;36m
+CYAN_BOLD			=	\033[1;36m
+PURPLE				=	\033[1;35m
+ERASE				=	\033[2K\033[1A\r
 
 NAME				=	miniRT
 
 CC					=	cc
-CFLAGS				=	-Wall -Wextra -Werror -pthread -g3
+CFLAGS				=	-Wall -Wextra -Werror -MD -O3 -pthread
 RM					=	rm -rf
+NO_PRINT_DIR		=	--no-print-directory
 
 SRCS_FILES			=	\
 						color/rgb.c\
@@ -116,8 +129,10 @@ SRCS_DIR			=	./src
 SRCS				=	$(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 
 OBJS_FILES			=	$(SRCS_FILES:.c=.o)
+DEPS_FILES			=	$(SRCS_FILES:.c=.d)
 OBJS_DIR			=	./obj
 OBJS				=	$(addprefix $(OBJS_DIR)/, $(OBJS_FILES))
+DEPS				=	$(addprefix $(OBJS_DIR)/,$(DEPS_FILES))
 
 HEADER_DIR			=	./include
 HEADER_FILES		=	key_linux.h rgb.h vec3.h scene.h debug.h minirt.h
@@ -136,32 +151,43 @@ FT_INC				=	-I $(FT_DIR)/include
 FT_FLAGS			=	-L $(FT_DIR) -l ft
 
 .PHONY: all
-all:				$(NAME)
+all:				libft mlx $(NAME)
 
-$(OBJS_DIR)/%.o:	$(SRCS_DIR)/%.c Makefile $(MLX) $(FT) $(HEADER)
-					mkdir -p $(@D)
-					$(CC) $(CFLAGS) $(MLX_OBJ_FLAGS) $(FT_INC) -c $< -o $@
+$(OBJS_DIR)/%.o:	$(SRCS_DIR)/%.c $(MLX) $(FT)
+					@mkdir -p $(@D)	
+					@printf "$(CYAN)[Compiling]$(RESET) $<\n"
+					@$(CC) $(CFLAGS) $(MLX_OBJ_FLAGS) $(FT_INC) -c $< -o $@
 
 $(NAME):			$(OBJS) $(MLX) $(FT)
-					$(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) $(FT_FLAGS) -o $(NAME)
+					@printf "$(YELLOW)[Linking]  $(RESET) %s\n" $@
+					@$(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) $(FT_FLAGS) -o $(NAME)
+					@echo "$(GREEN_BOLD)✓ miniRT is ready!$(RESET)"
 
-$(MLX):
-					$(MAKE) -C $(MLX_DIR)
+.PHONY: mlx
+mlx:
+					@echo "$(PURPLE)[Making]    MLX $(RESET)"
+					@$(MAKE) $(NO_PRINT_DIR) -C $(MLX_DIR) > /dev/null 2>&1
 
-$(FT):
-					$(MAKE) -C $(FT_DIR)
+.PHONY: libft
+libft:
+					@echo "$(PURPLE)[Making]    Libft $(RESET)"
+					@$(MAKE) $(NO_PRINT_DIR) -C $(FT_DIR) | sed "s/^make\[[0-9]\]: //;s/^/\x1b[36m[libft]\x1b[0m /"
 
 .PHONY: clean
 clean:
-					$(RM) $(OBJS_DIR)
-					$(MAKE) -C $(FT_DIR) clean
+					@echo "$(RED_BOLD)[Cleaning]$(RESET)"
+					@$(RM) $(OBJS_DIR)
+					@$(MAKE) $(NO_PRINT_DIR) -C $(FT_DIR) clean
 
 .PHONY: fclean
 fclean:				clean
-					$(RM) $(NAME)
-					$(MAKE) -C $(MLX_DIR) clean
-					$(MAKE) -C $(FT_DIR) fclean
+					@$(RM) $(NAME)
+					@$(MAKE) $(NO_PRINT_DIR) -C $(MLX_DIR) clean > /dev/null 2>&1
+					@$(MAKE) $(NO_PRINT_DIR) -C $(FT_DIR) fclean
+					@echo "$(RED_BOLD)✓ project is fully cleaned!$(RESET)"
 
 .PHONY: re
 re:					fclean
-					$(MAKE) all
+					@$(MAKE) $(NO_PRINT_DIR) all
+
+-include $(DEPS)
