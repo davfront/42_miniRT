@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/30 15:22:25 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/30 22:42:22 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define PHONG_SPECULAR_WEIGHT		(0.4)
 # define PHONG_SPECULAR_EXPONENT	(50)
 
-# define ENABLE_THREAD	1
+# define ENABLE_THREAD	0
 # define THREAD_NB		4
 
 # define LOW_RES_ENABLED	1
@@ -126,6 +126,7 @@ typedef struct s_data {
 }				t_data;
 
 // utils
+void	rt_init(t_data *data);
 void	rt_delete(t_data *data);
 void	rt_error(char *msg);
 void	rt_exit(t_data *data);

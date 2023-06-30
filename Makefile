@@ -6,7 +6,7 @@
 #    By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 16:34:41 by dapereir          #+#    #+#              #
-#    Updated: 2023/06/30 14:59:47 by dapereir         ###   ########.fr        #
+#    Updated: 2023/06/30 22:36:06 by dapereir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,7 @@ SRCS_FILES			=	\
 						vec3/mat4_multiply_vec3.c\
 						vec3/mat4_multiply_axis.c\
 						\
+						utils/rt_init.c\
 						utils/rt_delete.c\
 						utils/rt_error.c\
 						utils/rt_exit.c\
