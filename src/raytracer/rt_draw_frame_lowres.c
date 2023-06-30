@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:43 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/29 14:44:22 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/30 14:58:54 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ static void	rt_cast_rays_to_buffer(t_data *data, int step)
 	t_ray	ray;
 
 	tx = 0;
-	while (tx < WIN_WIDTH / data->rdr.tile_size)
+	while (tx <= WIN_WIDTH / data->rdr.tile_size)
 	{
 		ty = 0;
-		while (ty < WIN_HEIGHT / data->rdr.tile_size)
+		while (ty <= WIN_HEIGHT / data->rdr.tile_size)
 		{
 			x = tx * data->rdr.tile_size + step / data->rdr.tile_size;
 			y = ty * data->rdr.tile_size + step % data->rdr.tile_size;
-			if (!data->rdr.buf[x][y].done)
+			if (x < WIN_WIDTH && y < WIN_HEIGHT && !data->rdr.buf[x][y].done)
 			{
 				ray = rt_get_view_ray(*data->cam, x, y);
 				ray.hit = rt_get_closest_hit(data, ray);
@@ -46,7 +46,7 @@ static void	rt_cast_rays_to_buffer(t_data *data, int step)
 	}
 }
 
-void	rt_draw_tile(t_data *data, int tx, int ty)
+static void	rt_draw_tile(t_data *data, int tx, int ty)
 {
 	int		x;
 	int		y;
@@ -70,16 +70,16 @@ void	rt_draw_tile(t_data *data, int tx, int ty)
 	}
 }
 
-void	rt_draw_buffer(t_data *data)
+static void	rt_draw_buffer(t_data *data)
 {
 	int		tx;
 	int		ty;
 
 	tx = 0;
-	while (tx < WIN_WIDTH / data->rdr.tile_size)
+	while (tx <= WIN_WIDTH / data->rdr.tile_size)
 	{
 		ty = 0;
-		while (ty < WIN_HEIGHT / data->rdr.tile_size)
+		while (ty <= WIN_HEIGHT / data->rdr.tile_size)
 		{
 			rt_draw_tile(data, tx, ty);
 			ty++;
@@ -90,12 +90,20 @@ void	rt_draw_buffer(t_data *data)
 
 void	rt_draw_frame_lowres(t_data *data)
 {
-	data->rdr.tile_size = TILE_SIZE;
-	data->rdr.step_max = data->rdr.tile_size * data->rdr.tile_size - 1;
 	if (data->ui.changed)
 	{
 		data->rdr.step = 0;
 		rt_clear_buffer(data);
+	}
+	if (data->rdr.step == 0)
+	{
+		data->rdr.tile_size = rt_lowres_estimate_size(data);
+		data->rdr.step_max = data->rdr.tile_size * data->rdr.tile_size - 1;
+		if (data->rdr.tile_size == 1)
+		{
+			rt_draw_frame(data);
+			return ;
+		}
 	}
 	if (data->rdr.step <= data->rdr.step_max)
 		rt_cast_rays_to_buffer(data, data->rdr.step);

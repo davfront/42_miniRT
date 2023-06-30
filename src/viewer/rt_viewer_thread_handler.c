@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:48:55 by atchougo          #+#    #+#             */
-/*   Updated: 2023/06/29 14:43:03 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/30 14:39:31 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	rt_viewer_thread_handler(t_data *data)
 		rt_launch_threads(data);
 		rt_wait_for_threads(data);
 	}
-	else if (TILE_SIZE > 1)
+	else if (LOW_RES_ENABLED)
 		rt_draw_frame_lowres(data);
 	else
 		rt_draw_frame(data);

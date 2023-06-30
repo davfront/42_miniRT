@@ -22,14 +22,19 @@ static void	rt_help_viewer(t_data *data)
 	line++;
 	rt_help_label(data, line, "FPS");
 	rt_help_value_f(data, line++, data->rdr.fps, GREEN);
-	rt_help_label(data, line, "Image quality");
-	i = 100;
-	if (data->rdr.tile_size > 1 && data->rdr.step_max > 0)
-		i *= (t_float)data->rdr.step / data->rdr.step_max;
-	if (i == 100)
-		rt_help_value_perc(data, line++, i, GREEN);
-	else
-		rt_help_value_perc(data, line++, i, RED);
+	if (LOW_RES_ENABLED)
+	{
+		rt_help_label(data, line, "Downscaling factor");
+		rt_help_value_i(data, line++, data->rdr.tile_size, GREEN);
+		rt_help_label(data, line, "Image quality");
+		i = 100;
+		if (data->rdr.tile_size > 1 && data->rdr.step_max > 0)
+			i *= (t_float)data->rdr.step / data->rdr.step_max;
+		if (i == 100)
+			rt_help_value_perc(data, line++, i, GREEN);
+		else
+			rt_help_value_perc(data, line++, i, RED);
+	}
 }
 
 static void	rt_help_camera(t_data *data)
@@ -37,7 +42,7 @@ static void	rt_help_camera(t_data *data)
 	int		line;
 	t_vec3	v;
 
-	line = 7;
+	line = 6 + 2 * LOW_RES_ENABLED;
 	rt_help_label(data, line++, "CAMERA");
 	line++;
 	v = rt_cam_pos(data->cam->c2w);
