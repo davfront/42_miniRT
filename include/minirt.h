@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/30 14:59:23 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/30 15:22:25 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@
 # define PHONG_SPECULAR_WEIGHT		(0.4)
 # define PHONG_SPECULAR_EXPONENT	(50)
 
-# define THREAD_NB			1
+# define ENABLE_THREAD	1
+# define THREAD_NB		4
+
 # define LOW_RES_ENABLED	1
 
 # define HELP_OFFSET_Y	(20)

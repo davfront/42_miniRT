@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:48:55 by atchougo          #+#    #+#             */
-/*   Updated: 2023/06/30 14:39:31 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/30 15:22:00 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	rt_wait_for_threads(t_data *data)
 
 void	rt_viewer_thread_handler(t_data *data)
 {
-	if (THREAD_NB > 1)
+	if (ENABLE_THREAD)
 	{
 		rt_launch_threads(data);
 		rt_wait_for_threads(data);
