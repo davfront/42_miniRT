@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 16:24:08 by atchougo          #+#    #+#             */
-/*   Updated: 2023/06/26 12:12:26 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/04 09:49:34 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ typedef struct s_cam {
 	t_vec3			pos;
 	t_vec3			dir;
 	unsigned int	fov;
-	t_mat4			proj;
+	t_float			tan_half_fov;
+	t_float			aspect_ratio;
 	t_mat4			c2w_temp;
 	t_mat4			c2w;
 }				t_cam;

@@ -205,6 +205,6 @@ t_mat4	rt_cam_to_world(t_vec3 cam_pos, t_vec3 cam_dir);
 t_mat4	rt_cam_to_world_translate(t_mat4 c2w, t_vec3 d, t_float sensitivity);
 t_mat4	rt_cam_to_world_rotate(t_mat4 c2w, t_float dx, t_float dy, \
 	t_float sensitivity);
-t_mat4	rt_cam_projection(unsigned int fov);
+t_vec3	rt_cam_ndc_to_camera_space(t_cam cam, t_vec3 ndc);
 void	rt_cam_update_fov(t_data *data, int delta_fov);
 #endif

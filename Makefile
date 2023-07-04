@@ -129,7 +129,7 @@ SRCS_FILES			=	\
 						camera/rt_cam_to_world.c\
 						camera/rt_cam_to_world_translate.c\
 						camera/rt_cam_to_world_rotate.c\
-						camera/rt_cam_projection.c\
+						camera/rt_cam_ndc_to_camera_space.c\
 						camera/rt_cam_update_fov.c\
 						\
 						main.c\
