@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:30:58 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/04 09:52:00 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/05 13:54:26 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void	rt_parse_obj_camera_values(t_data *data, char **strs, t_cam *cam)
 	cam->aspect_ratio = (t_float)WIN_WIDTH / WIN_HEIGHT;
 	cam->c2w_temp = rt_cam_to_world(cam->pos, cam->dir);
 	cam->c2w = rt_cam_to_world(cam->pos, cam->dir);
+	cam->w2c = mat4_invert(cam->c2w);
 }
 
 void	rt_parse_camera(t_data *data, char **strs)

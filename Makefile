@@ -142,6 +142,9 @@ SRCS_FILES			=	\
 						camera/rt_cam_to_world_rotate.c\
 						camera/rt_cam_ndc_to_camera_space.c\
 						camera/rt_cam_update_fov.c\
+						camera/rt_cam_update_c2w.c\
+						camera/rt_cam_camera_space_to_ndc.c\
+						camera/rt_cam_world_to_screen.c\
 						\
 						ui/rt_ui_help_bg.c\
 						\

@@ -208,7 +208,10 @@ t_mat4	rt_cam_to_world_translate(t_mat4 c2w, t_vec3 d, t_float sensitivity);
 t_mat4	rt_cam_to_world_rotate(t_mat4 c2w, t_float dx, t_float dy, \
 	t_float sensitivity);
 t_vec3	rt_cam_ndc_to_camera_space(t_cam cam, t_vec3 ndc);
+t_vec3	rt_cam_camera_space_to_ndc(t_cam cam, t_vec3 v);
 void	rt_cam_update_fov(t_data *data, int delta_fov);
+void	rt_cam_update_c2w(t_data *data, t_mat4 c2w);
+t_px	rt_cam_world_to_screen(t_data *data, t_vec3 v);
 
 // px_draw
 void	rt_draw_px(t_data *data, t_px p, t_rgb color, float alpha);

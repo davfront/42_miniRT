@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 16:24:08 by atchougo          #+#    #+#             */
-/*   Updated: 2023/07/04 09:49:34 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/04 10:00:08 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_cam {
 	t_float			aspect_ratio;
 	t_mat4			c2w_temp;
 	t_mat4			c2w;
+	t_mat4			w2c;
 }				t_cam;
 
 typedef struct s_light {

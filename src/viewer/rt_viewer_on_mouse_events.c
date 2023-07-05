@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:43 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/02 16:25:45 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/05 13:57:25 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ int	rt_viewer_on_mouse_down(int button, int x, int y, t_data *data)
 {
 	if (button == MOUSE_SCROLL_UP)
 	{
-		data->cam->c2w = rt_cam_to_world_translate(data->cam->c2w, \
-			vec3(0, 0, 1), 10);
+		rt_cam_update_c2w(data, \
+			rt_cam_to_world_translate(data->cam->c2w, vec3(0, 0, 1), 10));
 		data->ui.changed = 1;
 	}
 	if (button == MOUSE_SCROLL_DOWN)
 	{
-		data->cam->c2w = rt_cam_to_world_translate(data->cam->c2w, \
-			vec3(0, 0, -1), 10);
+		rt_cam_update_c2w(data, \
+			rt_cam_to_world_translate(data->cam->c2w, vec3(0, 0, -1), 10));
 		data->ui.changed = 1;
 	}
 	if (button == MOUSE_LEFT)
@@ -65,17 +65,19 @@ int	rt_viewer_on_mouse_move(int x, int y, t_data *data)
 {
 	data->ui.mouse_dx = x - data->ui.mouse_x0;
 	data->ui.mouse_dy = y - data->ui.mouse_y0;
-	data->cam->c2w = data->cam->c2w_temp;
+	rt_cam_update_c2w(data, data->cam->c2w_temp);
 	if (data->ui.mouse_left_btn)
 	{
-		data->cam->c2w = rt_cam_to_world_rotate(data->cam->c2w_temp, \
-			data->ui.mouse_dx, -data->ui.mouse_dy, M_PI / 500);
+		rt_cam_update_c2w(data, \
+			rt_cam_to_world_rotate(data->cam->c2w_temp, \
+			data->ui.mouse_dx, -data->ui.mouse_dy, M_PI / 500));
 		data->ui.changed = 1;
 	}
 	if (data->ui.mouse_right_btn)
 	{
-		data->cam->c2w = rt_cam_to_world_translate(data->cam->c2w_temp, \
-			vec3(data->ui.mouse_dx, -data->ui.mouse_dy, 0), 0.1);
+		rt_cam_update_c2w(data, \
+			rt_cam_to_world_translate(data->cam->c2w_temp, \
+			vec3(data->ui.mouse_dx, -data->ui.mouse_dy, 0), 0.1));
 		data->ui.changed = 1;
 	}
 	return (0);
