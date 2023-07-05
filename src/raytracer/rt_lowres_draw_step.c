@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:43 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/02 21:41:40 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/05 13:24:08 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static void	rt_lowres_tile_draw(t_data *data, int tx, int ty)
 			color = buf.color;
 			if (buf.obj && buf.obj == data->ui.selected)
 				color = rgb_mix(color, rgb(255, 255, 255), 0.1);
-			rt_viewer_draw_pixel(data, x, y, color);
+			rt_viewer_set_pixel(data, x, y, color);
 			x++;
 		}
 		y++;

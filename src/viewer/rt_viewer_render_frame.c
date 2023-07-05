@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:43 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/29 14:36:12 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/05 13:33:13 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	rt_viewer_render_frame(t_data *data)
 	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bpp, \
 		&data->img.len, &data->img.endian);
 	rt_viewer_thread_handler(data);
+	rt_ui_help_bg(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
 	mlx_destroy_image(data->mlx, data->img.img);
 	data->img.img = NULL;

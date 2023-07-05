@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_draw_frame_thread.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:49:37 by atchougo          #+#    #+#             */
-/*   Updated: 2023/06/21 22:26:29 by atchougo         ###   ########.fr       */
+/*   Updated: 2023/07/05 11:52:51 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	*rt_draw_frame_thread(void *tv)
 			ray = rt_get_view_ray(*t->data->cam, x, y);
 			ray.hit = rt_get_closest_hit(t->data, ray);
 			if (ray.hit.obj)
-				rt_viewer_draw_pixel(t->data, x, y, \
+				rt_viewer_set_pixel(t->data, x, y, \
 									rt_get_hit_color(t->data, ray));
 			y++;
 		}

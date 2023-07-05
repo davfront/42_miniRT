@@ -6,7 +6,7 @@
 #    By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 16:34:41 by dapereir          #+#    #+#              #
-#    Updated: 2023/07/03 14:31:50 by dapereir         ###   ########.fr        #
+#    Updated: 2023/07/05 13:34:01 by dapereir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,6 +72,16 @@ SRCS_FILES			=	\
 						vec3/mat4_cofactor.c\
 						vec3/mat4_invert.c\
 						\
+						px/px.c\
+						px/line.c\
+						px/disc.c\
+						px/rect.c\
+						\
+						px_draw/rt_draw_px.c\
+						px_draw/rt_draw_line.c\
+						px_draw/rt_draw_disc.c\
+						px_draw/rt_draw_rect.c\
+						\
 						utils/rt_init.c\
 						utils/rt_delete.c\
 						utils/rt_error.c\
@@ -104,7 +114,8 @@ SRCS_FILES			=	\
 						viewer/rt_viewer_on_mouse_events.c\
 						viewer/rt_viewer_on_key_events.c\
 						viewer/rt_viewer_render_frame.c\
-						viewer/rt_viewer_draw_pixel.c\
+						viewer/rt_viewer_get_pixel.c\
+						viewer/rt_viewer_set_pixel.c\
 						viewer/rt_viewer_thread_handler.c\
 						\
 						help/rt_help_label.c\
@@ -131,6 +142,8 @@ SRCS_FILES			=	\
 						camera/rt_cam_to_world_rotate.c\
 						camera/rt_cam_ndc_to_camera_space.c\
 						camera/rt_cam_update_fov.c\
+						\
+						ui/rt_ui_help_bg.c\
 						\
 						main.c\
 

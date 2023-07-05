@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/02 21:56:00 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/05 13:36:42 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include "rgb.h"
 # include "vec3.h"
 # include "scene.h"
+# include "px.h"
 # include "debug.h" // TODO : delete debug.h before correction
 
 # define WIN_WIDTH	(1024)
@@ -43,7 +44,7 @@
 # define LOW_RES_ENABLED	1
 
 # define HELP_OFFSET_Y	(20)
-# define HELP_VALUE_X	(160)
+# define HELP_VALUE_X	(180)
 # define HELP_WIDTH		(250)
 
 # define BLACK		(0x00000000)
@@ -169,7 +170,8 @@ int		rt_viewer_on_mouse_up(int button, int x, int y, t_data *data);
 int		rt_viewer_on_mouse_move(int x, int y, t_data *data);
 int		rt_viewer_on_keydown(int keycode, t_data *data);
 int		rt_viewer_on_keyup(int keycode, t_data *data);
-void	rt_viewer_draw_pixel(t_data *data, int x, int y, t_rgb color);
+t_rgb	rt_viewer_get_pixel(t_data *data, int x, int y);
+void	rt_viewer_set_pixel(t_data *data, int x, int y, t_rgb color);
 void	rt_viewer_thread_handler(t_data *data);
 
 // help
@@ -207,4 +209,15 @@ t_mat4	rt_cam_to_world_rotate(t_mat4 c2w, t_float dx, t_float dy, \
 	t_float sensitivity);
 t_vec3	rt_cam_ndc_to_camera_space(t_cam cam, t_vec3 ndc);
 void	rt_cam_update_fov(t_data *data, int delta_fov);
+
+// px_draw
+void	rt_draw_px(t_data *data, t_px p, t_rgb color, float alpha);
+void	rt_draw_line(t_data *data, t_line, t_rgb color);
+void	rt_draw_line_px(t_data *data, t_line line, t_rgb color, float alpha);
+void	rt_draw_disc(t_data *data, t_disc, t_rgb color, float alpha);
+void	rt_draw_rect(t_data *data, t_rect, t_rgb color, float alpha);
+
+// ui
+void	rt_ui_help_bg(t_data *data);
+
 #endif
