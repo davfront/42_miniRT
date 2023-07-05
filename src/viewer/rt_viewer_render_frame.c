@@ -23,6 +23,7 @@ int	rt_viewer_render_frame(t_data *data)
 		&data->img.len, &data->img.endian);
 	rt_viewer_thread_handler(data);
 	rt_ui_help_bg(data);
+	rt_ui_frame_progress(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
 	mlx_destroy_image(data->mlx, data->img.img);
 	data->img.img = NULL;

@@ -147,6 +147,7 @@ SRCS_FILES			=	\
 						camera/rt_cam_world_to_screen.c\
 						\
 						ui/rt_ui_help_bg.c\
+						ui/rt_ui_frame_progress.c\
 						\
 						main.c\
 

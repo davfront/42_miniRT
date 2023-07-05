@@ -27,7 +27,7 @@ static int	rt_help_viewer(t_data *data, int line)
 		rt_help_label(data, line, "Image quality");
 		i = 100;
 		if (data->rdr.tile_size > 1 && data->rdr.step_max > 0)
-			i *= (t_float)data->rdr.step / data->rdr.step_max;
+			i *= fmin(data->rdr.step, data->rdr.step_max) / data->rdr.step_max;
 		if (i == 100)
 			rt_help_value_perc(data, line++, i, GREEN);
 		else

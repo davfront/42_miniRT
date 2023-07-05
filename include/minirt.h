@@ -222,5 +222,6 @@ void	rt_draw_rect(t_data *data, t_rect, t_rgb color, float alpha);
 
 // ui
 void	rt_ui_help_bg(t_data *data);
+void	rt_ui_frame_progress(t_data *data);
 
 #endif
