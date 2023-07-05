@@ -6,7 +6,7 @@
 #    By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 16:34:41 by dapereir          #+#    #+#              #
-#    Updated: 2023/06/30 22:36:06 by dapereir         ###   ########.fr        #
+#    Updated: 2023/07/02 21:56:16 by dapereir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -107,13 +107,14 @@ SRCS_FILES			=	\
 						help/rt_help_label.c\
 						help/rt_help_value.c\
 						help/rt_help_info.c\
+						help/rt_help_obj.c\
 						help/rt_help.c\
 						\
 						raytracer/rt_get_view_ray.c\
-						raytracer/rt_draw_frame.c\
 						raytracer/rt_lowres_estimate_size.c\
-						raytracer/rt_draw_frame_lowres.c \
-						raytracer/rt_draw_frame_thread.c \
+						raytracer/rt_lowres_draw_step.c\
+						raytracer/rt_draw_frame_thread.c\
+						raytracer/rt_draw_frame.c\
 						raytracer/rt_hit_default.c\
 						raytracer/rt_get_plane_hit.c \
 						raytracer/rt_get_sphere_hit.c\

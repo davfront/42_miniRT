@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/30 22:42:22 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/02 21:56:00 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,19 +75,21 @@ typedef struct s_img {
 }				t_img;
 
 typedef struct s_ui {
-	int	changed;
-	int	mouse_x0;
-	int	mouse_y0;
-	int	mouse_dx;
-	int	mouse_dy;
-	int	mouse_left_btn;
-	int	mouse_right_btn;
-	int	help;
+	int		changed;
+	int		mouse_x0;
+	int		mouse_y0;
+	int		mouse_dx;
+	int		mouse_dy;
+	int		mouse_left_btn;
+	int		mouse_right_btn;
+	int		help;
+	t_obj	*selected;
 }				t_ui;
 
 typedef struct s_buf {
-	int		done;
+	int		exact;
 	t_rgb	color;
+	t_obj	*obj;
 }				t_buf;
 
 typedef struct s_data	t_data;
@@ -100,7 +102,7 @@ typedef struct s_thread {
 
 typedef struct s_rdr {
 	t_thread	thread[THREAD_NB];
-	t_buf		buf[WIN_WIDTH][WIN_HEIGHT];
+	t_buf		**buf;
 	int			tile_size;
 	int			step_max;
 	int			step;
@@ -177,14 +179,15 @@ void	rt_help_value_i(t_data *data, int line, int i, int color);
 void	rt_help_value_f(t_data *data, int line, float f, int color);
 void	rt_help_value_perc(t_data *data, int line, float f, int color);
 void	rt_help_info(t_data *data, int line, char *label, char *value);
+int		rt_help_obj(t_data *data, t_obj obj, int line);
 void	rt_help(t_data *data);
 
 // raytracer
 t_ray	rt_get_view_ray(t_cam cam, int x, int y);
-void	rt_draw_frame(t_data *data);
 int		rt_lowres_estimate_size(t_data *data);
-void	rt_draw_frame_lowres(t_data *data);
+void	rt_lowres_draw_step(t_data *data, int step);
 void	*rt_draw_frame_thread(void *tv);
+void	rt_draw_frame(t_data *data);
 t_hit	rt_hit_default(void);
 int		rt_get_sphere_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit);
 int		rt_get_plane_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit);

@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:48:55 by atchougo          #+#    #+#             */
-/*   Updated: 2023/06/30 15:22:00 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/02 16:45:47 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ void	rt_viewer_thread_handler(t_data *data)
 		rt_launch_threads(data);
 		rt_wait_for_threads(data);
 	}
-	else if (LOW_RES_ENABLED)
-		rt_draw_frame_lowres(data);
 	else
 		rt_draw_frame(data);
 }
