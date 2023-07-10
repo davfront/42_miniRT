@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:43 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/05 14:46:49 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/10 06:58:24 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	rt_draw_buffer(t_data *data)
 			buf = data->rdr.buf[x][y];
 			color = buf.color;
 			if (buf.obj && buf.obj == data->ui.selected)
-				color = rgb_mix(color, rgb(255, 255, 255), 0.1);
+				color = rgb_mix(color, rgb(255, 255, 255), 0.8);
 			rt_viewer_set_pixel(data, x, y, color);
 			x++;
 		}

@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/05 13:36:42 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/10 06:52:10 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,37 @@
 
 # define BLACK		(0x00000000)
 # define WHITE		(0x00FFFFFF)
+# define GRAY		(0x00999999)
 # define RED		(0x00FF0000)
 # define GREEN		(0x0000FF00)
 # define BLUE		(0x000000FF)
+
+# define CS_POINT_RAD	(8)
+# define CS_MOV_LEN		(100)
+# define CS_ROT_LEN		(80)
+# define CS_RED			(0x00eb6663)
+# define CS_GREEN		(0x0071deb6)
+# define CS_BLUE		(0x004b98f7)
+
+enum e_cs_helper_type {
+	CS_ORIG,
+	CS_MOV_X,
+	CS_MOV_Y,
+	CS_MOV_Z,
+	CS_ROT_X,
+	CS_ROT_Y,
+	CS_ROT_Z,
+	CS_SIZE
+};
+
+typedef struct s_cs {
+	t_vec3	center;
+	t_vec3	dx;
+	t_vec3	dy;
+	t_vec3	dz;
+	t_px	helper_px[CS_SIZE];
+	int		ordered_helper_types[CS_SIZE];
+}				t_cs;
 
 typedef struct s_hit {
 	t_obj	*obj;
@@ -211,7 +239,8 @@ t_vec3	rt_cam_ndc_to_camera_space(t_cam cam, t_vec3 ndc);
 t_vec3	rt_cam_camera_space_to_ndc(t_cam cam, t_vec3 v);
 void	rt_cam_update_fov(t_data *data, int delta_fov);
 void	rt_cam_update_c2w(t_data *data, t_mat4 c2w);
-t_px	rt_cam_world_to_screen(t_data *data, t_vec3 v);
+t_px	rt_cam_c2s(t_data *data, t_vec3 v);
+t_px	rt_cam_w2s(t_data *data, t_vec3 v);
 
 // px_draw
 void	rt_draw_px(t_data *data, t_px p, t_rgb color, float alpha);
@@ -219,9 +248,12 @@ void	rt_draw_line(t_data *data, t_line, t_rgb color);
 void	rt_draw_line_px(t_data *data, t_line line, t_rgb color, float alpha);
 void	rt_draw_disc(t_data *data, t_disc, t_rgb color, float alpha);
 void	rt_draw_rect(t_data *data, t_rect, t_rgb color, float alpha);
+void	rt_draw_cs(t_data *data, t_cs cs);
 
 // ui
 void	rt_ui_help_bg(t_data *data);
 void	rt_ui_frame_progress(t_data *data);
+void	rt_ui_bounding_box(t_data *data, t_obj *obj);
+void	rt_ui_selected(t_data *data);
 
 #endif

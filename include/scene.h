@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 16:24:08 by atchougo          #+#    #+#             */
-/*   Updated: 2023/07/04 10:00:08 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/05 14:54:57 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef enum e_obj_type {
 
 typedef struct s_obj {
 	t_obj_type	type;
+	t_mat4		mt;
 	union {
 		t_sphere	sphere;
 		t_plane		plane;

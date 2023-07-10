@@ -6,7 +6,7 @@
 #    By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 16:34:41 by dapereir          #+#    #+#              #
-#    Updated: 2023/07/05 13:34:01 by dapereir         ###   ########.fr        #
+#    Updated: 2023/07/10 06:45:07 by dapereir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,6 +81,7 @@ SRCS_FILES			=	\
 						px_draw/rt_draw_line.c\
 						px_draw/rt_draw_disc.c\
 						px_draw/rt_draw_rect.c\
+						px_draw/rt_draw_cs.c\
 						\
 						utils/rt_init.c\
 						utils/rt_delete.c\
@@ -144,10 +145,13 @@ SRCS_FILES			=	\
 						camera/rt_cam_update_fov.c\
 						camera/rt_cam_update_c2w.c\
 						camera/rt_cam_camera_space_to_ndc.c\
-						camera/rt_cam_world_to_screen.c\
+						camera/rt_cam_c2s.c\
+						camera/rt_cam_w2s.c\
 						\
 						ui/rt_ui_help_bg.c\
 						ui/rt_ui_frame_progress.c\
+						ui/rt_ui_bounding_box.c\
+						ui/rt_ui_selected.c\
 						\
 						main.c\
 
