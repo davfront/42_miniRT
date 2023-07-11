@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/10 06:52:10 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/11 14:53:05 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@
 # define RED		(0x00FF0000)
 # define GREEN		(0x0000FF00)
 # define BLUE		(0x000000FF)
+# define YELLOW		(0x00FFFF00)
 
 # define CS_POINT_RAD	(8)
 # define CS_MOV_LEN		(100)
@@ -105,14 +106,17 @@ typedef struct s_img {
 
 typedef struct s_ui {
 	int		changed;
-	int		mouse_x0;
-	int		mouse_y0;
-	int		mouse_dx;
-	int		mouse_dy;
+	t_px	mouse;
+	t_px	mouse_down;
+	t_px	mouse_dragged;
 	int		mouse_left_btn;
 	int		mouse_right_btn;
 	int		help;
 	t_obj	*selected;
+	t_cs	cs_down;
+	t_cs	cs;
+	int		cs_helper_hovered;
+	int		cs_helper_selected;
 }				t_ui;
 
 typedef struct s_buf {
@@ -165,6 +169,8 @@ void	rt_error_exit(t_data *data, char *msg);
 int		rt_strs_len(char **strs);
 void	rt_set_fps(t_data *data, struct timeval start, struct timeval end);
 char	*rt_ftoa(float f, int precision);
+t_vec3	px_to_vec3(t_px p);
+t_px	vec3_to_px(t_vec3 v);
 
 // parse
 int		rt_parse_uint(char *s, unsigned int *n);
@@ -201,6 +207,18 @@ int		rt_viewer_on_keyup(int keycode, t_data *data);
 t_rgb	rt_viewer_get_pixel(t_data *data, int x, int y);
 void	rt_viewer_set_pixel(t_data *data, int x, int y, t_rgb color);
 void	rt_viewer_thread_handler(t_data *data);
+
+// events
+void	rt_on_click(t_data *data);
+void	rt_on_mouse_move(t_data *data);
+void	rt_on_scroll(t_data *data, int is_up);
+void	rt_on_dragstart(t_data *data);
+void	rt_on_dragend(t_data *data);
+void	rt_on_drag(t_data *data);
+void	rt_on_right_dragstart(t_data *data);
+void	rt_on_right_dragend(t_data *data);
+void	rt_on_right_drag(t_data *data);
+void	rt_on_drag_cs_helper(t_data *data, int helper_id);
 
 // help
 void	rt_help_label(t_data *data, int line, char *label);
@@ -241,6 +259,10 @@ void	rt_cam_update_fov(t_data *data, int delta_fov);
 void	rt_cam_update_c2w(t_data *data, t_mat4 c2w);
 t_px	rt_cam_c2s(t_data *data, t_vec3 v);
 t_px	rt_cam_w2s(t_data *data, t_vec3 v);
+
+// obj
+t_vec3	rt_cs_helper_axis_in_obj(int helper_id);
+t_vec3	rt_cs_helper_axis_in_cam(t_cs cs, int helper_id);
 
 // px_draw
 void	rt_draw_px(t_data *data, t_px p, t_rgb color, float alpha);

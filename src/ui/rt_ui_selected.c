@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 12:59:49 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/10 06:40:39 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/11 14:16:05 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,5 @@ void	rt_ui_selected(t_data *data)
 	rt_ui_bounding_box(data, data->ui.selected);
 	cs = rt_get_obj_cs(data, data->ui.selected);
 	rt_draw_cs(data, cs);
+	data->ui.cs = cs;
 }

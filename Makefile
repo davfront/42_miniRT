@@ -6,7 +6,7 @@
 #    By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 16:34:41 by dapereir          #+#    #+#              #
-#    Updated: 2023/07/10 06:45:07 by dapereir         ###   ########.fr        #
+#    Updated: 2023/07/11 14:53:29 by dapereir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,8 +89,10 @@ SRCS_FILES			=	\
 						utils/rt_exit.c\
 						utils/rt_error_exit.c\
 						utils/rt_strs_len.c\
-						utils/rt_set_fps.c \
-						utils/rt_ftoa.c \
+						utils/rt_set_fps.c\
+						utils/rt_ftoa.c\
+						utils/px_to_vec3.c\
+						utils/vec3_to_px.c\
 						\
 						parse/rt_parse_uint.c\
 						parse/rt_parse_rgb.c\
@@ -119,6 +121,13 @@ SRCS_FILES			=	\
 						viewer/rt_viewer_set_pixel.c\
 						viewer/rt_viewer_thread_handler.c\
 						\
+						events/rt_on_click.c\
+						events/rt_on_mouse_move.c\
+						events/rt_on_scroll.c\
+						events/rt_on_drag.c\
+						events/rt_on_right_drag.c\
+						events/rt_on_drag_cs_helper.c\
+						\
 						help/rt_help_label.c\
 						help/rt_help_value.c\
 						help/rt_help_info.c\
@@ -131,7 +140,7 @@ SRCS_FILES			=	\
 						raytracer/rt_draw_frame_thread.c\
 						raytracer/rt_draw_frame.c\
 						raytracer/rt_hit_default.c\
-						raytracer/rt_get_plane_hit.c \
+						raytracer/rt_get_plane_hit.c\
 						raytracer/rt_get_sphere_hit.c\
 						raytracer/rt_get_obj_hit.c\
 						raytracer/rt_get_closest_hit.c\
@@ -147,6 +156,9 @@ SRCS_FILES			=	\
 						camera/rt_cam_camera_space_to_ndc.c\
 						camera/rt_cam_c2s.c\
 						camera/rt_cam_w2s.c\
+						\
+						obj/rt_cs_helper_axis_in_obj.c\
+						obj/rt_cs_helper_axis_in_cam.c\
 						\
 						ui/rt_ui_help_bg.c\
 						ui/rt_ui_frame_progress.c\

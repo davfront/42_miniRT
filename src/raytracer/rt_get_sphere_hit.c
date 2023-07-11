@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:01:09 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/07 11:47:21 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/11 09:24:11 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ static t_sphere	rt_transformed_sphere(t_mat4 mt)
 	t_sphere	sp;
 
 	sp.center = mat4_multiply_vec3(mt, vec3(0, 0, 0));
-	sp.radius = mt.m[0][0];
+	sp.radius = vec3_length(\
+		vec3_subtract(mat4_multiply_vec3(mt, vec3(1, 0, 0)), sp.center));
 	return (sp);
 }
 

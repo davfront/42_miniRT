@@ -6,19 +6,24 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 12:59:49 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/10 06:53:47 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/11 09:19:01 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static t_rgb	rt_cs_helper_color(int cs)
+static t_rgb	rt_cs_helper_color(t_data *data, int helper_id)
 {
-	if (cs == CS_MOV_X || cs == CS_ROT_X)
+	if (data->ui.cs_helper_selected == -1 && \
+		helper_id == data->ui.cs_helper_hovered)
+		return (rgb_int(YELLOW));
+	if (helper_id == data->ui.cs_helper_selected)
+		return (rgb_int(YELLOW));
+	if (helper_id == CS_MOV_X || helper_id == CS_ROT_X)
 		return (rgb_int(CS_RED));
-	if (cs == CS_MOV_Y || cs == CS_ROT_Y)
+	if (helper_id == CS_MOV_Y || helper_id == CS_ROT_Y)
 		return (rgb_int(CS_BLUE));
-	if (cs == CS_MOV_Z || cs == CS_ROT_Z)
+	if (helper_id == CS_MOV_Z || helper_id == CS_ROT_Z)
 		return (rgb_int(CS_GREEN));
 	return (rgb_int(GRAY));
 }
@@ -100,7 +105,7 @@ void	rt_draw_cs(t_data *data, t_cs cs)
 	while (i < CS_SIZE)
 	{
 		helper_id = cs.ordered_helper_types[i];
-		color = rt_cs_helper_color(helper_id);
+		color = rt_cs_helper_color(data, helper_id);
 		if (helper_id == CS_ORIG)
 			rt_draw_disc(data, \
 				disc(cs.helper_px[CS_ORIG], CS_POINT_RAD), color, 1);
