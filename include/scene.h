@@ -53,6 +53,8 @@ typedef struct s_cylinder {
 	t_vec3	top;
 	t_vec3	bot;
 	t_vec3	center;
+	t_vec3	vec_height;
+	t_float	vec_h_square;
 	t_vec3	axis;
 	t_float	radius;
 	t_float	height;

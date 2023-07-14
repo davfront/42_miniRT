@@ -12,6 +12,21 @@
 
 #include "minirt.h"
 
+static void	rt_parse_obj_cylinder_calcul_values(t_data *data, t_obj *obj)
+{
+	t_vec3	displacement;
+
+	if (!data || !obj)
+		return ;
+	displacement = vec3_scale(obj->cylinder.axis, obj->cylinder.height / 2);
+	obj->cylinder.top = vec3_add(obj->cylinder.center, displacement);
+	obj->cylinder.bot = vec3_subtract(obj->cylinder.center, displacement);
+	obj->cylinder.vec_height = vec3_subtract(obj->cylinder.top,\
+											 obj->cylinder.bot);
+	obj->cylinder.vec_h_square = vec3_dot(obj->cylinder.vec_height,\
+										obj->cylinder.vec_height);
+}
+
 static void	rt_parse_obj_cylinder_values(t_data *data, char **strs, t_obj *obj)
 {
 	if (!data || !strs || !obj)
@@ -41,6 +56,7 @@ void	rt_parse_obj_cylinder(t_data *data, char **strs)
 	if (rt_strs_len(strs) != 5)
 		rt_parse_line_error_exit(data, "cylinder: 5 arguments expected");
 	rt_parse_obj_cylinder_values(data, strs, &obj);
+	rt_parse_obj_cylinder_calcul_values(data, &obj);
 	content = ft_calloc(1, sizeof(t_obj));
 	if (!content)
 		rt_parse_line_error_exit(data, "cylinder: t_obj alloc failed");
