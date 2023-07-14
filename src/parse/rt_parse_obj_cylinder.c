@@ -49,4 +49,5 @@ void	rt_parse_obj_cylinder(t_data *data, char **strs)
 	if (!node)
 		rt_parse_line_error_exit(data, "cylinder: t_list alloc failed");
 	ft_lstadd_back(&data->obj_lst, node);
+	rt_parse_obj_cyl_plane(data, obj);
 }

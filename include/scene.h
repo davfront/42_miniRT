@@ -50,6 +50,8 @@ typedef struct s_plane {
 }				t_plane;
 
 typedef struct s_cylinder {
+	t_vec3	top;
+	t_vec3	bot;
 	t_vec3	center;
 	t_vec3	axis;
 	t_float	radius;
@@ -57,10 +59,18 @@ typedef struct s_cylinder {
 	t_rgb	color;
 }				t_cylinder;
 
+typedef struct s_cyl_plane {
+	t_vec3	point;
+	t_vec3	normal;
+	t_float	radius;
+	t_rgb	color;
+}				t_cyl_plane;
+
 typedef enum e_obj_type {
 	SPHERE,
 	PLANE,
-	CYLINDER
+	CYLINDER,
+	CYLPLANE
 }		t_obj_type;
 
 typedef struct s_obj {
@@ -69,6 +79,7 @@ typedef struct s_obj {
 		t_sphere	sphere;
 		t_plane		plane;
 		t_cylinder	cylinder;
+		t_cyl_plane	cyl_plane;
 	};
 }				t_obj;
 

@@ -58,6 +58,7 @@ SRCS_FILES			=	\
 						parse/rt_parse_obj_plane.c\
 						parse/rt_parse_obj_sphere.c\
 						parse/rt_parse_obj_cylinder.c\
+						parse/rt_parse_obj_cyl_plane.c \
 						parse/rt_parse_line_error_exit.c\
 						parse/rt_parse_value_error_exit.c\
 						parse/rt_parse.c\
@@ -74,6 +75,7 @@ SRCS_FILES			=	\
 						raytracer/rt_hit_default.c\
 						raytracer/rt_get_cylinder_hit.c \
 						raytracer/rt_get_plane_hit.c \
+						raytracer/rt_get_cyl_plane_hit.c \
 						raytracer/rt_get_sphere_hit.c\
 						raytracer/rt_get_obj_hit.c\
 						raytracer/rt_get_closest_hit.c\
