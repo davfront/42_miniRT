@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 12:59:49 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/10 06:49:31 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/13 16:47:22 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,6 @@ void	rt_ui_bounding_box(t_data *data, t_obj *obj)
 
 	if (!obj || obj->type == PLANE)
 		return ;
-	rt_ui_bounding_box_get_vertices(data, obj->mt, p);
+	rt_ui_bounding_box_get_vertices(data, tf_to_mat4(obj->tf), p);
 	rt_ui_bounding_box_draw_lines(data, p);
 }

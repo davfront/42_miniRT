@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:30:58 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/15 00:03:35 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/15 14:25:28 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	rt_parse_obj_cylinder(t_data *data, char **strs)
 	if (rt_strs_len(strs) != 5)
 		rt_parse_line_error_exit(data, "cylinder: 5 arguments expected");
 	rt_parse_obj_cylinder_values(data, strs, &obj);
+	obj.tf = rt_get_cylinder_transformations(obj.cylinder);
 	content = ft_calloc(1, sizeof(t_obj));
 	if (!content)
 		rt_parse_line_error_exit(data, "cylinder: t_obj alloc failed");

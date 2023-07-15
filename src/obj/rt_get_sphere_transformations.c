@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mat4_scale.c                                       :+:      :+:    :+:   */
+/*   rt_get_sphere_transformations.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/23 16:49:11 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/13 15:36:03 by dapereir         ###   ########.fr       */
+/*   Created: 2023/06/12 11:30:58 by dapereir          #+#    #+#             */
+/*   Updated: 2023/07/15 14:16:36 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vec3.h"
+#include "minirt.h"
 
-t_mat4	mat4_scale(t_mat4 m, t_vec3 v)
+t_tf	rt_get_sphere_transformations(t_sphere sp)
 {
-	t_mat4	result;
+	t_tf	tf;
 
-	result = m;
-	result.m[0][0] *= v.x;
-	result.m[1][1] *= v.y;
-	result.m[2][2] *= v.z;
-	return (result);
+	tf.move = sp.center;
+	tf.rotate = quat_identity();
+	tf.scale = vec3_scale(vec3(1, 1, 1), sp.radius);
+	return (tf);
 }

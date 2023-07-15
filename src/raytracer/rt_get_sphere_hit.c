@@ -6,22 +6,11 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:01:09 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/11 20:01:26 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/15 14:15:10 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-static t_sphere	rt_transformed_sphere(t_obj obj)
-{
-	t_sphere	sp;
-
-	sp = obj.sphere;
-	sp.center = mat4_multiply_vec3(obj.mt, vec3(0, 0, 0));
-	sp.radius = vec3_length(\
-		vec3_subtract(mat4_multiply_vec3(obj.mt, vec3(1, 0, 0)), sp.center));
-	return (sp);
-}
 
 static int	rt_resolve_sphere_hit_points(t_ray ray, t_sphere sp, t_float t[2], \
 	int *front_face)
@@ -55,7 +44,7 @@ int	rt_get_sphere_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit)
 
 	if (!obj || obj->type != SPHERE)
 		return (0);
-	sp = rt_transformed_sphere(*obj);
+	sp = rt_get_transformed_sphere(*obj);
 	if (!rt_resolve_sphere_hit_points(ray, sp, t, &front_face))
 		return (0);
 	hit_dist = t[0];

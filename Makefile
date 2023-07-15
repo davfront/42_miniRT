@@ -6,7 +6,7 @@
 #    By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 16:34:41 by dapereir          #+#    #+#              #
-#    Updated: 2023/07/11 14:53:29 by dapereir         ###   ########.fr        #
+#    Updated: 2023/07/15 14:47:48 by dapereir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ SRCS_FILES			=	\
 						vec3/vec3_length_squared.c\
 						vec3/vec3_equals.c\
 						vec3/quat.c\
+						vec3/quat_identity.c\
 						vec3/quat_from_vec3.c\
 						vec3/quat_multiply.c\
 						vec3/quat_from_axis_angle.c\
@@ -93,6 +94,7 @@ SRCS_FILES			=	\
 						utils/rt_ftoa.c\
 						utils/px_to_vec3.c\
 						utils/vec3_to_px.c\
+						utils/tf_to_mat4.c\
 						\
 						parse/rt_parse_uint.c\
 						parse/rt_parse_rgb.c\
@@ -157,6 +159,12 @@ SRCS_FILES			=	\
 						camera/rt_cam_c2s.c\
 						camera/rt_cam_w2s.c\
 						\
+						obj/rt_get_sphere_transformations.c\
+						obj/rt_get_plane_transformations.c\
+						obj/rt_get_cylinder_transformations.c\
+						obj/rt_get_transformed_sphere.c\
+						obj/rt_get_transformed_plane.c\
+						obj/rt_get_transformed_cylinder.c\
 						obj/rt_cs_helper_axis_in_obj.c\
 						obj/rt_cs_helper_axis_in_cam.c\
 						\

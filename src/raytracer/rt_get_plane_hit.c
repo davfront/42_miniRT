@@ -6,21 +6,11 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 18:19:54 by atchougo          #+#    #+#             */
-/*   Updated: 2023/07/11 17:09:42 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/15 14:15:53 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-static t_plane	rt_transformed_plane(t_obj obj)
-{
-	t_plane	pl;
-
-	pl = obj.plane;
-	pl.point = mat4_multiply_vec3(obj.mt, vec3(0, 0, 0));
-	pl.normal = mat4_multiply_axis(obj.mt, vec3(0, 1, 0));
-	return (pl);
-}
 
 int	rt_get_plane_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit)
 {
@@ -31,7 +21,7 @@ int	rt_get_plane_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit)
 
 	if (!obj || obj->type != PLANE)
 		return (0);
-	pl = rt_transformed_plane(*obj);
+	pl = rt_get_transformed_plane(*obj);
 	denum = vec3_dot(ray.dir, pl.normal);
 	if (!denum)
 		return (0);

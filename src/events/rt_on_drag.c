@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:43 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/11 14:43:31 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/13 16:26:56 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	rt_on_dragstart(t_data *data)
 	data->cam->c2w_temp = data->cam->c2w;
 	if (data->ui.selected && data->ui.cs_helper_hovered != -1)
 	{
-		data->ui.selected->mt_temp = data->ui.selected->mt;
+		data->ui.selected->tf_down = data->ui.selected->tf;
 		data->ui.cs_down = data->ui.cs;
 		data->ui.cs_helper_selected = data->ui.cs_helper_hovered;
 	}

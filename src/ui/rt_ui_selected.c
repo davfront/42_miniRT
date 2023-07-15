@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 12:59:49 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/11 14:16:05 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/13 16:47:22 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static t_cs	rt_get_obj_cs(t_data *data, t_obj *obj)
 	t_mat4	o2c;
 	t_float	dir_scale;
 
-	o2c = mat4_multiply_rev(obj->mt, data->cam->w2c);
+	o2c = mat4_multiply_rev(tf_to_mat4(obj->tf), data->cam->w2c);
 	cs.center = mat4_multiply_vec3(o2c, vec3(0, 0, 0));
 	dir_scale = -cs.center.z * data->cam->tan_half_fov * 2 / WIN_HEIGHT;
 	cs.dx = vec3_scale(mat4_multiply_axis(o2c, vec3(0, 0, 1)), dir_scale);

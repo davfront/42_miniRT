@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:43 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/11 15:14:26 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/15 13:48:43 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,56 +30,41 @@ static void	rt_on_drag_cs_helper_mov(t_data *data, int helper_id)
 	arrow_len = vec3_length(arrow);
 	if (arrow_len <= CS_POINT_RAD * 2)
 		return ;
-	v = vec3_scale(v, \
-		vec3_dot(arrow, dragged) / arrow_len \
-		* -data->ui.cs_down.center.z * data->cam->tan_half_fov * 2 / WIN_HEIGHT \
-		/ 10);
-	data->ui.selected->mt = mat4_multiply_rev(\
-		mat4_translate(mat4_identity(), v), \
-		data->ui.selected->mt_temp);
-}
-
-static t_mat4	rt_obj_mt_rotate(t_mat4 mt, t_vec3 axis, t_float angle)
-{
-	t_mat4	result;
-	t_mat4	m_rot;
-	t_vec3	center;
-
-	result = mt;
-	center = mat4_multiply_vec3(result, vec3(0, 0, 0));
-	result = mat4_translate(result, vec3_scale(center, -1));
-	m_rot = mat4_rotate_axis(mat4_identity(), axis, angle);
-	result = mat4_multiply_rev(m_rot, result);
-	result = mat4_translate(result, center);
-	return (result);
+	v = vec3_scale(v, vec3_dot(arrow, dragged) / arrow_len \
+		* -data->ui.cs_down.center.z * data->cam->tan_half_fov \
+		* 2 / WIN_HEIGHT);
+	data->ui.selected->tf = data->ui.selected->tf_down;
+	v = mat4_multiply_vec3(mat4_from_quat(data->ui.selected->tf.rotate), v);
+	data->ui.selected->tf.move = vec3_add(data->ui.selected->tf.move, v);
 }
 
 static void	rt_on_drag_cs_helper_rot(t_data *data, int helper_id)
 {
 	t_vec3	axis;
-	t_vec3	from;
-	t_vec3	to;
+	t_vec3	v[2];
 	t_float	angle;
+	t_quat	rot;
 
 	axis = rt_cs_helper_axis_in_obj(helper_id);
 	if (!axis.x && !axis.y && !axis.z)
 		return ;
-	from = vec3_subtract(px_to_vec3(data->ui.cs_down.helper_px[helper_id]), \
+	v[0] = vec3_subtract(px_to_vec3(data->ui.cs_down.helper_px[helper_id]), \
 		px_to_vec3(data->ui.cs_down.helper_px[CS_ORIG]));
-	to = vec3_subtract(px_to_vec3(data->ui.mouse), \
+	v[1] = vec3_subtract(px_to_vec3(data->ui.mouse), \
 		px_to_vec3(data->ui.cs_down.helper_px[CS_ORIG]));
-	if (vec3_length(from) <= CS_POINT_RAD * 2 \
-		|| vec3_length(to) <= CS_POINT_RAD * 2)
+	if (fmin(vec3_length(v[0]), vec3_length(v[1])) <= CS_POINT_RAD * 2)
 		return ;
-	from = vec3_normalize(from);
-	to = vec3_normalize(to);
-	angle = acos(vec3_dot(from, to));
-	if (vec3_cross(to, from).z < 0)
+	v[0] = vec3_normalize(v[0]);
+	v[1] = vec3_normalize(v[1]);
+	angle = acos(vec3_dot(v[0], v[1]));
+	if (vec3_cross(v[0], v[1]).z > 0)
 		angle *= -1;
 	if (rt_cs_helper_axis_in_cam(data->ui.cs_down, helper_id).z < 0)
 		angle *= -1;
-	data->ui.selected->mt = \
-		rt_obj_mt_rotate(data->ui.selected->mt_temp, axis, angle);
+	rot = quat_from_axis_angle(axis, angle);
+	data->ui.selected->tf = data->ui.selected->tf_down;
+	data->ui.selected->tf.rotate = \
+		quat_multiply(data->ui.selected->tf.rotate, rot);
 }
 
 void	rt_on_drag_cs_helper(t_data *data, int helper_id)

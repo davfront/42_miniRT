@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mat4_scale.c                                       :+:      :+:    :+:   */
+/*   quat_identity.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/23 16:49:11 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/13 15:36:03 by dapereir         ###   ########.fr       */
+/*   Created: 2023/06/12 11:30:58 by dapereir          #+#    #+#             */
+/*   Updated: 2023/07/15 14:44:31 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vec3.h"
+#include "minirt.h"
 
-t_mat4	mat4_scale(t_mat4 m, t_vec3 v)
+t_quat	quat_identity(void)
 {
-	t_mat4	result;
+	t_quat	result;
 
-	result = m;
-	result.m[0][0] *= v.x;
-	result.m[1][1] *= v.y;
-	result.m[2][2] *= v.z;
+	result.w = 1;
+	result.x = 0;
+	result.y = 0;
+	result.z = 0;
 	return (result);
 }

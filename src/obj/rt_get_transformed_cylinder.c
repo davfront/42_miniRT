@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mat4_scale.c                                       :+:      :+:    :+:   */
+/*   rt_get_transformed_cylinder.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/23 16:49:11 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/13 15:36:03 by dapereir         ###   ########.fr       */
+/*   Created: 2023/06/12 18:19:54 by atchougo          #+#    #+#             */
+/*   Updated: 2023/07/15 14:29:26 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vec3.h"
+#include "minirt.h"
 
-t_mat4	mat4_scale(t_mat4 m, t_vec3 v)
+t_cylinder	rt_get_transformed_cylinder(t_obj obj)
 {
-	t_mat4	result;
+	t_cylinder	cy;
 
-	result = m;
-	result.m[0][0] *= v.x;
-	result.m[1][1] *= v.y;
-	result.m[2][2] *= v.z;
-	return (result);
+	cy = obj.cylinder;
+	cy.center = obj.tf.move;
+	cy.axis = mat4_multiply_axis(mat4_from_quat(obj.tf.rotate), vec3(0, 1, 0));
+	cy.radius = obj.tf.scale.x;
+	cy.height = obj.tf.scale.y * 2;
+	return (cy);
 }

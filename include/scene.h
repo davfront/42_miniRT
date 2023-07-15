@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 16:24:08 by atchougo          #+#    #+#             */
-/*   Updated: 2023/07/10 13:49:35 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/13 20:32:36 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,16 @@ typedef enum e_obj_type {
 	CYLINDER
 }		t_obj_type;
 
+typedef struct s_tf {
+	t_vec3		move;
+	t_quat		rotate;
+	t_vec3		scale;
+}				t_tf;
+
 typedef struct s_obj {
 	t_obj_type	type;
-	t_mat4		mt;
-	t_mat4		mt_temp;
+	t_tf		tf;
+	t_tf		tf_down;
 	union {
 		t_sphere	sphere;
 		t_plane		plane;

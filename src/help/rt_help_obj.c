@@ -12,8 +12,11 @@
 
 #include "minirt.h"
 
-static int	rt_help_sphere(t_data *data, t_sphere sp, int line)
+static int	rt_help_sphere(t_data *data, t_obj obj, int line)
 {
+	t_sphere	sp;
+
+	sp = rt_get_transformed_sphere(obj);
 	rt_help_label(data, line++, "SPHERE");
 	line++;
 	rt_help_label(data, line, "Center X");
@@ -28,8 +31,11 @@ static int	rt_help_sphere(t_data *data, t_sphere sp, int line)
 	return (line);
 }
 
-static int	rt_help_plane(t_data *data, t_plane pl, int line)
+static int	rt_help_plane(t_data *data, t_obj obj, int line)
 {
+	t_plane	pl;
+
+	pl = rt_get_transformed_plane(obj);
 	rt_help_label(data, line++, "PLANE");
 	line++;
 	rt_help_label(data, line, "Point X");
@@ -48,8 +54,11 @@ static int	rt_help_plane(t_data *data, t_plane pl, int line)
 	return (line);
 }
 
-static int	rt_help_cylinder(t_data *data, t_cylinder cy, int line)
+static int	rt_help_cylinder(t_data *data, t_obj obj, int line)
 {
+	t_cylinder	cy;
+
+	cy = rt_get_transformed_cylinder(obj);
 	rt_help_label(data, line++, "CYLINDER");
 	line++;
 	rt_help_label(data, line, "Center X");
@@ -77,10 +86,10 @@ static int	rt_help_cylinder(t_data *data, t_cylinder cy, int line)
 int	rt_help_obj(t_data *data, t_obj obj, int line)
 {
 	if (obj.type == SPHERE)
-		return (rt_help_sphere(data, obj.sphere, line));
+		return (rt_help_sphere(data, obj, line));
 	if (obj.type == PLANE)
-		return (rt_help_plane(data, obj.plane, line));
+		return (rt_help_plane(data, obj, line));
 	if (obj.type == CYLINDER)
-		return (rt_help_cylinder(data, obj.cylinder, line));
+		return (rt_help_cylinder(data, obj, line));
 	return (0);
 }
