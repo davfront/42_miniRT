@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:01:09 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/20 12:33:50 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/17 14:41:47 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,5 @@ int	rt_get_obj_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit)
 		return (rt_get_plane_hit(ray, obj, t_max, hit));
 	else if (obj->type == CYLINDER)
 		return (rt_get_cylinder_hit(ray, obj, t_max, hit));
-	// else if (obj->type == CYLPLANE)
-	// 	return (rt_get_cyl_plane_hit(ray, obj, t_max, hit));
 	return (0);
 }

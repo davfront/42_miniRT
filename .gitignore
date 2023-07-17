@@ -1,5 +1,6 @@
 .vscode
 *.o
 *.a
+*.d
 miniRT
 minilibx-linux/test/mlx-test

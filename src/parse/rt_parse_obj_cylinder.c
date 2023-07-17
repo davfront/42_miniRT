@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:30:58 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/15 00:03:35 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/17 15:03:17 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,4 @@ void	rt_parse_obj_cylinder(t_data *data, char **strs)
 	if (!node)
 		rt_parse_line_error_exit(data, "cylinder: t_list alloc failed");
 	ft_lstadd_back(&data->obj_lst, node);
-	rt_parse_obj_cyl_plane(data, obj);
 }

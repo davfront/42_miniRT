@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 16:34:41 by dapereir          #+#    #+#              #
-#    Updated: 2023/06/23 20:36:17 by atchougo         ###   ########.fr        #
+#    Updated: 2023/07/17 15:04:05 by dapereir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,6 @@ SRCS_FILES			=	\
 						parse/rt_parse_obj_plane.c\
 						parse/rt_parse_obj_sphere.c\
 						parse/rt_parse_obj_cylinder.c\
-						parse/rt_parse_obj_cyl_plane.c \
 						parse/rt_parse_line_error_exit.c\
 						parse/rt_parse_value_error_exit.c\
 						parse/rt_parse.c\
@@ -75,7 +74,6 @@ SRCS_FILES			=	\
 						raytracer/rt_hit_default.c\
 						raytracer/rt_get_cylinder_hit.c \
 						raytracer/rt_get_plane_hit.c \
-						raytracer/rt_get_cyl_plane_hit.c \
 						raytracer/rt_get_sphere_hit.c\
 						raytracer/rt_get_obj_hit.c\
 						raytracer/rt_get_closest_hit.c\

@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 16:24:08 by atchougo          #+#    #+#             */
-/*   Updated: 2023/06/13 14:57:16 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/17 15:05:36 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define SCENE_H
 
 # include "vec3.h"
+# include "rgb.h"
 
 typedef struct s_al {
 	t_rgb	color;
@@ -61,18 +62,10 @@ typedef struct s_cylinder {
 	t_rgb	color;
 }				t_cylinder;
 
-typedef struct s_cyl_plane {
-	t_vec3	point;
-	t_vec3	normal;
-	t_float	radius;
-	t_rgb	color;
-}				t_cyl_plane;
-
 typedef enum e_obj_type {
 	SPHERE,
 	PLANE,
-	CYLINDER,
-	CYLPLANE
+	CYLINDER
 }		t_obj_type;
 
 typedef struct s_obj {
@@ -81,7 +74,6 @@ typedef struct s_obj {
 		t_sphere	sphere;
 		t_plane		plane;
 		t_cylinder	cylinder;
-		t_cyl_plane	cyl_plane;
 	};
 }				t_obj;
 
