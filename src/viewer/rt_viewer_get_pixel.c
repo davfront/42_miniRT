@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_cam_projection.c                                :+:      :+:    :+:   */
+/*   rt_viewer_set_pixel.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/07 10:34:16 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/23 17:21:49 by dapereir         ###   ########.fr       */
+/*   Created: 2022/12/14 16:35:34 by dapereir          #+#    #+#             */
+/*   Updated: 2023/07/05 11:52:32 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_mat4	rt_cam_projection(unsigned int fov)
+t_rgb	rt_viewer_get_pixel(t_data *data, int x, int y)
 {
-	t_float	aspect_ratio;
-	t_float	fov_rad;
-	t_float	tan_half_fov;
-	t_mat4	result;
+	char	*dst;
+	int		color_int;
 
-	aspect_ratio = (t_float)WIN_WIDTH / WIN_HEIGHT;
-	fov_rad = fov * M_PI / 180;
-	tan_half_fov = tan(fov_rad / 2);
-	result = mat4_identity();
-	result.m[0][0] = aspect_ratio * tan_half_fov;
-	result.m[1][1] = tan_half_fov;
-	return (result);
+	if (!data)
+		return (rgb(0, 0, 0));
+	if (x < 0 || x > WIN_WIDTH - 1)
+		return (rgb(0, 0, 0));
+	if (y < 0 || y > WIN_HEIGHT - 1)
+		return (rgb(0, 0, 0));
+	dst = data->img.addr;
+	dst += y * data->img.len;
+	dst += x * (data->img.bpp / 8);
+	color_int = *(unsigned int *)dst;
+	return (rgb_int(color_int));
 }

@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_viewer_draw_pixel.c                             :+:      :+:    :+:   */
+/*   rt_on_scroll.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/14 16:35:34 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/27 13:09:12 by dapereir         ###   ########.fr       */
+/*   Created: 2022/12/14 16:35:43 by dapereir          #+#    #+#             */
+/*   Updated: 2023/07/11 10:22:20 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	rt_viewer_draw_pixel(t_data *data, int x, int y, t_rgb color)
+void	rt_on_scroll(t_data *data, int is_up)
 {
-	char	*dst;
-	int		color_int;
+	int	dir;
 
-	if (x < 0 || x > WIN_WIDTH - 1)
+	if (!data || !data->cam)
 		return ;
-	if (y < 0 || y > WIN_HEIGHT - 1)
-		return ;
-	if (data->ui.help && x < HELP_WIDTH)
-		color = rgb_mix(color, rgb(0, 0, 0), 0.75);
-	color_int = rgb_to_int(color);
-	dst = data->img.addr;
-	dst += y * data->img.len;
-	dst += x * (data->img.bpp / 8);
-	*(unsigned int *)dst = color_int;
+	dir = 2 * is_up - 1;
+	rt_cam_update_c2w(data, \
+		rt_cam_to_world_translate(data->cam->c2w, vec3(0, 0, dir), 10));
+	data->ui.changed = 1;
 }

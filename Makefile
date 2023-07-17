@@ -6,7 +6,7 @@
 #    By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 16:34:41 by dapereir          #+#    #+#              #
-#    Updated: 2023/06/30 14:59:47 by dapereir         ###   ########.fr        #
+#    Updated: 2023/07/15 14:47:48 by dapereir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ SRCS_FILES			=	\
 						vec3/vec3_length_squared.c\
 						vec3/vec3_equals.c\
 						vec3/quat.c\
+						vec3/quat_identity.c\
 						vec3/quat_from_vec3.c\
 						vec3/quat_multiply.c\
 						vec3/quat_from_axis_angle.c\
@@ -68,14 +69,32 @@ SRCS_FILES			=	\
 						vec3/mat4_from_quat.c\
 						vec3/mat4_multiply_vec3.c\
 						vec3/mat4_multiply_axis.c\
+						vec3/mat4_transpose.c\
+						vec3/mat4_cofactor.c\
+						vec3/mat4_invert.c\
 						\
+						px/px.c\
+						px/line.c\
+						px/disc.c\
+						px/rect.c\
+						\
+						px_draw/rt_draw_px.c\
+						px_draw/rt_draw_line.c\
+						px_draw/rt_draw_disc.c\
+						px_draw/rt_draw_rect.c\
+						px_draw/rt_draw_cs.c\
+						\
+						utils/rt_init.c\
 						utils/rt_delete.c\
 						utils/rt_error.c\
 						utils/rt_exit.c\
 						utils/rt_error_exit.c\
 						utils/rt_strs_len.c\
-						utils/rt_set_fps.c \
-						utils/rt_ftoa.c \
+						utils/rt_set_fps.c\
+						utils/rt_ftoa.c\
+						utils/px_to_vec3.c\
+						utils/vec3_to_px.c\
+						utils/tf_to_mat4.c\
 						\
 						parse/rt_parse_uint.c\
 						parse/rt_parse_rgb.c\
@@ -100,21 +119,30 @@ SRCS_FILES			=	\
 						viewer/rt_viewer_on_mouse_events.c\
 						viewer/rt_viewer_on_key_events.c\
 						viewer/rt_viewer_render_frame.c\
-						viewer/rt_viewer_draw_pixel.c\
+						viewer/rt_viewer_get_pixel.c\
+						viewer/rt_viewer_set_pixel.c\
 						viewer/rt_viewer_thread_handler.c\
+						\
+						events/rt_on_click.c\
+						events/rt_on_mouse_move.c\
+						events/rt_on_scroll.c\
+						events/rt_on_drag.c\
+						events/rt_on_right_drag.c\
+						events/rt_on_drag_cs_helper.c\
 						\
 						help/rt_help_label.c\
 						help/rt_help_value.c\
 						help/rt_help_info.c\
+						help/rt_help_obj.c\
 						help/rt_help.c\
 						\
 						raytracer/rt_get_view_ray.c\
-						raytracer/rt_draw_frame.c\
 						raytracer/rt_lowres_estimate_size.c\
-						raytracer/rt_draw_frame_lowres.c \
-						raytracer/rt_draw_frame_thread.c \
+						raytracer/rt_lowres_draw_step.c\
+						raytracer/rt_draw_frame_thread.c\
+						raytracer/rt_draw_frame.c\
 						raytracer/rt_hit_default.c\
-						raytracer/rt_get_plane_hit.c \
+						raytracer/rt_get_plane_hit.c\
 						raytracer/rt_get_sphere_hit.c\
 						raytracer/rt_get_obj_hit.c\
 						raytracer/rt_get_closest_hit.c\
@@ -124,8 +152,26 @@ SRCS_FILES			=	\
 						camera/rt_cam_to_world.c\
 						camera/rt_cam_to_world_translate.c\
 						camera/rt_cam_to_world_rotate.c\
-						camera/rt_cam_projection.c\
+						camera/rt_cam_ndc_to_camera_space.c\
 						camera/rt_cam_update_fov.c\
+						camera/rt_cam_update_c2w.c\
+						camera/rt_cam_camera_space_to_ndc.c\
+						camera/rt_cam_c2s.c\
+						camera/rt_cam_w2s.c\
+						\
+						obj/rt_get_sphere_transformations.c\
+						obj/rt_get_plane_transformations.c\
+						obj/rt_get_cylinder_transformations.c\
+						obj/rt_get_transformed_sphere.c\
+						obj/rt_get_transformed_plane.c\
+						obj/rt_get_transformed_cylinder.c\
+						obj/rt_cs_helper_axis_in_obj.c\
+						obj/rt_cs_helper_axis_in_cam.c\
+						\
+						ui/rt_ui_help_bg.c\
+						ui/rt_ui_frame_progress.c\
+						ui/rt_ui_bounding_box.c\
+						ui/rt_ui_selected.c\
 						\
 						main.c\
 

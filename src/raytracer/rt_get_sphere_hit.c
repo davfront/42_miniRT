@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:01:09 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/20 13:18:04 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/15 14:15:10 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,15 @@ static int	rt_resolve_sphere_hit_points(t_ray ray, t_sphere sp, t_float t[2], \
 
 int	rt_get_sphere_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit)
 {
-	t_float	t[2];
-	t_float	hit_dist;
-	int		front_face;
+	t_sphere	sp;
+	t_float		t[2];
+	t_float		hit_dist;
+	int			front_face;
 
 	if (!obj || obj->type != SPHERE)
 		return (0);
-	if (!rt_resolve_sphere_hit_points(ray, obj->sphere, t, &front_face))
+	sp = rt_get_transformed_sphere(*obj);
+	if (!rt_resolve_sphere_hit_points(ray, sp, t, &front_face))
 		return (0);
 	hit_dist = t[0];
 	if (hit_dist < T_MIN || hit_dist > t_max)
@@ -55,10 +57,9 @@ int	rt_get_sphere_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit)
 	*hit = rt_hit_default();
 	hit->obj = obj;
 	hit->dist = hit_dist;
-	hit->color = obj->sphere.color;
+	hit->color = sp.color;
 	hit->pos = vec3_add(ray.pos, vec3_scale(ray.dir, hit->dist));
-	hit->normal = vec3_subtract(hit->pos, obj->sphere.center);
-	hit->normal = vec3_scale(hit->normal, \
-		(t_float)(2 * front_face - 1) / obj->sphere.radius);
+	hit->normal = vec3_subtract(hit->pos, sp.center);
+	hit->normal = vec3_scale(hit->normal, (2.0 * front_face - 1) / sp.radius);
 	return (1);
 }

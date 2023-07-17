@@ -6,17 +6,16 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:43 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/29 10:51:50 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:15:09 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	rt_draw_frame(t_data *data)
+static void	rt_clear_buffer(t_data *data)
 {
 	int		x;
 	int		y;
-	t_ray	ray;
 
 	x = 0;
 	while (x < WIN_WIDTH)
@@ -24,12 +23,56 @@ void	rt_draw_frame(t_data *data)
 		y = 0;
 		while (y < WIN_HEIGHT)
 		{
-			ray = rt_get_view_ray(*data->cam, x, y);
-			ray.hit = rt_get_closest_hit(data, ray);
-			if (ray.hit.obj)
-				rt_viewer_draw_pixel(data, x, y, rt_get_hit_color(data, ray));
+			ft_bzero(&(data->rdr.buf[x][y]), sizeof(t_buf));
 			y++;
 		}
 		x++;
 	}
+}
+
+static void	rt_draw_buffer(t_data *data)
+{
+	int		x;
+	int		y;
+	t_buf	buf;
+	t_rgb	color;
+
+	ft_bzero(&buf, sizeof(buf));
+	y = 0;
+	while (y < WIN_HEIGHT)
+	{
+		x = 0;
+		while (x < WIN_WIDTH)
+		{
+			buf = data->rdr.buf[x][y];
+			color = buf.color;
+			if (buf.obj && buf.obj == data->ui.selected)
+				color = rgb_mix(color, rgb(255, 255, 255), 0.1);
+			rt_viewer_set_pixel(data, x, y, color);
+			x++;
+		}
+		y++;
+	}
+}
+
+void	rt_draw_frame(t_data *data)
+{
+	if (data->ui.changed)
+		data->rdr.step = 0;
+	if (data->rdr.step == 0)
+	{
+		rt_clear_buffer(data);
+		if (LOW_RES_ENABLED)
+			data->rdr.tile_size = rt_lowres_estimate_size(data);
+		else
+			data->rdr.tile_size = 1;
+		data->rdr.step_max = data->rdr.tile_size * data->rdr.tile_size - 1;
+	}
+	if (data->rdr.step <= data->rdr.step_max)
+		rt_lowres_draw_step(data, data->rdr.step);
+	else
+		rt_draw_buffer(data);
+	if (data->rdr.step <= data->rdr.step_max)
+		data->rdr.step++;
+	data->ui.changed = 0;
 }

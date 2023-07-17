@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:30:58 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/15 00:03:33 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/15 14:48:16 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	rt_parse_obj_sphere(t_data *data, char **strs)
 	obj.sphere.radius /= 2;
 	if (!rt_parse_rgb(strs[2], &obj.sphere.color))
 		rt_parse_value_error_exit(data, "sphere", "color", strs[2]);
+	obj.tf = rt_get_sphere_transformations(obj.sphere);
 	content = ft_calloc(1, sizeof(t_obj));
 	if (!content)
 		rt_parse_line_error_exit(data, "sphere: t_obj alloc failed");

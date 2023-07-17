@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 16:24:08 by atchougo          #+#    #+#             */
-/*   Updated: 2023/06/26 12:12:26 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/13 20:32:36 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,11 @@ typedef struct s_cam {
 	t_vec3			pos;
 	t_vec3			dir;
 	unsigned int	fov;
-	t_mat4			proj;
+	t_float			tan_half_fov;
+	t_float			aspect_ratio;
 	t_mat4			c2w_temp;
 	t_mat4			c2w;
+	t_mat4			w2c;
 }				t_cam;
 
 typedef struct s_light {
@@ -62,8 +64,16 @@ typedef enum e_obj_type {
 	CYLINDER
 }		t_obj_type;
 
+typedef struct s_tf {
+	t_vec3		move;
+	t_quat		rotate;
+	t_vec3		scale;
+}				t_tf;
+
 typedef struct s_obj {
 	t_obj_type	type;
+	t_tf		tf;
+	t_tf		tf_down;
 	union {
 		t_sphere	sphere;
 		t_plane		plane;
