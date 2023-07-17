@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_set_fps.c                                       :+:      :+:    :+:   */
+/*   rt_lowres_estimate_size.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/21 22:19:26 by atchougo          #+#    #+#             */
-/*   Updated: 2023/06/29 14:49:40 by dapereir         ###   ########.fr       */
+/*   Created: 2022/12/14 16:35:43 by dapereir          #+#    #+#             */
+/*   Updated: 2023/06/30 14:58:56 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	rt_set_fps(t_data *data, struct timeval start, struct timeval end)
+int	rt_lowres_estimate_size(t_data *data)
 {
-	t_float	delta;
+	struct timeval	start;
+	struct timeval	end;
+	t_ray			ray;
+	t_float			delta;
+	int				size;
 
+	gettimeofday(&start, NULL);
+	ray = rt_get_view_ray(*data->cam, WIN_WIDTH / 2, WIN_HEIGHT / 2);
+	rt_get_closest_hit(data, ray);
+	gettimeofday(&end, NULL);
 	delta = (end.tv_sec - start.tv_sec) + \
 				(end.tv_usec - start.tv_usec) / 1000000.0;
-	if (data)
-		data->rdr.fps = 1.0 / delta;
+	size = sqrt(4 * 25 / (delta * WIN_WIDTH * WIN_HEIGHT));
+	size = fmax(size, 1);
+	size = fmin(size, 24);
+	return (size);
 }

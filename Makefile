@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 16:34:41 by dapereir          #+#    #+#              #
-#    Updated: 2023/06/28 19:12:42 by atchougo         ###   ########.fr        #
+#    Updated: 2023/06/30 14:59:47 by dapereir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -103,11 +103,15 @@ SRCS_FILES			=	\
 						viewer/rt_viewer_draw_pixel.c\
 						viewer/rt_viewer_thread_handler.c\
 						\
-						help/rt_help_utils.c\
+						help/rt_help_label.c\
+						help/rt_help_value.c\
+						help/rt_help_info.c\
 						help/rt_help.c\
 						\
 						raytracer/rt_get_view_ray.c\
 						raytracer/rt_draw_frame.c\
+						raytracer/rt_lowres_estimate_size.c\
+						raytracer/rt_draw_frame_lowres.c \
 						raytracer/rt_draw_frame_thread.c \
 						raytracer/rt_hit_default.c\
 						raytracer/rt_get_plane_hit.c \

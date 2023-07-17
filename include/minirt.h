@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/27 16:33:11 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/06/30 15:22:25 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,10 @@
 # define PHONG_SPECULAR_WEIGHT		(0.4)
 # define PHONG_SPECULAR_EXPONENT	(50)
 
-# define ENABLE_THREAD	0
+# define ENABLE_THREAD	1
 # define THREAD_NB		4
-# define TILE_SIZE		4
+
+# define LOW_RES_ENABLED	1
 
 # define HELP_OFFSET_Y	(20)
 # define HELP_VALUE_X	(160)
@@ -97,6 +98,15 @@ typedef struct s_thread {
 	t_data		*data;
 }				t_thread;
 
+typedef struct s_rdr {
+	t_thread	thread[THREAD_NB];
+	t_buf		buf[WIN_WIDTH][WIN_HEIGHT];
+	int			tile_size;
+	int			step_max;
+	int			step;
+	t_float		fps;
+}				t_rdr;
+
 typedef struct s_data {
 	char		*path;
 	char		*title;
@@ -107,15 +117,12 @@ typedef struct s_data {
 	void		*mlx;
 	void		*win;
 	t_img		img;
+	t_rdr		rdr;
 	t_ui		ui;
 	t_al		*al;
 	t_cam		*cam;
 	t_list		*light_lst;
 	t_list		*obj_lst;
-	t_buf		buf[WIN_WIDTH][WIN_HEIGHT];
-	int			buf_step;
-	t_thread	thread[THREAD_NB];
-	t_float		fps;
 }				t_data;
 
 // utils
@@ -165,6 +172,7 @@ void	rt_viewer_thread_handler(t_data *data);
 // help
 void	rt_help_label(t_data *data, int line, char *label);
 void	rt_help_value(t_data *data, int line, char *value, int color);
+void	rt_help_value_i(t_data *data, int line, int i, int color);
 void	rt_help_value_f(t_data *data, int line, float f, int color);
 void	rt_help_value_perc(t_data *data, int line, float f, int color);
 void	rt_help_info(t_data *data, int line, char *label, char *value);
@@ -173,6 +181,8 @@ void	rt_help(t_data *data);
 // raytracer
 t_ray	rt_get_view_ray(t_cam cam, int x, int y);
 void	rt_draw_frame(t_data *data);
+int		rt_lowres_estimate_size(t_data *data);
+void	rt_draw_frame_lowres(t_data *data);
 void	*rt_draw_frame_thread(void *tv);
 t_hit	rt_hit_default(void);
 int		rt_get_sphere_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit);

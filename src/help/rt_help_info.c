@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_set_fps.c                                       :+:      :+:    :+:   */
+/*   rt_help_info.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/21 22:19:26 by atchougo          #+#    #+#             */
-/*   Updated: 2023/06/29 14:49:40 by dapereir         ###   ########.fr       */
+/*   Created: 2023/01/03 12:52:54 by dapereir          #+#    #+#             */
+/*   Updated: 2023/06/30 14:56:18 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	rt_set_fps(t_data *data, struct timeval start, struct timeval end)
+void	rt_help_info(t_data *data, int line, char *label, char *value)
 {
-	t_float	delta;
-
-	delta = (end.tv_sec - start.tv_sec) + \
-				(end.tv_usec - start.tv_usec) / 1000000.0;
-	if (data)
-		data->rdr.fps = 1.0 / delta;
+	rt_help_label(data, line, label);
+	rt_help_value(data, line, value, WHITE);
 }
