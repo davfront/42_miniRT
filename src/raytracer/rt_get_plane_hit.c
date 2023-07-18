@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 18:19:54 by atchougo          #+#    #+#             */
-/*   Updated: 2023/07/15 14:15:53 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/18 16:07:59 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	rt_get_plane_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit)
 		return (0);
 	pl = rt_get_transformed_plane(*obj);
 	denum = vec3_dot(ray.dir, pl.normal);
-	if (!denum)
+	if (fabs(denum) < 1e-6)
 		return (0);
 	num = vec3_dot(vec3_subtract(pl.point, ray.pos), pl.normal);
 	t = num / denum;

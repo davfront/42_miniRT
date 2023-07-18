@@ -6,7 +6,7 @@
 #    By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 16:34:41 by dapereir          #+#    #+#              #
-#    Updated: 2023/07/15 14:47:48 by dapereir         ###   ########.fr        #
+#    Updated: 2023/07/18 10:45:30 by dapereir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -144,6 +144,7 @@ SRCS_FILES			=	\
 						raytracer/rt_hit_default.c\
 						raytracer/rt_get_plane_hit.c\
 						raytracer/rt_get_sphere_hit.c\
+						raytracer/rt_get_cylinder_hit.c\
 						raytracer/rt_get_obj_hit.c\
 						raytracer/rt_get_closest_hit.c\
 						raytracer/rt_get_hit_color.c\
