@@ -6,12 +6,12 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 09:13:46 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/07 15:07:56 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/19 17:12:58 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_PRINCS_H
-# define LIBFT_PRINCS_H
+#ifndef LIBFT_PRINTF_H
+# define LIBFT_PRINTF_H
 
 # include <stdarg.h>
 # include <stdlib.h>
