@@ -6,7 +6,7 @@
 #    By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 16:34:41 by dapereir          #+#    #+#              #
-#    Updated: 2023/07/19 10:17:03 by dapereir         ###   ########.fr        #
+#    Updated: 2023/07/19 11:08:03 by dapereir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -108,6 +108,7 @@ SRCS_FILES			=	\
 						parse/rt_parse_obj_plane.c\
 						parse/rt_parse_obj_sphere.c\
 						parse/rt_parse_obj_cylinder.c\
+						parse/rt_parse_obj_cone.c\
 						parse/rt_parse_line_error_exit.c\
 						parse/rt_parse_value_error_exit.c\
 						parse/rt_parse.c\
@@ -147,6 +148,8 @@ SRCS_FILES			=	\
 						raytracer/rt_get_disc_hit_dist.c\
 						raytracer/rt_get_cylinder_body_hit_dist.c\
 						raytracer/rt_get_cylinder_hit.c\
+						raytracer/rt_get_cone_body_hit_dist.c\
+						raytracer/rt_get_cone_hit.c\
 						raytracer/rt_get_obj_hit.c\
 						raytracer/rt_get_closest_hit.c\
 						raytracer/rt_get_hit_color.c\
@@ -165,9 +168,11 @@ SRCS_FILES			=	\
 						obj/rt_get_sphere_transformations.c\
 						obj/rt_get_plane_transformations.c\
 						obj/rt_get_cylinder_transformations.c\
+						obj/rt_get_cone_transformations.c\
 						obj/rt_get_transformed_sphere.c\
 						obj/rt_get_transformed_plane.c\
 						obj/rt_get_transformed_cylinder.c\
+						obj/rt_get_transformed_cone.c\
 						obj/rt_cs_helper_axis_in_obj.c\
 						obj/rt_cs_helper_axis_in_cam.c\
 						\

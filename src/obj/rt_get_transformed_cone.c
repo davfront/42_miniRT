@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_get_obj_hit.c                                   :+:      :+:    :+:   */
+/*   rt_get_transformed_cone.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/07 14:01:09 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/19 11:04:42 by dapereir         ###   ########.fr       */
+/*   Created: 2023/06/12 18:19:54 by atchougo          #+#    #+#             */
+/*   Updated: 2023/07/19 14:25:54 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	rt_get_obj_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit)
+t_cone	rt_get_transformed_cone(t_obj obj)
 {
-	if (!obj)
-		return (0);
-	if (obj->type == SPHERE)
-		return (rt_get_sphere_hit(ray, obj, t_max, hit));
-	if (obj->type == PLANE)
-		return (rt_get_plane_hit(ray, obj, t_max, hit));
-	if (obj->type == CYLINDER)
-		return (rt_get_cylinder_hit(ray, obj, t_max, hit));
-	if (obj->type == CONE)
-		return (rt_get_cone_hit(ray, obj, t_max, hit));
-	return (0);
+	t_cone	co;
+
+	co = obj.cone;
+	co.center = obj.tf.move;
+	co.axis = mat4_multiply_axis(mat4_from_quat(obj.tf.rotate), vec3(0, 1, 0));
+	co.radius = obj.tf.scale.x;
+	co.height = obj.tf.scale.y;
+	return (co);
 }

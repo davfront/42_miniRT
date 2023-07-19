@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 16:24:08 by atchougo          #+#    #+#             */
-/*   Updated: 2023/07/19 10:01:28 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/19 11:02:50 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,14 @@ typedef struct s_cylinder {
 	t_rgb	color;
 }				t_cylinder;
 
+typedef struct s_cone {
+	t_vec3	center;
+	t_vec3	axis;
+	t_float	radius;
+	t_float	height;
+	t_rgb	color;
+}				t_cone;
+
 typedef struct s_disc3 {
 	t_vec3	center;
 	t_vec3	axis;
@@ -67,7 +75,8 @@ typedef struct s_disc3 {
 typedef enum e_obj_type {
 	SPHERE,
 	PLANE,
-	CYLINDER
+	CYLINDER,
+	CONE
 }		t_obj_type;
 
 typedef struct s_tf {
@@ -84,6 +93,7 @@ typedef struct s_obj {
 		t_sphere	sphere;
 		t_plane		plane;
 		t_cylinder	cylinder;
+		t_cone		cone;
 	};
 }				t_obj;
 
