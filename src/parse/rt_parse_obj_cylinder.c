@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:30:58 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/15 14:25:28 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/18 21:57:07 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	rt_parse_obj_cylinder_values(t_data *data, char **strs, t_obj *obj)
 		rt_parse_value_error_exit(data, "cylinder", "axis", strs[1]);
 	if (!rt_parse_float_len(strs[2], &obj->cylinder.radius))
 		rt_parse_value_error_exit(data, "cylinder", "diameter", strs[2]);
-	obj->sphere.radius /= 2;
+	obj->cylinder.radius /= 2;
 	if (!rt_parse_float_len(strs[3], &obj->cylinder.height))
 		rt_parse_value_error_exit(data, "cylinder", "height", strs[3]);
 	if (!rt_parse_rgb(strs[4], &obj->cylinder.color))

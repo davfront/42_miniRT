@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/15 14:48:21 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/19 11:09:49 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,7 @@ void		rt_parse_light(t_data *data, char **strs);
 void		rt_parse_obj_plane(t_data *data, char **strs);
 void		rt_parse_obj_sphere(t_data *data, char **strs);
 void		rt_parse_obj_cylinder(t_data *data, char **strs);
+void		rt_parse_obj_cone(t_data *data, char **strs);
 void		rt_parse_line_error_exit(t_data *data, char *msg);
 void		rt_parse_value_error_exit(t_data *data, char *line_type, \
 				char *label, char *value);
@@ -240,6 +241,13 @@ void		rt_draw_frame(t_data *data);
 t_hit		rt_hit_default(void);
 int			rt_get_sphere_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit);
 int			rt_get_plane_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit);
+t_float		rt_get_disc_hit_dist(t_ray ray, t_disc3 disc, t_float t_max);
+t_float		rt_get_cylinder_body_hit_dist(t_ray ray, t_cylinder cy, \
+				t_float t_max);
+int			rt_get_cylinder_hit(t_ray ray, t_obj *obj, t_float t_max, \
+				t_hit *hit);
+t_float		rt_get_cone_body_hit_dist(t_ray ray, t_cone co, t_float t_max);
+int			rt_get_cone_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit);
 int			rt_get_obj_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit);
 t_hit		rt_get_closest_hit(t_data *data, t_ray ray);
 t_rgb		rt_get_hit_color(t_data *data, t_ray ray);
@@ -266,9 +274,11 @@ t_px		rt_cam_w2s(t_data *data, t_vec3 v);
 t_tf		rt_get_sphere_transformations(t_sphere sp);
 t_tf		rt_get_plane_transformations(t_plane pl);
 t_tf		rt_get_cylinder_transformations(t_cylinder cy);
+t_tf		rt_get_cone_transformations(t_cone co);
 t_sphere	rt_get_transformed_sphere(t_obj obj);
 t_plane		rt_get_transformed_plane(t_obj obj);
 t_cylinder	rt_get_transformed_cylinder(t_obj obj);
+t_cone		rt_get_transformed_cone(t_obj obj);
 t_vec3		rt_cs_helper_axis_in_obj(int helper_id);
 t_vec3		rt_cs_helper_axis_in_cam(t_cs cs, int helper_id);
 

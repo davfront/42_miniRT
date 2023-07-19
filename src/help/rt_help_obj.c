@@ -83,6 +83,35 @@ static int	rt_help_cylinder(t_data *data, t_obj obj, int line)
 	return (line);
 }
 
+static int	rt_help_cone(t_data *data, t_obj obj, int line)
+{
+	t_cone	co;
+
+	co = rt_get_transformed_cone(obj);
+	rt_help_label(data, line++, "CYLINDER");
+	line++;
+	rt_help_label(data, line, "Center X");
+	rt_help_value_f(data, line++, co.center.x, GREEN);
+	rt_help_label(data, line, "Center Y");
+	rt_help_value_f(data, line++, co.center.y, GREEN);
+	rt_help_label(data, line, "Center Z");
+	rt_help_value_f(data, line++, co.center.z, GREEN);
+	line++;
+	rt_help_label(data, line, "Axis X");
+	rt_help_value_f(data, line++, co.axis.x, GREEN);
+	rt_help_label(data, line, "Axis Y");
+	rt_help_value_f(data, line++, co.axis.y, GREEN);
+	rt_help_label(data, line, "Axis Z");
+	rt_help_value_f(data, line++, co.axis.z, GREEN);
+	line++;
+	rt_help_label(data, line, "Radius");
+	rt_help_value_f(data, line++, co.radius, GREEN);
+	line++;
+	rt_help_label(data, line, "Height");
+	rt_help_value_f(data, line++, co.height, GREEN);
+	return (line);
+}
+
 int	rt_help_obj(t_data *data, t_obj obj, int line)
 {
 	if (obj.type == SPHERE)
@@ -91,5 +120,7 @@ int	rt_help_obj(t_data *data, t_obj obj, int line)
 		return (rt_help_plane(data, obj, line));
 	if (obj.type == CYLINDER)
 		return (rt_help_cylinder(data, obj, line));
+	if (obj.type == CONE)
+		return (rt_help_cone(data, obj, line));
 	return (0);
 }

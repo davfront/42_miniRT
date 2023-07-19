@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_get_obj_hit.c                                   :+:      :+:    :+:   */
+/*   rt_get_disc_hit_dist.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:01:09 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/19 11:04:42 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/19 10:14:25 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	rt_get_obj_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit)
+t_float	rt_get_disc_hit_dist(t_ray ray, t_disc3 disc, t_float t_max)
 {
-	if (!obj)
-		return (0);
-	if (obj->type == SPHERE)
-		return (rt_get_sphere_hit(ray, obj, t_max, hit));
-	if (obj->type == PLANE)
-		return (rt_get_plane_hit(ray, obj, t_max, hit));
-	if (obj->type == CYLINDER)
-		return (rt_get_cylinder_hit(ray, obj, t_max, hit));
-	if (obj->type == CONE)
-		return (rt_get_cone_hit(ray, obj, t_max, hit));
-	return (0);
+	t_float	t;
+	t_float	denom;
+	t_float	num;
+	t_vec3	v;
+
+	denom = vec3_dot(ray.dir, disc.axis);
+	if (fabs(denom) < 1e-6)
+		return (INFINITY);
+	num = vec3_dot(vec3_subtract(disc.center, ray.pos), disc.axis);
+	t = num / denom;
+	if (!isfinite(t) || t < T_MIN || t > t_max)
+		return (INFINITY);
+	v = vec3_subtract(vec3_add(ray.pos, vec3_scale(ray.dir, t)), disc.center);
+	if (vec3_length_squared(v) > pow(disc.radius, 2))
+		return (INFINITY);
+	return (t);
 }

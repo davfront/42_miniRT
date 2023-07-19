@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 13:58:31 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/15 00:15:53 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/19 11:06:53 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static void	rt_parse_line_values(t_data *data)
 		return (rt_parse_obj_sphere(data, data->strs + 1));
 	if (ft_streq(data->strs[0], "cy"))
 		return (rt_parse_obj_cylinder(data, data->strs + 1));
+	if (ft_streq(data->strs[0], "co"))
+		return (rt_parse_obj_cone(data, data->strs + 1));
 	if (data->strs[0])
 		rt_parse_value_error_exit(data, NULL, "keyword", data->strs[0]);
 }

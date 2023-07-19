@@ -6,22 +6,24 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:43 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/20 12:35:36 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/18 23:09:49 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static int	rt_is_light_visible(t_vec3 start, t_vec3 target, t_vec3 dir, \
+static int	rt_is_light_visible(t_hit hit, t_vec3 target, t_vec3 dir, \
 	t_data *data)
 {
 	t_ray	ray;
 	t_float	dist_max;
 	t_list	*obj_node;
 
-	ray.pos = start;
+	if (vec3_dot(dir, hit.normal) < 0)
+		return (0);
+	ray.pos = hit.pos;
 	ray.dir = dir;
-	dist_max = vec3_length(vec3_subtract(target, start));
+	dist_max = vec3_length(vec3_subtract(target, hit.pos));
 	obj_node = data->obj_lst;
 	while (obj_node)
 	{
@@ -76,7 +78,7 @@ t_rgb	rt_get_hit_color(t_data *data, t_ray ray)
 	{
 		light = light_node->content;
 		to_light = vec3_normalize(vec3_subtract(light->pos, hit.pos));
-		if (rt_is_light_visible(hit.pos, light->pos, to_light, data))
+		if (rt_is_light_visible(hit, light->pos, to_light, data))
 		{
 			color = rgb_add(color, rt_phong_diffuse(hit, *light, to_light));
 			color = rgb_add(color, rt_phong_specular(hit, *light, to_light, \
