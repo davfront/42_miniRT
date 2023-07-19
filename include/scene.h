@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 16:24:08 by atchougo          #+#    #+#             */
-/*   Updated: 2023/07/13 20:32:36 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/19 10:01:28 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,12 @@ typedef struct s_cylinder {
 	t_float	height;
 	t_rgb	color;
 }				t_cylinder;
+
+typedef struct s_disc3 {
+	t_vec3	center;
+	t_vec3	axis;
+	t_float	radius;
+}				t_disc3;
 
 typedef enum e_obj_type {
 	SPHERE,
