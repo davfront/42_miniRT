@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:43 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/11 15:15:09 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/20 12:03:56 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	rt_draw_frame(t_data *data)
 		data->rdr.step_max = data->rdr.tile_size * data->rdr.tile_size - 1;
 	}
 	if (data->rdr.step <= data->rdr.step_max)
-		rt_lowres_draw_step(data, data->rdr.step);
+		rt_viewer_thread_handler(data);
 	else
 		rt_draw_buffer(data);
 	if (data->rdr.step <= data->rdr.step_max)
