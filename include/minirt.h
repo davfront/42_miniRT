@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/20 11:55:09 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/21 01:11:26 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,7 @@ int			rt_parse_float_len(char *s, t_float *len);
 int			rt_parse_float_ratio(char *s, t_float *ratio);
 int			rt_parse_vec3(char *s, t_vec3 *v);
 int			rt_parse_vec3_dir(char *s, t_vec3 *dir);
+int			rt_parse_texture(char *s, t_obj *obj);
 void		rt_parse_input(t_data *data, int argc, char **argv);
 void		rt_parse_line(t_data *data);
 void		rt_parse_ambient_light(t_data *data, char **strs);
@@ -193,6 +194,8 @@ void		rt_parse_obj_cone(t_data *data, char **strs);
 void		rt_parse_line_error_exit(t_data *data, char *msg);
 void		rt_parse_value_error_exit(t_data *data, char *line_type, \
 				char *label, char *value);
+void		rt_parse_texture_error_exit(t_data *data, char *line_type, \
+				char *value);
 void		rt_parse(t_data *data, int argc, char **argv);
 
 // viewer
@@ -296,5 +299,8 @@ void		rt_ui_help_bg(t_data *data);
 void		rt_ui_frame_progress(t_data *data);
 void		rt_ui_bounding_box(t_data *data, t_obj *obj);
 void		rt_ui_selected(t_data *data);
+
+// texture
+t_rgb		rt_get_chess_color(t_vec2 p, t_chess chess);
 
 #endif

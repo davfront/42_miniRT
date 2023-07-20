@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 17:10:57 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/15 14:45:23 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/20 14:52:41 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ t_quat	quat_identity(void);
 t_quat	quat_from_vec3(t_vec3 v0, t_vec3 v1);
 t_quat	quat_multiply(t_quat a, t_quat b);
 t_quat	quat_from_axis_angle(t_vec3 axis, t_float angle);
+t_quat	quat_invert(t_quat q);
 
 t_mat4	mat4_zero(void);
 t_mat4	mat4_identity(void);

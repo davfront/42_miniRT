@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:01:09 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/19 00:06:35 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/21 01:16:47 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,32 @@ static t_float	rt_get_sphere_hit_dist(t_ray ray, t_sphere sp, t_float t_max)
 	return (INFINITY);
 }
 
+static t_vec2	rt_get_sphere_hit_tex_coord(t_obj *obj, t_sphere sp, \
+	t_vec3 hit_normal)
+{
+	t_vec2	p;
+	t_mat4	mr_inv;
+
+	mr_inv = mat4_from_quat(quat_invert(obj->tf.rotate));
+	hit_normal = mat4_multiply_axis(mr_inv, hit_normal);
+	p.x = (M_PI / 2 + atan(hit_normal.z / hit_normal.x)) * sp.radius;
+	p.y = (M_PI / 2 - asin(hit_normal.y)) * sp.radius;
+	return (p);
+}
+
+static t_rgb	rt_get_sphere_hit_color(t_obj *obj, t_sphere sp, \
+	t_vec3 hit_normal)
+{
+	t_rgb	color;
+
+	if (obj->tex_type == CHESS)
+		color = rt_get_chess_color(\
+			rt_get_sphere_hit_tex_coord(obj, sp, hit_normal), obj->chess);
+	else
+		color = obj->color;
+	return (color);
+}
+
 int	rt_get_sphere_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit)
 {
 	t_sphere	sp;
@@ -52,11 +78,11 @@ int	rt_get_sphere_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit)
 	*hit = rt_hit_default();
 	hit->obj = obj;
 	hit->dist = hit_dist;
-	hit->color = sp.color;
 	hit->pos = vec3_add(ray.pos, vec3_scale(ray.dir, hit->dist));
 	hit->normal = vec3_subtract(hit->pos, sp.center);
 	hit->normal = vec3_scale(hit->normal, (t_float)1 / sp.radius);
 	if (vec3_dot(ray.dir, hit->normal) > 0)
 		hit->normal = vec3_scale(hit->normal, -1);
+	hit->color = rt_get_sphere_hit_color(obj, sp, hit->normal);
 	return (1);
 }

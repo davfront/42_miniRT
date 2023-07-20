@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:30:58 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/19 11:01:00 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/21 00:51:27 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ static void	rt_parse_obj_cone_values(t_data *data, char **strs, t_obj *obj)
 	obj->cone.radius /= 2;
 	if (!rt_parse_float_len(strs[3], &obj->cone.height))
 		rt_parse_value_error_exit(data, "cone", "height", strs[3]);
-	if (!rt_parse_rgb(strs[4], &obj->cone.color))
-		rt_parse_value_error_exit(data, "cone", "color", strs[4]);
+	if (!rt_parse_texture(strs[4], obj))
+		rt_parse_texture_error_exit(data, "cone", strs[4]);
 }
 
 void	rt_parse_obj_cone(t_data *data, char **strs)

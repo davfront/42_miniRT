@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:01:09 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/19 13:50:47 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/21 01:13:15 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,46 @@ static t_vec3	rt_get_cone_hit_normal(t_ray ray, t_cone co, \
 	return (normal);
 }
 
+static t_vec2	rt_get_cone_hit_tex_coord(t_obj *obj, t_cone co, \
+	t_vec3 hit_pos, int is_body)
+{
+	t_vec3	co_center_to_pos;
+	t_mat4	mr;
+	t_vec3	v[2];
+	t_vec2	p;
+
+	co_center_to_pos = vec3_subtract(hit_pos, co.center);
+	mr = mat4_from_quat(obj->tf.rotate);
+	v[0] = mat4_multiply_axis(mr, vec3(1, 0, 0));
+	v[1] = mat4_multiply_axis(mr, vec3(0, 0, -1));
+	if (is_body)
+	{
+		p.x = vec3_dot(co.axis, co_center_to_pos) \
+			/ cos(atan(co.radius / co.height));
+		p.y = co.radius * atan(vec3_dot(co_center_to_pos, v[1]) \
+			/ vec3_dot(co_center_to_pos, v[0]));
+	}
+	else
+	{
+		p.x = vec3_dot(co_center_to_pos, v[0]);
+		p.y = vec3_dot(co_center_to_pos, v[1]);
+	}
+	return (p);
+}
+
+static t_rgb	rt_get_cone_hit_color(t_obj *obj, t_cone co, t_vec3 hit_pos, \
+	int is_body)
+{
+	t_rgb	color;
+
+	if (obj->tex_type == CHESS)
+		color = rt_get_chess_color(\
+			rt_get_cone_hit_tex_coord(obj, co, hit_pos, is_body), obj->chess);
+	else
+		color = obj->color;
+	return (color);
+}
+
 int	rt_get_cone_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit)
 {
 	t_cone	co;
@@ -66,9 +106,9 @@ int	rt_get_cone_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit)
 		return (1);
 	*hit = rt_hit_default();
 	hit->obj = obj;
-	hit->color = obj->cone.color;
 	hit->dist = t_min;
 	hit->pos = vec3_add(ray.pos, vec3_scale(ray.dir, hit->dist));
 	hit->normal = rt_get_cone_hit_normal(ray, co, hit->pos, t_min == t[0]);
+	hit->color = rt_get_cone_hit_color(obj, co, hit->pos, t_min == t[0]);
 	return (1);
 }
