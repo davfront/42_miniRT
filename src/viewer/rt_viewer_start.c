@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_viewer_start.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 21:03:41 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/26 16:30:24 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/19 01:36:13 by atchougo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	rt_viewer_start(t_data *data)
 {
-	data->mlx = mlx_init();
+	// data->mlx = mlx_init();
 	if (!data->mlx)
 	{
 		rt_delete(data);

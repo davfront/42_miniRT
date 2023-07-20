@@ -3,14 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   rt_get_plane_hit.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 18:19:54 by atchougo          #+#    #+#             */
-/*   Updated: 2023/07/18 16:07:59 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/20 07:05:10 by atchougo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+t_rgb	rt_plane_get_pixel(t_img img, int x, int y)
+{
+	char	*dst;
+	int		color_int;
+
+	if (x < 0 || x > WIN_WIDTH - 1)
+		return (rgb(0, 0, 0));
+	if (y < 0 || y > WIN_HEIGHT - 1)
+		return (rgb(0, 0, 0));
+	dst = img.addr;
+	dst += y * img.len;
+	dst += x * (img.bpp / 8);
+	color_int = *(unsigned int *)dst;
+	return (rgb_int(color_int));
+}
+
+t_rgb calcul_color(t_obj *obj, t_vec3 pos)
+{
+	t_vec3	dir = vec3_normalize(vec3_subtract(pos, obj->sphere));
+	pos = vec3_normalize(pos);
+	t_float	u = 0.5 + atan2f(dir.z, dir.x) / ((t_float)2 * M_PI);
+	t_float	v = 0.5 - asinf(dir.y) / M_PI;
+	// t_float	u = (atan2f(pos.z, pos.x) + M_PI) / ((t_float)2 * M_PI);
+	// t_float	v = ((asinf(pos.y) + M_PI) / 2) / M_PI;
+
+	return (rt_plane_get_pixel(obj->img, floor(u * (float)obj->img.width), floor(v * (float)obj->img.height)));
+}
 
 int	rt_get_plane_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit)
 {
@@ -34,8 +62,9 @@ int	rt_get_plane_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit)
 	*hit = rt_hit_default();
 	hit->obj = obj;
 	hit->dist = t;
-	hit->color = pl.color;
 	hit->pos = vec3_add(ray.pos, vec3_scale(ray.dir, hit->dist));
+	// hit->color = pl.color;
+	hit->color = calcul_color(obj, hit->pos);
 	hit->normal = vec3_scale(pl.normal, 1 - 2 * (denum > 0));
 	return (1);
 }

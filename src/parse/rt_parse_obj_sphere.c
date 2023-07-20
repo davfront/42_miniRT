@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_parse_obj_sphere.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:30:58 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/15 14:48:16 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/20 06:16:10 by atchougo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	rt_parse_obj_sphere(t_data *data, char **strs)
 	t_obj	obj;
 	t_obj	*content;
 	t_list	*node;
+	int w;
+	int h;
 
 	if (!data || !strs)
 		rt_parse_line_error_exit(data, "sphere: no data");
@@ -31,6 +33,10 @@ void	rt_parse_obj_sphere(t_data *data, char **strs)
 	if (!rt_parse_rgb(strs[2], &obj.sphere.color))
 		rt_parse_value_error_exit(data, "sphere", "color", strs[2]);
 	obj.tf = rt_get_sphere_transformations(obj.sphere);
+	obj.img.img = mlx_xpm_file_to_image(data->mlx, "earth.xpm", &w, &h);
+	obj.img.width = w;
+	obj.img.height = h;
+	obj.img.addr = mlx_get_data_addr(obj.img.img, &obj.img.bpp, &obj.img.len, &obj.img.endian);
 	content = ft_calloc(1, sizeof(t_obj));
 	if (!content)
 		rt_parse_line_error_exit(data, "sphere: t_obj alloc failed");

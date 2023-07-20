@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/19 11:09:49 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/19 19:00:29 by atchougo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,13 +96,15 @@ typedef struct s_ray {
 	t_hit	hit;
 }				t_ray;
 
-typedef struct s_img {
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		len;
-	int		endian;
-}				t_img;
+// typedef struct s_img {
+// 	void	*img;
+// 	char	*addr;
+// 	int		bpp;
+// 	int		len;
+// 	int		endian;
+// 	int		width;
+// 	int		height;
+// }				t_img;
 
 typedef struct s_ui {
 	int		changed;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_parse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:56:16 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/19 14:15:04 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/19 01:42:09 by atchougo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void	rt_check_scene(t_data *data)
 
 void	rt_parse(t_data *data, int argc, char **argv)
 {
+	DEBUG("%p", data->mlx);
 	if (!data)
 		rt_error_exit(data, "parsing: no data");
 	rt_parse_input(data, argc, argv);

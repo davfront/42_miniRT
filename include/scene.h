@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 16:24:08 by atchougo          #+#    #+#             */
-/*   Updated: 2023/07/19 11:02:50 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/20 06:16:06 by atchougo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define SCENE_H
 
 # include "vec3.h"
+# include "minirt.h"
 
 typedef struct s_al {
 	t_rgb	color;
@@ -85,10 +86,21 @@ typedef struct s_tf {
 	t_vec3		scale;
 }				t_tf;
 
+typedef struct s_img {
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		len;
+	int		endian;
+	int		width;
+	int		height;
+}				t_img;
+
 typedef struct s_obj {
 	t_obj_type	type;
 	t_tf		tf;
 	t_tf		tf_down;
+	t_img		img;
 	union {
 		t_sphere	sphere;
 		t_plane		plane;

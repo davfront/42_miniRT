@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 16:34:41 by dapereir          #+#    #+#              #
-#    Updated: 2023/07/19 11:08:03 by dapereir         ###   ########.fr        #
+#    Updated: 2023/07/19 19:00:18 by atchougo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ ERASE				=	\033[2K\033[1A\r
 NAME				=	miniRT
 
 CC					=	cc
-CFLAGS				=	-Wall -Wextra -Werror -MD -O3 -pthread
+CFLAGS				=	-Wall -Wextra -Werror -MD -O3 -pthread -g3
 RM					=	rm -rf
 NO_PRINT_DIR		=	--no-print-directory
 
