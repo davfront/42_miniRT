@@ -6,7 +6,7 @@
 /*   By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:01:09 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/20 07:05:08 by atchougo         ###   ########.fr       */
+/*   Updated: 2023/07/20 08:24:55 by atchougo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,11 @@ t_rgb	rt_sphere_get_pixel(t_img img, int x, int y)
 	return (rgb_int(color_int));
 }
 
-t_rgb calcul_color(t_obj *obj, t_vec3 pos)
+static t_rgb calcul_color(t_obj *obj, t_vec3 pos)
 {
-	t_vec3	dir = vec3_normalize(vec3_subtract(pos, obj->sphere));
+	// point de hit avec l'origine du rayon vecteur 
+	// hit position - 
+	t_vec3	dir = vec3_normalize(vec3_subtract(pos, obj->sphere.center));
 	pos = vec3_normalize(pos);
 	t_float	u = 0.5 + atan2f(dir.z, dir.x) / ((t_float)2 * M_PI);
 	t_float	v = 0.5 - asinf(dir.y) / M_PI;
