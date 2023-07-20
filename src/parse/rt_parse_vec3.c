@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 21:15:04 by dapereir          #+#    #+#             */
-/*   Updated: 2023/06/19 14:22:26 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/20 11:24:02 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,24 @@ static int	rt_split_vec3_str(char *s, char **xs, char **ys, char **zs)
 
 int	rt_parse_vec3(char *s, t_vec3 *v)
 {
+	char	*s2;
 	char	*cs[3];
 	t_float	cf[3];
 
 	if (!s || !*s || !v)
 		return (0);
-	if (!rt_split_vec3_str(s, &cs[0], &cs[1], &cs[2]))
-		return (0);
+	s2 = ft_strdup(s);
+	if (!s2)
+		return (rt_error("rt_parse_vec3: alloc failed\n"), 0);
+	if (!rt_split_vec3_str(s2, &cs[0], &cs[1], &cs[2]))
+		return (ft_free((void **)&s2), 0);
 	if (!rt_parse_float(cs[0], &cf[0])
 		|| !rt_parse_float(cs[1], &cf[1])
 		|| !rt_parse_float(cs[2], &cf[2])
 	)
-		return (0);
+		return (ft_free((void **)&s2), 0);
 	*v = vec3(cf[0], cf[1], cf[2]);
-	return (1);
+	return (ft_free((void **)&s2), 1);
 }
 
 int	rt_parse_vec3_dir(char *s, t_vec3 *dir)
