@@ -6,11 +6,41 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 18:19:54 by atchougo          #+#    #+#             */
-/*   Updated: 2023/07/18 16:07:59 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/21 01:12:30 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+static t_vec2	rt_get_plane_hit_tex_coord(t_obj *obj, t_plane pl, \
+	t_vec3 hit_pos)
+{
+	t_vec2	p;
+	t_vec3	hit_pos_in_pl;
+	t_mat4	mr;
+	t_vec3	vx;
+	t_vec3	vy;
+
+	hit_pos_in_pl = vec3_subtract(hit_pos, pl.point);
+	mr = mat4_from_quat(obj->tf.rotate);
+	vx = mat4_multiply_axis(mr, vec3(1, 0, 0));
+	vy = mat4_multiply_axis(mr, vec3(0, 0, -1));
+	p.x = vec3_dot(hit_pos_in_pl, vx);
+	p.y = vec3_dot(hit_pos_in_pl, vy);
+	return (p);
+}
+
+static t_rgb	rt_get_plane_hit_color(t_obj *obj, t_plane pl, t_vec3 hit_pos)
+{
+	t_rgb	color;
+
+	if (obj->tex_type == CHESS)
+		color = rt_get_chess_color(\
+			rt_get_plane_hit_tex_coord(obj, pl, hit_pos), obj->chess);
+	else
+		color = obj->color;
+	return (color);
+}
 
 int	rt_get_plane_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit)
 {
@@ -34,8 +64,8 @@ int	rt_get_plane_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit)
 	*hit = rt_hit_default();
 	hit->obj = obj;
 	hit->dist = t;
-	hit->color = pl.color;
 	hit->pos = vec3_add(ray.pos, vec3_scale(ray.dir, hit->dist));
 	hit->normal = vec3_scale(pl.normal, 1 - 2 * (denum > 0));
+	hit->color = rt_get_plane_hit_color(obj, pl, hit->pos);
 	return (1);
 }

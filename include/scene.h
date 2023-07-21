@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 16:24:08 by atchougo          #+#    #+#             */
-/*   Updated: 2023/07/19 11:02:50 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/21 00:23:38 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,11 @@ typedef struct s_light {
 typedef struct s_sphere {
 	t_vec3	center;
 	t_float	radius;
-	t_rgb	color;
 }				t_sphere;
 
 typedef struct s_plane {
 	t_vec3	point;
 	t_vec3	normal;
-	t_rgb	color;
 }				t_plane;
 
 typedef struct s_cylinder {
@@ -55,7 +53,6 @@ typedef struct s_cylinder {
 	t_vec3	axis;
 	t_float	radius;
 	t_float	height;
-	t_rgb	color;
 }				t_cylinder;
 
 typedef struct s_cone {
@@ -63,7 +60,6 @@ typedef struct s_cone {
 	t_vec3	axis;
 	t_float	radius;
 	t_float	height;
-	t_rgb	color;
 }				t_cone;
 
 typedef struct s_disc3 {
@@ -85,16 +81,37 @@ typedef struct s_tf {
 	t_vec3		scale;
 }				t_tf;
 
+typedef struct s_vec2 {
+	t_float	x;
+	t_float	y;
+}				t_vec2;
+
+typedef struct s_chess {
+	t_rgb	color1;
+	t_rgb	color2;
+	t_vec2	size;
+}				t_chess;
+
+typedef enum e_tex_type {
+	COLOR,
+	CHESS
+}		t_tex_type;
+
 typedef struct s_obj {
 	t_obj_type	type;
-	t_tf		tf;
-	t_tf		tf_down;
 	union {
 		t_sphere	sphere;
 		t_plane		plane;
 		t_cylinder	cylinder;
 		t_cone		cone;
 	};
+	t_tex_type	tex_type;
+	union {
+		t_rgb		color;
+		t_chess		chess;
+	};
+	t_tf		tf;
+	t_tf		tf_down;
 }				t_obj;
 
 #endif

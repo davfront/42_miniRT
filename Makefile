@@ -6,7 +6,7 @@
 #    By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 16:34:41 by dapereir          #+#    #+#              #
-#    Updated: 2023/07/20 11:56:20 by dapereir         ###   ########.fr        #
+#    Updated: 2023/07/21 00:49:11 by dapereir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,7 @@ SRCS_FILES			=	\
 						vec3/quat_from_vec3.c\
 						vec3/quat_multiply.c\
 						vec3/quat_from_axis_angle.c\
+						vec3/quat_invert.c\
 						vec3/mat4_zero.c\
 						vec3/mat4_identity.c\
 						vec3/mat4_translate.c\
@@ -100,6 +101,7 @@ SRCS_FILES			=	\
 						parse/rt_parse_rgb.c\
 						parse/rt_parse_float.c\
 						parse/rt_parse_vec3.c\
+						parse/rt_parse_texture.c\
 						parse/rt_parse_input.c\
 						parse/rt_parse_line.c\
 						parse/rt_parse_ambient_light.c\
@@ -111,6 +113,7 @@ SRCS_FILES			=	\
 						parse/rt_parse_obj_cone.c\
 						parse/rt_parse_line_error_exit.c\
 						parse/rt_parse_value_error_exit.c\
+						parse/rt_parse_texture_error_exit.c\
 						parse/rt_parse.c\
 						\
 						viewer/rt_viewer_start.c\
@@ -179,6 +182,8 @@ SRCS_FILES			=	\
 						ui/rt_ui_frame_progress.c\
 						ui/rt_ui_bounding_box.c\
 						ui/rt_ui_selected.c\
+						\
+						texture/rt_get_chess_color.c\
 						\
 						main.c\
 
