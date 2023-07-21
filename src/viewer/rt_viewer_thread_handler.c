@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:48:55 by atchougo          #+#    #+#             */
-/*   Updated: 2023/07/02 16:45:47 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/20 12:04:43 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	rt_launch_threads(t_data *data)
 		t = &data->rdr.thread[i];
 		t->id = i + 1;
 		t->data = data;
-		if (pthread_create(&t->thread, 0, rt_draw_frame_thread, t))
+		if (pthread_create(&t->thread, 0, rt_lowres_draw_step_thread, t))
 			rt_error_exit(data, 0);
 		i++;
 	}
@@ -50,5 +50,5 @@ void	rt_viewer_thread_handler(t_data *data)
 		rt_wait_for_threads(data);
 	}
 	else
-		rt_draw_frame(data);
+		rt_lowres_draw_step(data, data->rdr.step);
 }

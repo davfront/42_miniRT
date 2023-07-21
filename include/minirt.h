@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/19 11:09:49 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/20 11:55:09 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # define PHONG_SPECULAR_WEIGHT		(0.4)
 # define PHONG_SPECULAR_EXPONENT	(50)
 
-# define ENABLE_THREAD	0
+# define ENABLE_THREAD	1
 # define THREAD_NB		4
 
 # define LOW_RES_ENABLED	1
@@ -236,7 +236,7 @@ void		rt_help(t_data *data);
 t_ray		rt_get_view_ray(t_cam cam, int x, int y);
 int			rt_lowres_estimate_size(t_data *data);
 void		rt_lowres_draw_step(t_data *data, int step);
-void		*rt_draw_frame_thread(void *tv);
+void		*rt_lowres_draw_step_thread(void *tv);
 void		rt_draw_frame(t_data *data);
 t_hit		rt_hit_default(void);
 int			rt_get_sphere_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit);

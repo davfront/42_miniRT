@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:43 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/11 15:14:54 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/20 12:04:33 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,4 +102,31 @@ void	rt_lowres_draw_step(t_data *data, int step)
 		}
 		tx++;
 	}
+}
+
+void	*rt_lowres_draw_step_thread(void *tv)
+{
+	t_thread	*t;
+	int			tx;
+	int			ty;
+
+	t = tv;
+	tx = 0;
+	while (tx <= WIN_WIDTH / t->data->rdr.tile_size)
+	{
+		if (tx % THREAD_NB == t->id - 1)
+		{
+			ty = 0;
+			while (ty <= WIN_HEIGHT / t->data->rdr.tile_size)
+			{
+				rt_lowres_tile_cast_ray(t->data, tx, ty, t->data->rdr.step);
+				if (t->data->rdr.tile_size > 1)
+					rt_lowres_tile_complete(t->data, tx, ty);
+				rt_lowres_tile_draw(t->data, tx, ty);
+				ty++;
+			}
+		}
+		tx++;
+	}
+	return (tv);
 }
