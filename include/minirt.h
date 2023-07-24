@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/21 01:11:26 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/25 00:13:01 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,14 @@
 # define WIN_WIDTH	(1024)
 # define WIN_HEIGHT	(600)
 
-# define T_MIN	(0.001)
+# define T_MIN		(0.1)
+# define RAY_DEPTH	(3)
 
-# define PHONG_DIFFUSE_WEIGHT		(0.6)
-# define PHONG_SPECULAR_WEIGHT		(0.4)
-# define PHONG_SPECULAR_EXPONENT	(50)
+# define DEFAULT_MTL_KA	(0.3)
+# define DEFAULT_MTL_KD	(0.7)
+# define DEFAULT_MTL_KS	(0.8)
+# define DEFAULT_MTL_NS	(50)
+# define DEFAULT_MTL_KR	(0)
 
 # define ENABLE_THREAD	1
 # define THREAD_NB		4
@@ -94,6 +97,7 @@ typedef struct s_ray {
 	t_vec3	pos;
 	t_vec3	dir;
 	t_hit	hit;
+	int		id;
 }				t_ray;
 
 typedef struct s_img {
@@ -182,6 +186,7 @@ int			rt_parse_float_ratio(char *s, t_float *ratio);
 int			rt_parse_vec3(char *s, t_vec3 *v);
 int			rt_parse_vec3_dir(char *s, t_vec3 *dir);
 int			rt_parse_texture(char *s, t_obj *obj);
+int			rt_parse_material(char *s, t_mtl *mtl_p);
 void		rt_parse_input(t_data *data, int argc, char **argv);
 void		rt_parse_line(t_data *data);
 void		rt_parse_ambient_light(t_data *data, char **strs);
@@ -253,6 +258,7 @@ t_float		rt_get_cone_body_hit_dist(t_ray ray, t_cone co, t_float t_max);
 int			rt_get_cone_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit);
 int			rt_get_obj_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit);
 t_hit		rt_get_closest_hit(t_data *data, t_ray ray);
+t_rgb		rt_phong_color(t_data *data, t_ray ray);
 t_rgb		rt_get_hit_color(t_data *data, t_ray ray);
 
 // camera

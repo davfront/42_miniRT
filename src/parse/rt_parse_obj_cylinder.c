@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:30:58 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/21 00:51:32 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/23 09:38:17 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,23 @@ static void	rt_parse_obj_cylinder_values(t_data *data, char **strs, t_obj *obj)
 		rt_parse_value_error_exit(data, "cylinder", "height", strs[3]);
 	if (!rt_parse_texture(strs[4], obj))
 		rt_parse_texture_error_exit(data, "cylinder", strs[4]);
+	if (!rt_parse_material(strs[5], &obj->mtl))
+		rt_parse_value_error_exit(data, "cylinder", "material", strs[5]);
 }
 
 void	rt_parse_obj_cylinder(t_data *data, char **strs)
 {
+	int		arg_count;
 	t_obj	obj;
 	t_obj	*content;
 	t_list	*node;
 
 	if (!data || !strs)
 		rt_parse_line_error_exit(data, "cylinder: no data");
-	if (rt_strs_len(strs) != 5)
-		rt_parse_line_error_exit(data, "cylinder: 5 arguments expected");
+	arg_count = rt_strs_len(strs);
+	if (arg_count < 5 && arg_count > 6)
+		rt_parse_line_error_exit(data, \
+			"cylinder: 5 arguments expected (+ optional material argument)");
 	rt_parse_obj_cylinder_values(data, strs, &obj);
 	obj.tf = rt_get_cylinder_transformations(obj.cylinder);
 	content = ft_calloc(1, sizeof(t_obj));

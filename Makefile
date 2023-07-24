@@ -6,7 +6,7 @@
 #    By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 16:34:41 by dapereir          #+#    #+#              #
-#    Updated: 2023/07/21 00:49:11 by dapereir         ###   ########.fr        #
+#    Updated: 2023/07/24 23:05:38 by dapereir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -102,6 +102,7 @@ SRCS_FILES			=	\
 						parse/rt_parse_float.c\
 						parse/rt_parse_vec3.c\
 						parse/rt_parse_texture.c\
+						parse/rt_parse_material.c\
 						parse/rt_parse_input.c\
 						parse/rt_parse_line.c\
 						parse/rt_parse_ambient_light.c\
@@ -154,6 +155,7 @@ SRCS_FILES			=	\
 						raytracer/rt_get_cone_hit.c\
 						raytracer/rt_get_obj_hit.c\
 						raytracer/rt_get_closest_hit.c\
+						raytracer/rt_phong_color.c\
 						raytracer/rt_get_hit_color.c\
 						\
 						camera/rt_cam_utils.c\
