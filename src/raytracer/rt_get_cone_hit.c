@@ -83,6 +83,11 @@ static t_rgb	rt_get_cone_hit_color(t_obj *obj, t_cone co, t_vec3 hit_pos, \
 	if (obj->tex_type == CHESS)
 		color = rt_get_chess_color(\
 			rt_get_cone_hit_tex_coord(obj, co, hit_pos, is_body), obj->chess);
+	else if (obj->tex_type == XPM)
+	{
+		color = rt_get_tex_pixel(\
+		rt_get_cone_hit_tex_coord(obj, co, hit_pos, is_body), obj->xpm);
+	}
 	else
 		color = obj->color;
 	return (color);

@@ -94,8 +94,19 @@ typedef struct s_chess {
 
 typedef enum e_tex_type {
 	COLOR,
-	CHESS
+	CHESS,
+	XPM
 }		t_tex_type;
+
+typedef struct s_img {
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		len;
+	int		endian;
+	int		width;
+	int		height;
+}				t_img;
 
 typedef struct s_obj {
 	t_obj_type	type;
@@ -109,6 +120,7 @@ typedef struct s_obj {
 	union {
 		t_rgb		color;
 		t_chess		chess;
+		t_img		xpm;
 	};
 	t_tf		tf;
 	t_tf		tf_down;

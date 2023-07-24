@@ -96,14 +96,6 @@ typedef struct s_ray {
 	t_hit	hit;
 }				t_ray;
 
-typedef struct s_img {
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		len;
-	int		endian;
-}				t_img;
-
 typedef struct s_ui {
 	int		changed;
 	t_px	mouse;
@@ -163,6 +155,7 @@ typedef struct s_data {
 // utils
 void		rt_init(t_data *data);
 void		rt_delete(t_data *data);
+void		rt_delete_obj_lst(t_data *data, t_list **lst);
 void		rt_error(char *msg);
 void		rt_exit(t_data *data);
 void		rt_error_exit(t_data *data, char *msg);
@@ -181,7 +174,7 @@ int			rt_parse_float_len(char *s, t_float *len);
 int			rt_parse_float_ratio(char *s, t_float *ratio);
 int			rt_parse_vec3(char *s, t_vec3 *v);
 int			rt_parse_vec3_dir(char *s, t_vec3 *dir);
-int			rt_parse_texture(char *s, t_obj *obj);
+int			rt_parse_texture(t_data *data, char *s, t_obj *obj);
 void		rt_parse_input(t_data *data, int argc, char **argv);
 void		rt_parse_line(t_data *data);
 void		rt_parse_ambient_light(t_data *data, char **strs);
@@ -302,5 +295,6 @@ void		rt_ui_selected(t_data *data);
 
 // texture
 t_rgb		rt_get_chess_color(t_vec2 p, t_chess chess);
+t_rgb		rt_get_tex_pixel(t_vec2	p, t_img img);
 
 #endif

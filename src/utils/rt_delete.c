@@ -42,7 +42,7 @@ void	rt_delete(t_data *data)
 	ft_free((void **)&(data->al));
 	ft_free((void **)&(data->cam));
 	ft_lstclear(&data->light_lst, free);
-	ft_lstclear(&data->obj_lst, free);
+	rt_delete_obj_lst(data, &data->obj_lst);
 	rt_viewer_destroy(data);
 	rt_free_buffer(data);
 }

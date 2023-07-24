@@ -55,7 +55,21 @@ static int	rt_parse_chess(char *s, t_chess *chess_p)
 	return (ft_free_split(&args), 1);
 }
 
-int	rt_parse_texture(char *s, t_obj *obj)
+static int	rt_parse_xpm(t_data *data, char *s, t_img *xpm)
+{
+	char	*sep;
+
+	if (!s || !xpm)
+		return (0);
+	sep = ft_strchr(s, ':');
+	xpm->img = mlx_xpm_file_to_image(data->mlx, sep + 1, &xpm->width, &xpm->height);
+	if (!xpm->img)
+		return (0);
+	xpm->addr = mlx_get_data_addr(xpm->img, &xpm->bpp, &xpm->len, &xpm->endian);
+	return (1);
+}
+
+int	rt_parse_texture(t_data *data, char *s, t_obj *obj)
 {
 	if (!s)
 		return (0);
@@ -63,6 +77,11 @@ int	rt_parse_texture(char *s, t_obj *obj)
 	{
 		obj->tex_type = CHESS;
 		return (rt_parse_chess(s, &obj->chess));
+	}
+	if (ft_strncmp(s, "xpm:", 4) == 0)
+	{
+		obj->tex_type = XPM;
+		return (rt_parse_xpm(data, s, &obj->xpm));
 	}
 	obj->tex_type = COLOR;
 	return (rt_parse_rgb(s, &obj->color));

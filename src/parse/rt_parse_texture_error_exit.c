@@ -17,6 +17,9 @@ void	rt_parse_texture_error_exit(t_data *data, char *line_type, char *value)
 	if (value && ft_strncmp(value, "chess:", 6) == 0)
 		rt_parse_value_error_exit(data, line_type, \
 			"chessboard texture configuration", value);
+	else if (value && ft_strncmp(value, "xpm:", 4) == 0)
+		rt_parse_value_error_exit(data, line_type, \
+			"xpm file", value);
 	else
 		rt_parse_value_error_exit(data, line_type, "color", value);
 }

@@ -85,6 +85,11 @@ static t_rgb	rt_get_cylinder_hit_color(t_obj *obj, t_cylinder cy, \
 		p = rt_get_cylinder_hit_tex_coord(obj, cy, hit_pos, is_body);
 		color = rt_get_chess_color(p, obj->chess);
 	}
+	else if (obj->tex_type == XPM)
+	{
+		p = rt_get_cylinder_hit_tex_coord(obj, cy, hit_pos, is_body);
+		color = rt_get_tex_pixel(p, obj->xpm);
+	}
 	else
 		color = obj->color;
 	return (color);

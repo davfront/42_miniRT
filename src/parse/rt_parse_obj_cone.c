@@ -26,7 +26,7 @@ static void	rt_parse_obj_cone_values(t_data *data, char **strs, t_obj *obj)
 	obj->cone.radius /= 2;
 	if (!rt_parse_float_len(strs[3], &obj->cone.height))
 		rt_parse_value_error_exit(data, "cone", "height", strs[3]);
-	if (!rt_parse_texture(strs[4], obj))
+	if (!rt_parse_texture(data, strs[4], obj))
 		rt_parse_texture_error_exit(data, "cone", strs[4]);
 }
 

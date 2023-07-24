@@ -87,6 +87,7 @@ SRCS_FILES			=	\
 						\
 						utils/rt_init.c\
 						utils/rt_delete.c\
+						utils/rt_delete_obj_lst.c\
 						utils/rt_error.c\
 						utils/rt_exit.c\
 						utils/rt_error_exit.c\
@@ -184,6 +185,7 @@ SRCS_FILES			=	\
 						ui/rt_ui_selected.c\
 						\
 						texture/rt_get_chess_color.c\
+						texture/rt_get_tex_pixel.c\
 						\
 						main.c\
 

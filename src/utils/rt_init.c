@@ -34,4 +34,10 @@ void	rt_init(t_data *data)
 	ft_bzero(data, sizeof(t_data));
 	data->fd = -1;
 	rt_alloc_buffer(data);
+	data->mlx = mlx_init();
+	if (!data->mlx)
+	{
+		rt_delete(data);
+		rt_error_exit(data, "Minilibx initialization failed");
+	}
 }

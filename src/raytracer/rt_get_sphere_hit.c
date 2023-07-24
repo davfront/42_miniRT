@@ -36,6 +36,18 @@ static t_float	rt_get_sphere_hit_dist(t_ray ray, t_sphere sp, t_float t_max)
 	return (INFINITY);
 }
 
+static t_vec2	rt_get_sphere_hit_tex_uv(t_obj *obj,	t_vec3 hit_normal)
+{
+	t_vec2	p;
+	t_mat4	mr_inv;
+
+	mr_inv = mat4_from_quat(quat_invert(obj->tf.rotate));
+	hit_normal = mat4_multiply_axis(mr_inv, hit_normal);
+	p.x = 0.5 + atan2f(hit_normal.z, hit_normal.x) / ((t_float)2 * M_PI);
+	p.y = 0.5 - asinf(hit_normal.y) / M_PI;
+	return (p);
+}
+
 static t_vec2	rt_get_sphere_hit_tex_coord(t_obj *obj, t_sphere sp, \
 	t_vec3 hit_normal)
 {
@@ -57,6 +69,9 @@ static t_rgb	rt_get_sphere_hit_color(t_obj *obj, t_sphere sp, \
 	if (obj->tex_type == CHESS)
 		color = rt_get_chess_color(\
 			rt_get_sphere_hit_tex_coord(obj, sp, hit_normal), obj->chess);
+	else if (obj->tex_type == XPM)
+		color = rt_get_tex_pixel(\
+			rt_get_sphere_hit_tex_uv(obj, hit_normal), obj->xpm);
 	else
 		color = obj->color;
 	return (color);

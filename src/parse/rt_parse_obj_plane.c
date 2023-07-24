@@ -27,7 +27,7 @@ void	rt_parse_obj_plane(t_data *data, char **strs)
 		rt_parse_value_error_exit(data, "plane", "point", strs[0]);
 	if (!rt_parse_vec3_dir(strs[1], &obj.plane.normal))
 		rt_parse_value_error_exit(data, "plane", "normal", strs[1]);
-	if (!rt_parse_texture(strs[2], &obj))
+	if (!rt_parse_texture(data, strs[2], &obj))
 		rt_parse_texture_error_exit(data, "plane", strs[2]);
 	obj.tf = rt_get_plane_transformations(obj.plane);
 	content = ft_calloc(1, sizeof(t_obj));

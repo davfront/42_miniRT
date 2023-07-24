@@ -28,7 +28,7 @@ void	rt_parse_obj_sphere(t_data *data, char **strs)
 	if (!rt_parse_float_len(strs[1], &obj.sphere.radius))
 		rt_parse_value_error_exit(data, "sphere", "diameter", strs[1]);
 	obj.sphere.radius /= 2;
-	if (!rt_parse_texture(strs[2], &obj))
+	if (!rt_parse_texture(data, strs[2], &obj))
 		rt_parse_texture_error_exit(data, "sphere", strs[2]);
 	obj.tf = rt_get_sphere_transformations(obj.sphere);
 	content = ft_calloc(1, sizeof(t_obj));
