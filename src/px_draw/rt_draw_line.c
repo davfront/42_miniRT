@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_draw_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 22:04:09 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/05 13:18:11 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/24 16:08:44 by atchougo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static t_px	rt_get_line_dirs(t_line line)
 }
 
 void	rt_draw_line(t_data *data, t_line line, t_rgb color)
-{	
+{
 	t_px	pi;
 	t_px	d;
 	t_px	s;
@@ -60,7 +60,7 @@ void	rt_draw_line(t_data *data, t_line line, t_rgb color)
 }
 
 void	rt_draw_line_px(t_data *data, t_line line, t_rgb color, float alpha)
-{	
+{
 	t_px	pi;
 	t_px	d;
 	t_px	s;

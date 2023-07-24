@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_get_plane_hit.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 18:19:54 by atchougo          #+#    #+#             */
-/*   Updated: 2023/07/21 01:12:30 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/24 16:07:26 by atchougo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ static t_rgb	rt_get_plane_hit_color(t_obj *obj, t_plane pl, t_vec3 hit_pos)
 		color = rt_get_chess_color(\
 			rt_get_plane_hit_tex_coord(obj, pl, hit_pos), obj->chess);
 	else if (obj->tex_type == XPM)
-		{
-			color = rt_get_tex_pixel(\
-				rt_get_plane_hit_tex_coord(obj, pl, hit_pos), obj->xpm);
-		}
+	{
+		color = rt_get_tex_pixel(\
+			rt_get_plane_hit_tex_coord(obj, pl, hit_pos), obj->xpm);
+	}
 	else
 		color = obj->color;
 	return (color);
