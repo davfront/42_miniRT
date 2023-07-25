@@ -6,30 +6,42 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:30:58 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/21 00:51:50 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/25 14:24:30 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+static void	rt_parse_obj_sphere_values(t_data *data, char **strs, t_obj *obj)
+{
+	if (!data || !strs || !obj)
+		return ;
+	obj->type = SPHERE;
+	if (!rt_parse_vec3(strs[0], &obj->sphere.center))
+		rt_parse_value_error_exit(data, "sphere", "center", strs[0]);
+	if (!rt_parse_float_len(strs[1], &obj->sphere.radius))
+		rt_parse_value_error_exit(data, "sphere", "diameter", strs[1]);
+	obj->sphere.radius /= 2;
+	if (!rt_parse_texture(data, strs[2], obj))
+		rt_parse_texture_error_exit(data, "sphere", strs[2]);
+	if (!rt_parse_material(strs[3], &obj->mtl))
+		rt_parse_value_error_exit(data, "sphere", "material", strs[3]);
+}
+
 void	rt_parse_obj_sphere(t_data *data, char **strs)
 {
+	int		arg_count;
 	t_obj	obj;
 	t_obj	*content;
 	t_list	*node;
 
 	if (!data || !strs)
 		rt_parse_line_error_exit(data, "sphere: no data");
-	if (rt_strs_len(strs) != 3)
-		rt_parse_line_error_exit(data, "sphere: 3 arguments expected");
-	obj.type = SPHERE;
-	if (!rt_parse_vec3(strs[0], &obj.sphere.center))
-		rt_parse_value_error_exit(data, "sphere", "center", strs[0]);
-	if (!rt_parse_float_len(strs[1], &obj.sphere.radius))
-		rt_parse_value_error_exit(data, "sphere", "diameter", strs[1]);
-	obj.sphere.radius /= 2;
-	if (!rt_parse_texture(data, strs[2], &obj))
-		rt_parse_texture_error_exit(data, "sphere", strs[2]);
+	arg_count = rt_strs_len(strs);
+	if (arg_count < 3 && arg_count > 4)
+		rt_parse_line_error_exit(data, \
+			"sphere: 3 arguments expected (+ optional material argument)");
+	rt_parse_obj_sphere_values(data, strs, &obj);
 	obj.tf = rt_get_sphere_transformations(obj.sphere);
 	content = ft_calloc(1, sizeof(t_obj));
 	if (!content)

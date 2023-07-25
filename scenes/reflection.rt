@@ -1,0 +1,22 @@
+# Ambient light
+# 		ratio				color
+A		0.2					255,255,255
+
+# Camera
+# 		position			direction			fov
+C		-125,10,0			1,-0.1,0				35
+
+# Lights
+# 		position			ratio				color
+L		-100,200,-100		0.7					255,255,255
+
+# Planes
+# 		point				normal				color
+pl		0,-15,0				0,1,0				chess:0,0,0:255,255,255:10:10
+
+# Spheres
+# 		center				diameter			color				material
+sp		0,0,-45				25					255,0,0				0.3,0.7,0.7,100,0
+sp		0,0,-15				25					255,0,0				0.3,0.7,0.7,100,0.1
+sp		0,0,15				25					255,0,0				0.3,0.7,0.7,100,0.3
+sp		0,0,45				25					255,0,0				0.3,0.7,0.7,100,1

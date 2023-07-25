@@ -1,0 +1,18 @@
+# Ambient light
+# 		ratio				color
+A		0.2					255,255,255
+
+# Camera
+# 		position			direction			fov
+C		-125,0,0			1,0,0				35
+
+# Lights
+# 		position			ratio				color
+L		-100,200,-100		0.7					255,255,255
+
+# Spheres
+# 		center				diameter			color				material
+sp		0,0,-45				25					255,0,0				0.5,0,0,0,0
+sp		0,0,-15				25					255,0,0				0,0.7,0,0,0
+sp		0,0,15				25					255,0,0				0,0,0.8,50,0
+sp		0,0,45				25					255,0,0				0.5,0.7,0.8,50,0

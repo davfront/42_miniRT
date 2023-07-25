@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 16:24:08 by atchougo          #+#    #+#             */
-/*   Updated: 2023/07/21 00:23:38 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/25 00:13:13 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,14 @@ typedef struct s_cone {
 	t_float	radius;
 	t_float	height;
 }				t_cone;
+
+typedef struct s_mtl {
+	t_float	ka;
+	t_float	kd;
+	t_float	ks;
+	t_float	ns;
+	t_float	kr;
+}				t_mtl;
 
 typedef struct s_disc3 {
 	t_vec3	center;
@@ -124,6 +132,7 @@ typedef struct s_obj {
 	};
 	t_tf		tf;
 	t_tf		tf_down;
+	t_mtl		mtl;
 }				t_obj;
 
 #endif
