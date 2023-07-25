@@ -1,27 +1,38 @@
 # Ambient light
 # 		ratio				color
-A		0.5					255,255,255
+A		0.8					255,255,255
 
 # Camera
 # 		position			direction			fov
-C		-100,0,0			1,-0.1,0			35
+C		-100,0,0			1,0,0				40
 
 # Lights
 # 		position			ratio				color
-L		-40,30,-10			0.7					255,255,255
-
-# Planes
-# 		point				normal				color / chess
-#pl		0,0,0				0,1.0,0				chess:255,0,255:127,0,127:10:10
+L		500,200,-800		1				255,255,255
 
 # Spheres
-# 		center				diameter			color / chess
-sp		0,0,0			40					xpm:earth.xpm
+# 		center				diameter			color
+# Mercury
+sp		900,-8,-560				30					xpm:mercury.xpm		0.2,0.7,0,0,0
+# Venus
+sp		850,-12,-450			62					xpm:venus.xpm		0.2,0.7,0,0,0
+# Earth
+sp		840,-15,-340			64					xpm:earth2.xpm		0.2,0.7,0,0,0
+# Earth
+# sp		840,-100,-340			64					xpm:earth.xpm		0.2,0.7,0,0,0
+# Earth Moon
+sp		880,40,-340     		20					xpm:moon.xpm		0.2,0.7,0,0,0
+# Mars
+sp		830,-18,-250			45					xpm:mars.xpm		0.2,0.7,0,0,0
+# Jupiter
+sp		800,-20,-75		    	210					xpm:jupiter.xpm		0.2,0.7,0,0,0
+# Saturn
+sp		700,-20,130			    165					xpm:saturn.xpm		0.2,0.7,0,0,0
+# cy		700,-20,130				0,1,0	170		10	255,0,0	
+# Uranus
+sp		550,-30,230				82					xpm:uranus.xpm		0.2,0.7,0,0,0
+# Neptune
+sp		500,-30,315      		79					xpm:neptune.xpm		0.2,0.7,0,0,0
 
-# Cylinders
-# 		center				axis				diameter			height				color / chess
-#cy		0,20,20				0,1,0				15					30					xpm:earth.xpm
-
-# Cones
-# 		center				axis				diameter			height				color / chess
-#co		-20,10,40			0,1,1				20					15					xpm:earth.xpm
+# Skybox
+sp		0,0,0					3000				xpm:stars.xpm		0.5,0.7,0,0,0
