@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 17:10:57 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/20 14:52:41 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/25 15:34:43 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <math.h>
 # include <libft.h>
 
-typedef float	t_float;
+typedef double	t_float;
 
 typedef struct s_vec3 {
 	t_float	x;
