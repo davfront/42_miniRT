@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:30:58 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/25 10:10:56 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/25 14:11:03 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,28 @@ static int	rt_parse_chess(char *s, t_chess *chess_p)
 
 static int	rt_parse_xpm(t_data *data, char *s, t_img *xpm)
 {
-	char	*sep;
+	char	buf[PATH_MAX];
+	char	*path;
+	char	*xpm_path;
 
 	if (!s || !xpm)
 		return (0);
-	sep = ft_strchr(s, ':');
-	xpm->img = mlx_xpm_file_to_image(data->mlx, sep + 1, &xpm->width, \
-		&xpm->height);
+	path = realpath(data->path, buf);
+	if (!path)
+		return (rt_error("rt_parse_xpm: realpath failed\n"), 0);
+	path = ft_substr(buf, 0, ft_strlen(buf) - ft_strlen(data->title));
+	if (!path)
+		return (rt_error("rt_parse_xpm: ft_substr failed\n"), 0);
+	xpm_path = ft_strjoin(path, ft_strchr(s, ':') + 1);
+	if (!xpm_path)
+		return (rt_error("rt_parse_xpm: ft_strjoin failed\n"), free(path), 0);
+	xpm->img = mlx_xpm_file_to_image(data->mlx, \
+									xpm_path, &xpm->width, &xpm->height);
 	if (!xpm->img)
-		return (0);
-	xpm->addr = mlx_get_data_addr(xpm->img, &xpm->bpp, &xpm->len, &xpm->endian);
-	return (1);
+		return (free(path), free(xpm_path), 0);
+	xpm->addr = mlx_get_data_addr(xpm->img, \
+								&xpm->bpp, &xpm->len, &xpm->endian);
+	return (free(path), free(xpm_path), 1);
 }
 
 int	rt_parse_texture(t_data *data, char *s, t_obj *obj)

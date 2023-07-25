@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/21 01:11:26 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/24 16:06:01 by atchougo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <libft.h>
 # include <fcntl.h>
 # include <stdio.h>
+# include <limits.h>
+# include <stdlib.h>
 # define _USE_MATH_DEFINES
 # include <math.h>
 # include <pthread.h>
@@ -29,38 +31,38 @@
 # include "px.h"
 # include "debug.h" // TODO : delete debug.h before correction
 
-# define WIN_WIDTH	(1024)
-# define WIN_HEIGHT	(600)
+# define WIN_WIDTH	1024
+# define WIN_HEIGHT	600
 
-# define T_MIN	(0.001)
+# define T_MIN	0.001
 
-# define PHONG_DIFFUSE_WEIGHT		(0.6)
-# define PHONG_SPECULAR_WEIGHT		(0.4)
-# define PHONG_SPECULAR_EXPONENT	(50)
+# define PHONG_DIFFUSE_WEIGHT		0.6
+# define PHONG_SPECULAR_WEIGHT		0.4
+# define PHONG_SPECULAR_EXPONENT	50
 
 # define ENABLE_THREAD	1
 # define THREAD_NB		4
 
 # define LOW_RES_ENABLED	1
 
-# define HELP_OFFSET_Y	(20)
-# define HELP_VALUE_X	(180)
-# define HELP_WIDTH		(250)
+# define HELP_OFFSET_Y	20
+# define HELP_VALUE_X	180
+# define HELP_WIDTH		250
 
-# define BLACK		(0x00000000)
-# define WHITE		(0x00FFFFFF)
-# define GRAY		(0x00999999)
-# define RED		(0x00FF0000)
-# define GREEN		(0x0000FF00)
-# define BLUE		(0x000000FF)
-# define YELLOW		(0x00FFFF00)
+# define BLACK		0x00000000
+# define WHITE		0x00FFFFFF
+# define GRAY		0x00999999
+# define RED		0x00FF0000
+# define GREEN		0x0000FF00
+# define BLUE		0x000000FF
+# define YELLOW		0x00FFFF00
 
-# define CS_POINT_RAD	(8)
-# define CS_MOV_LEN		(100)
-# define CS_ROT_LEN		(80)
-# define CS_RED			(0x00eb6663)
-# define CS_GREEN		(0x0071deb6)
-# define CS_BLUE		(0x004b98f7)
+# define CS_POINT_RAD	8
+# define CS_MOV_LEN		100
+# define CS_ROT_LEN		80
+# define CS_RED			0x00eb6663
+# define CS_GREEN		0x0071deb6
+# define CS_BLUE		0x004b98f7
 
 enum e_cs_helper_type {
 	CS_ORIG,
