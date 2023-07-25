@@ -17,6 +17,8 @@
 # include <libft.h>
 # include <fcntl.h>
 # include <stdio.h>
+# include <limits.h>
+# include <stdlib.h>
 # define _USE_MATH_DEFINES
 # include <math.h>
 # include <pthread.h>
