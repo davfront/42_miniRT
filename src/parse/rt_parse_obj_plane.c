@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_parse_obj_plane.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:30:58 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/25 14:24:30 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/25 15:38:14 by atchougo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	rt_parse_obj_plane(t_data *data, char **strs)
 	if (!data || !strs)
 		rt_parse_line_error_exit(data, "plane: no data");
 	arg_count = rt_strs_len(strs);
-	if (arg_count < 3 && arg_count > 4)
+	if (arg_count < 3 || arg_count > 4)
 		rt_parse_line_error_exit(data, \
 			"plane: 3 arguments expected (+ optional material argument)");
 	rt_parse_obj_plane_values(data, strs, &obj);

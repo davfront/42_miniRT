@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_parse_obj_cone.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: atchougo <atchougo@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:30:58 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/23 09:38:08 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/25 15:38:44 by atchougo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	rt_parse_obj_cone(t_data *data, char **strs)
 	if (!data || !strs)
 		rt_parse_line_error_exit(data, "cone: no data");
 	arg_count = rt_strs_len(strs);
-	if (arg_count < 5 && arg_count > 6)
+	if (arg_count < 5 || arg_count > 6)
 		rt_parse_line_error_exit(data, \
 			"cone: 5 arguments expected (+ optional material argument)");
 	rt_parse_obj_cone_values(data, strs, &obj);
