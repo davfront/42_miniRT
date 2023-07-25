@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/25 14:24:09 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/25 14:38:28 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define T_MIN		(0.1)
 # define RAY_DEPTH	(3)
 
-# define DEFAULT_MTL_KA	(0.3)
+# define DEFAULT_MTL_KA	(0.5)
 # define DEFAULT_MTL_KD	(0.7)
 # define DEFAULT_MTL_KS	(0.8)
 # define DEFAULT_MTL_NS	(50)
