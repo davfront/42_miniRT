@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:35:14 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/25 14:38:28 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/25 15:32:10 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@
 # include "vec3.h"
 # include "scene.h"
 # include "px.h"
-# include "debug.h" // TODO : delete debug.h before correction
 
 # define WIN_WIDTH	1024
 # define WIN_HEIGHT	600

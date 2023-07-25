@@ -6,7 +6,7 @@
 #    By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 16:34:41 by dapereir          #+#    #+#              #
-#    Updated: 2023/07/24 23:05:38 by dapereir         ###   ########.fr        #
+#    Updated: 2023/07/25 15:31:57 by dapereir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -201,7 +201,7 @@ OBJS				=	$(addprefix $(OBJS_DIR)/, $(OBJS_FILES))
 DEPS				=	$(addprefix $(OBJS_DIR)/,$(DEPS_FILES))
 
 HEADER_DIR			=	./include
-HEADER_FILES		=	key_linux.h rgb.h vec3.h scene.h debug.h minirt.h
+HEADER_FILES		=	key_linux.h rgb.h vec3.h scene.h minirt.h
 HEADER				=	$(addprefix $(HEADER_DIR)/, $(HEADER_FILES))
 HEADER_INC			=	-I $(HEADER_DIR)
 
