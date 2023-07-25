@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt_get_tex_pixel.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/25 10:12:18 by dapereir          #+#    #+#             */
+/*   Updated: 2023/07/25 10:12:58 by dapereir         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 t_rgb	rt_get_tex_pixel(t_vec2	p, t_img xpm)
@@ -9,8 +21,8 @@ t_rgb	rt_get_tex_pixel(t_vec2	p, t_img xpm)
 
 	if (!xpm.img)
 		return (rgb_int(0));
-	x = (int)floor(p.x * (float)xpm.width) % xpm.width;
-	y = (int)floor(p.y * (float)xpm.height) % xpm.height;
+	x = ((int)p.x % xpm.width + xpm.width) % xpm.width;
+	y = ((int)p.y % xpm.height + xpm.height) % xpm.height;
 	dst = xpm.addr;
 	dst += y * xpm.len;
 	dst += x * (xpm.bpp / 8);

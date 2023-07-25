@@ -1,6 +1,6 @@
 # Ambient light
 # 		ratio				color
-A		0.5					255,255,255
+A		0.2					255,255,255
 
 # Camera
 # 		position			direction			fov
@@ -16,12 +16,12 @@ pl		0,0,0				0,1.0,0				chess:255,0,255:127,0,127:10:10
 
 # Spheres
 # 		center				diameter			color / chess
-sp		0,20,-10			20					xpm:earth.xpm
+sp		0,20,-10			20					chess:0,255,0:0,127,0:3.14:3.14
 
 # Cylinders
 # 		center				axis				diameter			height				color / chess
-cy		0,20,20				0,1,0				15					30					xpm:earth.xpm
+cy		0,20,20				0,1,0				15					30					chess:10,0,255:10,0,127:8:8
 
 # Cones
 # 		center				axis				diameter			height				color / chess
-co		-20,10,40			0,1,1				20					15					xpm:earth.xpm
+co		-20,10,40			0,1,0				20					15					chess:0,255,255:0,127,127:5.3:5.3

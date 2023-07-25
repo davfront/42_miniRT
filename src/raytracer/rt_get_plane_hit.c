@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 18:19:54 by atchougo          #+#    #+#             */
-/*   Updated: 2023/07/21 01:12:30 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/25 01:20:59 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static t_vec2	rt_get_plane_hit_tex_coord(t_obj *obj, t_plane pl, \
 
 	hit_pos_in_pl = vec3_subtract(hit_pos, pl.point);
 	mr = mat4_from_quat(obj->tf.rotate);
-	vx = mat4_multiply_axis(mr, vec3(1, 0, 0));
-	vy = mat4_multiply_axis(mr, vec3(0, 0, -1));
+	vx = mat4_multiply_axis(mr, vec3(0, 0, 1));
+	vy = mat4_multiply_axis(mr, vec3(-1, 0, 0));
 	p.x = vec3_dot(hit_pos_in_pl, vx);
 	p.y = vec3_dot(hit_pos_in_pl, vy);
 	return (p);
@@ -33,15 +33,16 @@ static t_vec2	rt_get_plane_hit_tex_coord(t_obj *obj, t_plane pl, \
 static t_rgb	rt_get_plane_hit_color(t_obj *obj, t_plane pl, t_vec3 hit_pos)
 {
 	t_rgb	color;
+	t_vec2	p;
 
 	if (obj->tex_type == CHESS)
 		color = rt_get_chess_color(\
 			rt_get_plane_hit_tex_coord(obj, pl, hit_pos), obj->chess);
 	else if (obj->tex_type == XPM)
-		{
-			color = rt_get_tex_pixel(\
-				rt_get_plane_hit_tex_coord(obj, pl, hit_pos), obj->xpm);
-		}
+	{
+		p = rt_get_plane_hit_tex_coord(obj, pl, hit_pos);
+		color = rt_get_tex_pixel(p, obj->xpm);
+	}
 	else
 		color = obj->color;
 	return (color);

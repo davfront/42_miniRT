@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:01:09 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/21 01:16:47 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/25 13:42:14 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,28 +36,15 @@ static t_float	rt_get_sphere_hit_dist(t_ray ray, t_sphere sp, t_float t_max)
 	return (INFINITY);
 }
 
-static t_vec2	rt_get_sphere_hit_tex_uv(t_obj *obj,	t_vec3 hit_normal)
+static t_vec2	rt_get_sphere_hit_tex_coord(t_obj *obj, t_vec3 hit_normal)
 {
 	t_vec2	p;
 	t_mat4	mr_inv;
 
 	mr_inv = mat4_from_quat(quat_invert(obj->tf.rotate));
 	hit_normal = mat4_multiply_axis(mr_inv, hit_normal);
-	p.x = 0.5 + atan2f(hit_normal.z, hit_normal.x) / ((t_float)2 * M_PI);
-	p.y = 0.5 - asinf(hit_normal.y) / M_PI;
-	return (p);
-}
-
-static t_vec2	rt_get_sphere_hit_tex_coord(t_obj *obj, t_sphere sp, \
-	t_vec3 hit_normal)
-{
-	t_vec2	p;
-	t_mat4	mr_inv;
-
-	mr_inv = mat4_from_quat(quat_invert(obj->tf.rotate));
-	hit_normal = mat4_multiply_axis(mr_inv, hit_normal);
-	p.x = (M_PI / 2 + atan(hit_normal.z / hit_normal.x)) * sp.radius;
-	p.y = (M_PI / 2 - asin(hit_normal.y)) * sp.radius;
+	p.x = 0.5 + atan2(hit_normal.z, hit_normal.x) / (2.0 * M_PI);
+	p.y = 0.5 - asin(hit_normal.y) / M_PI;
 	return (p);
 }
 
@@ -65,13 +52,22 @@ static t_rgb	rt_get_sphere_hit_color(t_obj *obj, t_sphere sp, \
 	t_vec3 hit_normal)
 {
 	t_rgb	color;
+	t_vec2	p;
 
 	if (obj->tex_type == CHESS)
-		color = rt_get_chess_color(\
-			rt_get_sphere_hit_tex_coord(obj, sp, hit_normal), obj->chess);
+	{
+		p = rt_get_sphere_hit_tex_coord(obj, hit_normal);
+		p.x *= M_PI * sp.radius * 2;
+		p.y *= M_PI * sp.radius;
+		color = rt_get_chess_color(p, obj->chess);
+	}
 	else if (obj->tex_type == XPM)
-		color = rt_get_tex_pixel(\
-			rt_get_sphere_hit_tex_uv(obj, hit_normal), obj->xpm);
+	{
+		p = rt_get_sphere_hit_tex_coord(obj, hit_normal);
+		p.x *= obj->xpm.width;
+		p.y *= obj->xpm.height;
+		color = rt_get_tex_pixel(p, obj->xpm);
+	}
 	else
 		color = obj->color;
 	return (color);

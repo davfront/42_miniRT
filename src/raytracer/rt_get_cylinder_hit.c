@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:01:09 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/21 01:20:03 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/25 14:06:21 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,23 +53,27 @@ static t_vec2	rt_get_cylinder_hit_tex_coord(t_obj *obj, t_cylinder cy, \
 {
 	t_vec3	cy_center_to_pos;
 	t_mat4	mr;
-	t_vec3	v[2];
+	t_vec3	v[3];
 	t_vec2	p;
+	int		is_top_disc;
 
 	cy_center_to_pos = vec3_subtract(hit_pos, cy.center);
 	mr = mat4_from_quat(obj->tf.rotate);
-	v[0] = mat4_multiply_axis(mr, vec3(1, 0, 0));
-	v[1] = mat4_multiply_axis(mr, vec3(0, 0, -1));
+	v[0] = mat4_multiply_axis(mr, vec3(0, 0, 1));
+	v[1] = mat4_multiply_axis(mr, vec3(-1, 0, 0));
 	if (is_body)
 	{
-		p.x = vec3_dot(cy.axis, cy_center_to_pos);
-		p.y = cy.radius * atan(vec3_dot(cy_center_to_pos, v[1]) / \
-			vec3_dot(cy_center_to_pos, v[0]));
+		p.x = 0.5 - atan2(vec3_dot(cy_center_to_pos, v[1]), \
+			vec3_dot(cy_center_to_pos, v[0])) / (2.0 * M_PI);
+		p.y = 0.5 - vec3_dot(cy.axis, cy_center_to_pos) / cy.height;
 	}
 	else
 	{
-		p.x = vec3_dot(cy_center_to_pos, v[0]);
-		p.y = vec3_dot(cy_center_to_pos, v[1]);
+		v[2] = mat4_multiply_axis(mr, vec3(0, 1, 0));
+		is_top_disc = vec3_dot(cy_center_to_pos, v[2]) > 0;
+		p.x = 0.5 + vec3_dot(cy_center_to_pos, v[0]) / (2.0 * cy.radius);
+		p.y = 0.5 - vec3_dot(cy_center_to_pos, v[1]) / (2.0 * cy.radius) \
+			* pow(-1, is_top_disc);
 	}
 	return (p);
 }
@@ -77,22 +81,31 @@ static t_vec2	rt_get_cylinder_hit_tex_coord(t_obj *obj, t_cylinder cy, \
 static t_rgb	rt_get_cylinder_hit_color(t_obj *obj, t_cylinder cy, \
 	t_vec3 hit_pos, int is_body)
 {
-	t_rgb	color;
 	t_vec2	p;
 
 	if (obj->tex_type == CHESS)
 	{
 		p = rt_get_cylinder_hit_tex_coord(obj, cy, hit_pos, is_body);
-		color = rt_get_chess_color(p, obj->chess);
+		if (is_body)
+		{
+			p.x = p.x * 2 * M_PI * cy.radius;
+			p.y = p.y * cy.height;
+		}
+		else
+		{
+			p.x = p.x * 2 * cy.radius;
+			p.y = p.y * 2 * cy.radius;
+		}
+		return (rt_get_chess_color(p, obj->chess));
 	}
-	else if (obj->tex_type == XPM)
+	if (obj->tex_type == XPM)
 	{
 		p = rt_get_cylinder_hit_tex_coord(obj, cy, hit_pos, is_body);
-		color = rt_get_tex_pixel(p, obj->xpm);
+		p.x *= obj->xpm.width;
+		p.y *= obj->xpm.height;
+		return (rt_get_tex_pixel(p, obj->xpm));
 	}
-	else
-		color = obj->color;
-	return (color);
+	return (obj->color);
 }
 
 int	rt_get_cylinder_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit)

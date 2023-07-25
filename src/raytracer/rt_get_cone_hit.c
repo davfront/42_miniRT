@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:01:09 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/21 01:13:15 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/25 14:07:21 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static t_vec3	rt_get_cone_hit_normal(t_ray ray, t_cone co, \
 		co_center_to_pos = vec3_subtract(hit_pos, co.center);
 		pos_on_axis = vec3_scale(co.axis, vec3_dot(co.axis, co_center_to_pos));
 		pos_on_plane = vec3_subtract(co_center_to_pos, pos_on_axis);
-		angle = atan(co.radius / co.height);
+		angle = atan2(co.radius, co.height);
 		normal = vec3_add(\
 					vec3_scale(vec3_normalize(pos_on_plane), cos(angle)), \
 					vec3_scale(co.axis, sin(angle)));
@@ -58,19 +58,18 @@ static t_vec2	rt_get_cone_hit_tex_coord(t_obj *obj, t_cone co, \
 
 	co_center_to_pos = vec3_subtract(hit_pos, co.center);
 	mr = mat4_from_quat(obj->tf.rotate);
-	v[0] = mat4_multiply_axis(mr, vec3(1, 0, 0));
-	v[1] = mat4_multiply_axis(mr, vec3(0, 0, -1));
+	v[0] = mat4_multiply_axis(mr, vec3(0, 0, 1));
+	v[1] = mat4_multiply_axis(mr, vec3(-1, 0, 0));
 	if (is_body)
 	{
-		p.x = vec3_dot(co.axis, co_center_to_pos) \
-			/ cos(atan(co.radius / co.height));
-		p.y = co.radius * atan(vec3_dot(co_center_to_pos, v[1]) \
-			/ vec3_dot(co_center_to_pos, v[0]));
+		p.x = atan2(vec3_dot(co_center_to_pos, v[1]), \
+			vec3_dot(co_center_to_pos, v[0])) / (2.0 * M_PI);
+		p.y = 1 - vec3_dot(co.axis, co_center_to_pos) / co.height;
 	}
 	else
 	{
-		p.x = vec3_dot(co_center_to_pos, v[0]);
-		p.y = vec3_dot(co_center_to_pos, v[1]);
+		p.x = 0.5 + vec3_dot(co_center_to_pos, v[0]) / (2.0 * co.radius);
+		p.y = 0.5 - vec3_dot(co_center_to_pos, v[1]) / (2.0 * co.radius);
 	}
 	return (p);
 }
@@ -78,19 +77,31 @@ static t_vec2	rt_get_cone_hit_tex_coord(t_obj *obj, t_cone co, \
 static t_rgb	rt_get_cone_hit_color(t_obj *obj, t_cone co, t_vec3 hit_pos, \
 	int is_body)
 {
-	t_rgb	color;
+	t_vec2	p;
 
 	if (obj->tex_type == CHESS)
-		color = rt_get_chess_color(\
-			rt_get_cone_hit_tex_coord(obj, co, hit_pos, is_body), obj->chess);
-	else if (obj->tex_type == XPM)
 	{
-		color = rt_get_tex_pixel(\
-		rt_get_cone_hit_tex_coord(obj, co, hit_pos, is_body), obj->xpm);
+		p = rt_get_cone_hit_tex_coord(obj, co, hit_pos, is_body);
+		if (is_body)
+		{
+			p.x = p.x * 2 * M_PI * co.radius;
+			p.y = p.y * co.height / cos(atan2(co.radius, co.height));
+		}
+		else
+		{
+			p.x = p.x * 2 * co.radius;
+			p.y = p.y * 2 * co.radius;
+		}
+		return (rt_get_chess_color(p, obj->chess));
 	}
-	else
-		color = obj->color;
-	return (color);
+	if (obj->tex_type == XPM)
+	{
+		p = rt_get_cone_hit_tex_coord(obj, co, hit_pos, is_body);
+		p.x *= obj->xpm.width;
+		p.y *= obj->xpm.height;
+		return (rt_get_tex_pixel(p, obj->xpm));
+	}
+	return (obj->color);
 }
 
 int	rt_get_cone_hit(t_ray ray, t_obj *obj, t_float t_max, t_hit *hit)

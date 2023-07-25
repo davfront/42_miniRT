@@ -6,7 +6,7 @@
 /*   By: dapereir <dapereir@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:30:58 by dapereir          #+#    #+#             */
-/*   Updated: 2023/07/21 00:47:28 by dapereir         ###   ########.fr       */
+/*   Updated: 2023/07/25 10:10:56 by dapereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ static int	rt_parse_xpm(t_data *data, char *s, t_img *xpm)
 	if (!s || !xpm)
 		return (0);
 	sep = ft_strchr(s, ':');
-	xpm->img = mlx_xpm_file_to_image(data->mlx, sep + 1, &xpm->width, &xpm->height);
+	xpm->img = mlx_xpm_file_to_image(data->mlx, sep + 1, &xpm->width, \
+		&xpm->height);
 	if (!xpm->img)
 		return (0);
 	xpm->addr = mlx_get_data_addr(xpm->img, &xpm->bpp, &xpm->len, &xpm->endian);
